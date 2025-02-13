@@ -56,49 +56,7 @@ public class Ventana extends JFrame {
 		
 		login.add(etiqueta1); // agrega la etiqueta1 al panel login
 		
-		/*
-		
-		JLabel etiqueta2 = new JLabel("Correo: ");
-		etiqueta2.setBounds(60, 90, 80, 30); // junta size y location en uno solo
-		etiqueta2.setBackground(Color.WHITE);
-		etiqueta2.setOpaque(true);
-		etiqueta2.setFont(fuenteEtiquetas);
-		
-		login.add(etiqueta2);
-		
-		JTextField email = new JTextField();
-		email.setBounds(60, 150, 250, 30); // junta size y location en uno solo
-		// x ,y width height
-		email.setBackground(Color.WHITE);
-		email.setOpaque(true);
-		email.setFont(fuenteEtiquetas);
-		login.add(email);
-		
-		JLabel etiqueta3 = new JLabel("Password: ");
-		etiqueta3.setBounds(60, 210, 120, 30); // junta size y location en uno solo
-		etiqueta3.setBackground(Color.WHITE);
-		etiqueta3.setOpaque(true);
-		etiqueta3.setFont(fuenteEtiquetas);
-		
-		login.add(etiqueta3);
-		
-		JTextField pass = new JTextField();
-		pass.setBounds(60, 260, 250, 30); // junta size y location en uno solo
-		// x ,y width height
-		pass.setBackground(Color.WHITE);
-		pass.setOpaque(true);
-		pass.setFont(fuenteEtiquetas);
-		login.add(pass);
-		
-		JButton access = new JButton("Acceder");
-		access.setBounds(180, 320, 120, 30); 
-		access.setBackground(Color.WHITE);
-		access.setOpaque(true);
-		access.setFont(fuenteEtiquetas);
-		etiqueta1.setHorizontalAlignment(JButton.CENTER); // alinea las cosas al centro
 
-		login.add(access);
-		*/
 		
 		login.revalidate();
 		
