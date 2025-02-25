@@ -57,6 +57,7 @@ public class Ventana extends JFrame {
 		//this.add(this.calculadora());
 		//this.add(this.tablas());
 		this.repaint();
+		//comentario
 		
 		
 	}
