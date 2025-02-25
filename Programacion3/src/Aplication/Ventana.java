@@ -3,7 +3,11 @@ package Aplication;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +37,7 @@ public class Ventana extends JFrame {
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
 
 
-	public Ventana(String title) {
+	public Ventana(String title) throws IOException {
 		
 		
 		this.setTitle(title);
@@ -58,10 +62,16 @@ public class Ventana extends JFrame {
 	}
 	
 	
-	public JPanel login() {
+	public JPanel login() throws IOException {
+		
+		@SuppressWarnings("deprecation")
+		URL url = new URL("https://i.postimg.cc/ZnkzFd1c/login.png");
+		Image image = ImageIO.read(url);
+
 		
 		
-		JLabel labelImagen = new JLabel(new ImageIcon("login.png"));
+		
+		JLabel labelImagen = new JLabel(new ImageIcon(image));
 		labelImagen.setSize(500, 500);
 		labelImagen.setLocation(510, 20);
 		
