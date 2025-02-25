@@ -59,6 +59,38 @@ public class Ventana extends JFrame {
 		this.repaint();
 		//comentario
 		
+		JMenuBar barra = new JMenuBar(); // barra menu
+		
+		JMenu menu1 = new JMenu("Archivo"); // opciones de la barra 
+		JMenu menu2 = new JMenu("Ayuda");
+		
+		JMenuItem op_abrir = new JMenuItem("Abrir"); // opciones dentro de cada opcion
+		JMenuItem op_nuevo = new JMenuItem("Nuevo");
+		JMenuItem op_guardar = new JMenuItem("Guardar");
+		JMenuItem op_cerrar = new JMenuItem("Cerrar");
+		JMenuItem op_ayuda = new JMenuItem("Ayuda");
+		JMenuItem op_soporte = new JMenuItem("Soporte");
+
+
+
+		menu1.add(op_abrir);
+		menu1.add(op_nuevo);
+		menu1.add(op_guardar);
+		menu1.add(op_cerrar);
+		
+		menu2.add(op_ayuda);
+		menu2.add(op_soporte);
+		
+		
+		barra.add(menu1);
+		barra.add(menu2);
+		
+		this.setJMenuBar(barra);
+		
+		
+		this.repaint();
+		this.revalidate();
+		
 		
 	}
 	
