@@ -1,9 +1,13 @@
 package Aplication;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 
@@ -15,6 +19,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -29,7 +36,6 @@ import javax.swing.border.LineBorder;
 
 public class Ventana extends JFrame {
 	
-	// definir fuente para utilizar solo la palabra etiqueta al usar esta fuente
 	Font fuenteGrande = new Font("Times New Roman", Font.BOLD, 35);
 	Font fuenteEtiquetas = new Font("Times New Roman", Font.BOLD, 20);
 	Font fuenteLoginTitle = new Font("Dejavu Sans Mono", Font.ITALIC, 30);
@@ -37,62 +43,103 @@ public class Ventana extends JFrame {
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
 
 
-	public Ventana(String title) throws IOException {
-		
-		
+	public Ventana(String title)  {
+
 		this.setTitle(title);
-		this.setVisible(true);
-		this.setLayout(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //termina el programa al cerrar
-		this.setSize(1000, 500); // Tamaño del frame
-		this.setResizable(false); // decide si cambia de tamaño la ventana o no
-		this.setLocationRelativeTo(null); // centra la ventana 
-		
-		this.setMinimumSize(new Dimension(400, 400));
-		this.setMaximumSize(new Dimension(800, 1200));
-		
-		this.add(this.login());
-		
-		//this.add(this.registro());
-		//this.add(this.calculadora());
-		//this.add(this.tablas());
-		this.repaint();
-		//comentario
-		
-		JMenuBar barra = new JMenuBar(); // barra menu
-		
-		JMenu menu1 = new JMenu("Archivo"); // opciones de la barra 
-		JMenu menu2 = new JMenu("Ayuda");
-		
-		JMenuItem op_abrir = new JMenuItem("Abrir"); // opciones dentro de cada opcion
-		JMenuItem op_nuevo = new JMenuItem("Nuevo");
-		JMenuItem op_guardar = new JMenuItem("Guardar");
-		JMenuItem op_cerrar = new JMenuItem("Cerrar");
-		JMenuItem op_ayuda = new JMenuItem("Ayuda");
-		JMenuItem op_soporte = new JMenuItem("Soporte");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(500, 600);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
+        JMenuBar barra = new JMenuBar();
+        JMenu menu1 = new JMenu("Archivo");
+        JMenu menu2 = new JMenu("Ayuda");
+        
+        JMenuItem op_abrir = new JMenuItem("Abrir");
+        JMenuItem op_nuevo = new JMenuItem("Nuevo");
+        JMenuItem op_guardar = new JMenuItem("Guardar");
+        JMenuItem op_cerrar = new JMenuItem("Cerrar");
+        JMenuItem op_ayuda = new JMenuItem("Ayuda");
+        JMenuItem op_soporte = new JMenuItem("Soporte");
 
+        menu1.add(op_abrir);
+        menu1.add(op_nuevo);
+        menu1.add(op_guardar);
+        menu1.add(op_cerrar);
+        
+        menu2.add(op_ayuda);
+        menu2.add(op_soporte);
+        
+        barra.add(menu1);
+        barra.add(menu2);
+        
+        this.setJMenuBar(barra);
 
-		menu1.add(op_abrir);
-		menu1.add(op_nuevo);
-		menu1.add(op_guardar);
-		menu1.add(op_cerrar);
+        this.add(this.calcLayout());
+        
+        this.setVisible(true);
+	    }
+
+	public JPanel calcLayout() {
 		
-		menu2.add(op_ayuda);
-		menu2.add(op_soporte);
+	        JTextField pantalla = new JTextField("");
+	        pantalla.setBackground(Color.WHITE);
+	        pantalla.setForeground(Color.BLACK);
+	        pantalla.setHorizontalAlignment(JTextField.CENTER);
+	        
+	        JPanel panelCalculadora = new JPanel();
+	        panelCalculadora.setLayout(new BorderLayout());
+	        panelCalculadora.add(pantalla, BorderLayout.NORTH);
+
+	        JPanel panelBotones = new JPanel();
+	        panelBotones.setLayout(new GridLayout(4, 4));
+
+	        JButton boton7 = new JButton("7");
+	        JButton boton8 = new JButton("8");
+	        JButton boton9 = new JButton("9");
+	        JButton botonDividir = new JButton("/");
+
+	        JButton boton4 = new JButton("4");
+	        JButton boton5 = new JButton("5");
+	        JButton boton6 = new JButton("6");
+	        JButton botonMultiplicar = new JButton("*");
+
+	        JButton boton1 = new JButton("1");
+	        JButton boton2 = new JButton("2");
+	        JButton boton3 = new JButton("3");
+	        JButton botonRestar = new JButton("-");
+
+	        JButton boton0 = new JButton("0");
+	        JButton botonPunto = new JButton(".");
+	        JButton botonIgual = new JButton("=");
+	        JButton botonSumar = new JButton("+");
+
+	        panelBotones.add(boton7);
+	        panelBotones.add(boton8);
+	        panelBotones.add(boton9);
+	        panelBotones.add(botonDividir);
+
+	        panelBotones.add(boton4);
+	        panelBotones.add(boton5);
+	        panelBotones.add(boton6);
+	        panelBotones.add(botonMultiplicar);
+
+	        panelBotones.add(boton1);
+	        panelBotones.add(boton2);
+	        panelBotones.add(boton3);
+	        panelBotones.add(botonRestar);
+
+	        panelBotones.add(boton0);
+	        panelBotones.add(botonPunto);
+	        panelBotones.add(botonIgual);
+	        panelBotones.add(botonSumar);
+
+	        panelCalculadora.add(panelBotones, BorderLayout.CENTER);
+
+	        return panelCalculadora;
+	        
+	    }
 		
-		
-		barra.add(menu1);
-		barra.add(menu2);
-		
-		this.setJMenuBar(barra);
-		
-		
-		this.repaint();
-		this.revalidate();
-		
-		
-	}
 	
 	
 	public JPanel login() throws IOException {
@@ -223,6 +270,7 @@ public class Ventana extends JFrame {
 		return login;
 		
 	}
+
 	
 	public JPanel registro() {
 		
@@ -669,3 +717,5 @@ public class Ventana extends JFrame {
 		
 	}
 }
+
+
