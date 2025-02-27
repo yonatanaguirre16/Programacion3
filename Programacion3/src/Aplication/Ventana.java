@@ -3,6 +3,7 @@ package Aplication;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,6 +31,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -75,10 +78,78 @@ public class Ventana extends JFrame {
         
         this.setJMenuBar(barra);
 
-        this.add(this.calcLayout());
-        
+        //this.add(this.calcLayout());
+        this.add(this.interes());
+        this.revalidate();
+        this.repaint();
         this.setVisible(true);
 	    }
+	
+	
+	public JPanel interes() {
+		
+		
+					
+        JPanel panelPrincipal = new JPanel(new BorderLayout()); // panel principal
+        panelPrincipal.setBorder(BorderFactory.createLineBorder(Color.WHITE, 20));
+
+
+        JPanel panelTitulo = new JPanel(); // panel de titulo "interes"
+        panelTitulo.setLayout(new FlowLayout(FlowLayout.LEFT)); // Alineación del panel a la izquierda
+        JLabel tituloText = new JLabel("Interés", SwingConstants.LEFT);
+        panelTitulo.setBackground(Color.WHITE);
+        tituloText.setForeground(Color.RED);
+        tituloText.setFont(new Font("Serif", Font.BOLD, 20));
+        panelTitulo.add(tituloText);
+        panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
+		
+	    JPanel panelCentral = new JPanel(new GridLayout(4, 2)); // primer panel verde con gris
+        panelCentral.setBackground(Color.green);
+        panelCentral.setBorder(BorderFactory.createLineBorder(Color.green, 50));
+        panelCentral.setBorder(BorderFactory.createTitledBorder("Calcular Interés"));
+
+        panelCentral.add(new JLabel("Capital:", SwingConstants.CENTER));
+        JTextField capitalText = new JTextField();
+        panelCentral.add(capitalText);
+
+        panelCentral.add(new JLabel("Tiempo:", SwingConstants.CENTER));
+        JTextField tiempoText = new JTextField();
+        panelCentral.add(tiempoText);
+
+        panelCentral.add(new JLabel("Tasa Interés:", SwingConstants.CENTER));
+        JTextField tasaText = new JTextField();
+        panelCentral.add(tasaText);
+
+        JButton botonCalc = new JButton("Calcular");
+        JButton botonCancelar = new JButton("Cancelar");
+        panelCentral.add(botonCalc);
+        panelCentral.add(botonCancelar);
+
+        panelPrincipal.add(panelCentral, BorderLayout.CENTER);
+
+        JPanel panelResultados = new JPanel(new GridLayout(2, 2)); // segundo panel rosa con grid
+        panelResultados.setBackground(Color.PINK);
+        
+        panelResultados.add(new JLabel("Interés:", SwingConstants.CENTER));
+        JTextField interesText = new JTextField();
+        interesText.setFont(new Font("Serif", Font.BOLD, 10));
+        panelResultados.add(interesText);
+
+        panelResultados.add(new JLabel("Monto:", SwingConstants.CENTER));
+        JTextField montoText = new JTextField();
+        montoText.setFont(new Font("Serif", Font.BOLD, 10));
+        panelResultados.add(montoText);
+        
+        panelResultados.setBorder(BorderFactory.createLineBorder(Color.pink, 10));
+
+
+        panelPrincipal.add(panelResultados, BorderLayout.SOUTH);
+		
+
+		return panelPrincipal;
+		
+		
+	}
 
 	public JPanel calcLayout() {
 		
