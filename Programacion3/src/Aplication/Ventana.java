@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -44,9 +45,20 @@ public class Ventana extends JFrame {
 	Font fuenteLoginTitle = new Font("Dejavu Sans Mono", Font.ITALIC, 30);
 	Font fuenteLoginSub = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 20);
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
+	
+	
+	@Override
+	public Image getIconImage() { // agregar el icono personalizado
+	   Image retValue = Toolkit.getDefaultToolkit().
+	         getImage(ClassLoader.getSystemResource("resources/sonicicon.png"));
+
+
+	   return retValue;
+	}
 
 
 	public Ventana(String title)  {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Ventana.class.getResource("/Aplication/sonicicon.png")));
 
 		this.setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +91,7 @@ public class Ventana extends JFrame {
         this.setJMenuBar(barra);
 
         //this.add(this.calcLayout());
-        this.add(this.interes());
+        getContentPane().add(this.interes());
         this.revalidate();
         this.repaint();
         this.setVisible(true);
