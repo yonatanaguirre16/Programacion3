@@ -1,15 +1,20 @@
 package Aplication;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -61,6 +66,7 @@ public class Ventana extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Ventana.class.getResource("/Aplication/sonicicon.png")));
 
 		this.setTitle(title);
+		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 600);
         this.setResizable(false);
@@ -91,7 +97,9 @@ public class Ventana extends JFrame {
         this.setJMenuBar(barra);
 
         //this.add(this.calcLayout());
-        getContentPane().add(this.interes());
+        //getContentPane().add(this.interes());
+        //getContentPane().add(this.paint());
+        
         this.revalidate();
         this.repaint();
         this.setVisible(true);
@@ -223,8 +231,6 @@ public class Ventana extends JFrame {
 	        
 	    }
 		
-	
-	
 	public JPanel login() throws IOException {
 		
 		@SuppressWarnings("deprecation")
@@ -354,7 +360,6 @@ public class Ventana extends JFrame {
 		
 	}
 
-	
 	public JPanel registro() {
 		
 		JPanel registro = new JPanel();
@@ -799,6 +804,65 @@ public class Ventana extends JFrame {
 		
 		
 	}
+
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.PINK);
+		g2.drawRect(50, 150, 400, 400); // cuadrado sin relleno
+		g2.fillRect(200, 200, 200, 200); // cuadrado relleno
+		g2.clearRect(100, 200, 50, 50); // cuadrado clear con el color del fondo
+		g2.setColor(Color.BLUE);
+		g2.fillRoundRect(50, 300, 200, 200, 90, 90);
+		
+		g2.setColor(Color.ORANGE);
+		g2.setStroke(new BasicStroke(10));
+		g2.drawLine(100, 100, 900, 1000);
+		
+		g2.setColor(Color.YELLOW);
+		g2.drawOval(390, 100, 90, 90);
+		g2.fillOval(250, 100, 90, 90);
+		
+		g2.setColor(Color.GRAY);
+		g2.drawArc(200, 250, 200, 300, 0, -180);
+		g2.fillArc(200, 250, 200, 300, 0, 180);
+		
+		
+		
+		g2.setColor(Color.cyan);
+		g2.setFont(fuenteEtiquetas);
+		g2.drawString("HOLAAAAAAAAA", 150, 100);
+		
+		BufferedImage image;
+		try {
+		image = ImageIO.read(new File("C:/Users/yonatan.deleon/git/Programacion3/Programacion3/src/Aplication/perro.png"));
+		
+		g2.drawImage(image, 200, 150, 100, 100, Color.WHITE, null);
+		
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		g2.setColor(Color.GREEN);
+		int [] xs = {100, 100, 400};
+		int [] ys = {100, 200, 400};
+		
+		g2.drawPolygon(xs, ys, 3);
+		
+		
+		int [] xs2 = {350, 450, 400};
+		int [] ys2 = {250, 200, 400};
+		
+		g2.fillPolygon(xs2, ys2, 3);
+		
+		
+		
+		
+		
+	}
+
+
 }
 
 
