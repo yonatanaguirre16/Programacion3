@@ -68,7 +68,7 @@ public class Ventana extends JFrame {
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 600);
+        this.setSize(1000, 800);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
@@ -809,6 +809,71 @@ public class Ventana extends JFrame {
 		super.paint(g);
 		
 		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.setColor(new Color(41, 66, 16));
+		g2.fillRect(1, 600, 1000, 200); // pasto
+		
+		g2.setColor(new Color(3, 183, 255));
+		g2.fillRect(0, 20, 1000, 600); // cielo
+		
+		g2.setColor(new Color(227, 209, 14));
+		g2.fillOval(30, 50, 100, 100); // sol
+		
+		g2.setColor(new Color(74, 33, 12));
+		g2.fillRect(400, 450, 500, 200); // casa planta baja
+		
+		g2.setColor(new Color(143, 107, 54));
+		g2.fillRect(360, 650, 580, 10);
+		
+		g2.fillRect(385, 450, 530, 35);
+		
+		g2.setColor(new Color(242, 238, 235));
+		g2.fillOval(300, 60, 100, 100);
+		g2.fillOval(350, 35, 150, 150);
+		g2.fillOval(450, 60, 120, 120);
+		
+		g2.fillOval(700, 60, 100, 100);
+		g2.fillOval(750, 35, 130, 150);
+		g2.fillOval(850, 60, 120, 120);
+		
+		g2.setColor(new Color(237, 175, 100));
+		g2.fillRect(50, 600, 900, 10);
+		g2.fillRect(70, 570, 19, 120);
+		g2.fillRect(120, 570, 19, 120);
+		g2.fillRect(170, 570, 19, 120);
+		g2.fillRect(220, 570, 19, 120);
+		g2.fillRect(270, 570, 19, 120);
+		g2.fillRect(320, 570, 19, 120);
+		g2.fillRect(370, 570, 19, 120);
+		g2.fillRect(420, 570, 19, 120);
+		g2.fillRect(470, 570, 19, 120);
+		g2.fillRect(520, 570, 19, 120);
+		g2.fillRect(570, 570, 19, 120);
+		g2.fillRect(620, 570, 19, 120);
+		g2.fillRect(670, 570, 19, 120);
+
+		g2.fillRect(920, 570, 19, 120);
+		
+		g2.setColor(new Color(143, 107, 54)); 
+		g2.fillRoundRect(700, 520, 190, 140, 360, 50);
+		//g2.fillRect(860, 350, 200, 700); 
+		
+		g2.setColor(Color.BLACK);
+		g2.fillRect(795, 530, 3, 129);
+		
+		g2.drawRoundRect(710, 525, 170, 135, 360, 50);
+
+		
+		g2.fillOval(770, 575, 10, 10);
+		g2.fillOval(810, 575, 10, 10);
+
+
+
+
+		
+		
+		
+		/*
 		g2.setColor(Color.PINK);
 		g2.drawRect(50, 150, 400, 400); // cuadrado sin relleno
 		g2.fillRect(200, 200, 200, 200); // cuadrado relleno
@@ -856,7 +921,7 @@ public class Ventana extends JFrame {
 		
 		g2.fillPolygon(xs2, ys2, 3);
 		
-		
+		*/
 		
 		
 		
