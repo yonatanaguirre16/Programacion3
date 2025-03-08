@@ -68,7 +68,7 @@ public class Ventana extends JFrame {
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 800);
+        this.setSize(1000, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
@@ -810,6 +810,129 @@ public class Ventana extends JFrame {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
+		g2.setColor(new Color(162, 240, 255)); // cielo
+		g2.fillRect(0, 0, 1000, 800);
+		
+		g2.setColor(Color.decode("#ffc4b5")); // piso rosa
+		g2.fillRect(0, 518, 1000, 80);
+		
+		g2.setColor(Color.black);
+		g2.setStroke(new BasicStroke(3));
+
+		g2.drawLine(0, 518, 1000, 518); 
+		
+
+	
+		g2.setColor(Color.black); // sombra azul
+		g2.fillRoundRect(400, 288, 60, 230, 2, 2);
+		
+
+		g2.setColor(Color.decode("#71c2ff")); // rect azul
+		g2.fillRect(280, 237, 150, 280);
+		
+		g2.setColor(Color.black); // contorno rect azul
+		g2.drawRect(278, 235, 152, 282);
+
+		g2.setColor(Color.decode("#ffc4b5"));  // rect rosa
+		g2.fillRect(180, 367, 150, 150);
+		
+		g2.setColor(Color.black); // contorno rect rosa
+		g2.drawRect(178, 365, 152, 152);
+		
+		g2.setColor(Color.decode("#00dd5b")); // rect verde
+		g2.fillRect(850, 365, 152, 152);
+		g2.setColor(Color.black); // sombra rosa
+		g2.fillRoundRect(329, 416, 30, 100, 2, 2);
+		g2.setColor(Color.black); // contorno rect verde
+		g2.drawRect(850, 365, 153, 153);
+		
+		
+		
+	    int tubeTopY = 518;  
+	    
+	    g2.setColor(Color.decode("#1b851c")); // tubo verde
+	    g2.fillRect(700, tubeTopY - 120, 95, 120); 
+	    g2.fillRect(695, tubeTopY - 172, 105, 50);  
+	    
+	    g2.setColor(Color.decode("#54d96f"));
+	    g2.fillRect(708, tubeTopY - 120, 3, 120);
+	    g2.fillRect(705, tubeTopY - 172, 5, 50);
+	    g2.fillRect(712, tubeTopY - 120, 10, 120);
+	    g2.fillRect(712, tubeTopY - 172, 10, 50);
+	    g2.fillRect(730, tubeTopY - 120, 3, 120);
+	    g2.fillRect(728, tubeTopY - 172, 3, 50);
+	    g2.fillRect(757, tubeTopY - 120, 6, 120);
+	    g2.fillRect(760, tubeTopY - 172, 3, 50);
+	    
+	    g2.setColor(Color.BLACK);
+	    g2.fillRect(760, tubeTopY - 120, 3, 120);
+	    g2.fillRect(763, tubeTopY - 172, 5, 50);
+	    g2.fillRect(770, tubeTopY - 120, 3, 120);
+	    g2.fillRect(770, tubeTopY - 172, 3, 50);
+	    g2.fillRect(775, tubeTopY - 120, 10, 120);
+	    g2.fillRect(778, tubeTopY - 172, 10, 50);
+	    g2.fillRect(790, tubeTopY - 120, 5, 120);
+	    g2.fillRect(792, tubeTopY - 172, 7, 50);
+	    
+	    g2.setStroke(new BasicStroke(3));
+	    g2.drawRect(695, tubeTopY - 172, 105, 50);
+	    g2.drawRect(700, tubeTopY - 120, 95, 120);  
+		
+		g2.setColor(Color.decode("#b3bfc0")); // ovalos grises
+		g2.fillOval(405, 245, 20, 20);
+		g2.fillOval(405, 494, 20, 20);
+		g2.fillOval(285, 245, 20, 20);
+		
+		g2.fillOval(185, 375, 20, 20);
+		g2.fillOval(305, 375, 20, 20);
+		g2.fillOval(185, 494, 20, 20);
+		g2.fillOval(305, 494, 20, 20);
+		
+		g2.fillOval(855, 375, 20, 20);
+		g2.fillOval(855, 494, 20, 20);
+				
+		g2.setStroke(new BasicStroke(3));
+
+		g2.setColor(Color.black); // contorno ovalos
+		g2.drawOval(405, 245, 21, 21);
+		g2.drawOval(405, 494, 21, 21);
+		g2.drawOval(285, 245, 21, 21);
+		
+		g2.drawOval(185, 375, 21, 21);
+		g2.drawOval(305, 375, 21, 21);
+		g2.drawOval(185, 494, 21, 21);
+		g2.drawOval(305, 494, 21, 21);
+
+		g2.drawOval(855, 375, 21, 21);
+		g2.drawOval(855, 494, 21, 21);
+
+
+		
+		
+		g2.setColor(Color.decode("#ff8a4e")); // cuadrados amarillo
+		g2.fillRect(800, 190, 70, 70);
+		g2.fillRect(100, 140, 70, 70);
+		g2.fillRect(172, 140, 70, 70);
+		g2.fillRect(50, 300, 70, 70);
+
+		
+		g2.setColor(Color.black); // contorno cuadros amarillos
+		g2.drawRect(800, 190, 71, 71);
+		g2.drawRect(100, 140, 71, 71);
+		g2.drawRect(170, 140, 71, 71);
+		g2.drawRect(50, 300, 71, 71);
+		
+		g2.setFont(new Font("Arial", Font.BOLD, 50));
+		g2.setColor(Color.white);
+		g2.drawString("?", 120, 190); // Signo interrogacion cuadro
+
+
+		
+		
+		
+		
+		/*
+		
 		g2.setColor(new Color(41, 66, 16));
 		g2.fillRect(1, 600, 1000, 200); // pasto
 		
@@ -873,7 +996,7 @@ public class Ventana extends JFrame {
 		
 		
 		
-		/*
+		
 		g2.setColor(Color.PINK);
 		g2.drawRect(50, 150, 400, 400); // cuadrado sin relleno
 		g2.fillRect(200, 200, 200, 200); // cuadrado relleno
