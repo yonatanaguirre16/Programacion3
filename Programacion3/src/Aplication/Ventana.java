@@ -51,7 +51,7 @@ public class Ventana extends JFrame {
 	Font fuenteLoginSub = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 20);
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
 	
-	
+		
 	@Override
 	public Image getIconImage() { // agregar el icono personalizado
 	   Image retValue = Toolkit.getDefaultToolkit().
@@ -68,7 +68,7 @@ public class Ventana extends JFrame {
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 600);
+        this.setSize(1000, 900);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
@@ -99,11 +99,15 @@ public class Ventana extends JFrame {
         //this.add(this.calcLayout());
         //getContentPane().add(this.interes());
         //getContentPane().add(this.paint());
+        getContentPane().add(this.login());
+        getContentPane().add(this.registro());
         
-        this.revalidate();
+        //this.revalidate();
         this.repaint();
         this.setVisible(true);
 	    }
+	
+	
 	
 	
 	public JPanel interes() {
@@ -231,29 +235,18 @@ public class Ventana extends JFrame {
 	        
 	    }
 		
-	public JPanel login() throws IOException {
+	public JPanel login() {
 		
-		@SuppressWarnings("deprecation")
-		URL url = new URL("https://i.postimg.cc/ZnkzFd1c/login.png");
-		Image image = ImageIO.read(url);
 
-		
-		
-		
-		JLabel labelImagen = new JLabel(new ImageIcon(image));
-		labelImagen.setSize(500, 500);
-		labelImagen.setLocation(510, 20);
 		
 		JPanel login = new JPanel();
 		login.setLocation(0, 0);
-		login.setSize(1000, 500); 
+		login.setSize(400, 500); 
 		login.setOpaque(true);
 		login.setBackground(Color.BLACK);
 		login.setVisible(true);
 		login.setLayout(null);
-		
-		login.add(labelImagen);
-		
+				
 
 		
 		JLabel etiqueta1 = new JLabel("Bienvenido");
@@ -306,8 +299,26 @@ public class Ventana extends JFrame {
 		recordarContra.setBorderPainted(false);
 		recordarContra.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		login.add(recordarContra);*/
+		String passText = String.valueOf(pass.getPassword());
+
 		
 		JButton access = new JButton("Acceder");
+		access.addActionListener(new ActionListener() {	
+			@SuppressWarnings("unlikely-arg-type")
+			public void actionPerformed(ActionEvent e) {
+				if(email.getText().equals("")) {
+					email.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				}else {
+					email.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					
+				}if(passText.equals("")) {
+					pass.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				}else {
+					pass.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+
+				}
+			}
+		});
 		access.setBounds(210, 280, 120, 30); 
 		access.setBackground(Color.WHITE);
 		access.setOpaque(true);
@@ -363,8 +374,8 @@ public class Ventana extends JFrame {
 	public JPanel registro() {
 		
 		JPanel registro = new JPanel();
-		registro.setLocation(0, 0);
-		registro.setSize(500, 1500); 
+		registro.setLocation(1000, 0);
+		registro.setSize(500, 1200); 
 		registro.setOpaque(true);
 		registro.setBackground(Color.LIGHT_GRAY);
 		registro.setVisible(true);
@@ -372,10 +383,10 @@ public class Ventana extends JFrame {
 		
 		JLabel etiqueta1 = new JLabel("Registro");
 		etiqueta1.setSize(220, 140);
-		etiqueta1.setLocation(150, 10);
-		etiqueta1.setBackground(Color.black);
+		etiqueta1.setLocation(549, 11);
+		//etiqueta1.setBackground(Color.black);
 		etiqueta1.setForeground(Color.WHITE);
-		etiqueta1.setOpaque(true); // para backgrounds
+		etiqueta1.setOpaque(false); // para backgrounds
 		etiqueta1.setFont(fuenteGrande);
 		etiqueta1.setHorizontalAlignment(JLabel.CENTER); // alinea las cosas al centro
 		
@@ -383,7 +394,7 @@ public class Ventana extends JFrame {
 		
 		
 		JLabel etiqueta2 = new JLabel("NOMBRE DE USUARIO: ");
-		etiqueta2.setBounds(39, 90, 410, 30); // junta size y location en uno solo
+		etiqueta2.setBounds(437, 162, 410, 30); // junta size y location en uno solo
 		// x y, w h
 		etiqueta2.setBackground(Color.yellow);
 		etiqueta2.setOpaque(true);
@@ -392,16 +403,16 @@ public class Ventana extends JFrame {
 		
 		registro.add(etiqueta2);
 		
-		JTextField email = new JTextField();
-		email.setBounds(39, 121, 410, 30); // junta size y location en uno solo
+		JTextField user = new JTextField();
+		user.setBounds(437, 190, 410, 30); // junta size y location en uno solo
 		// x ,y width height
-		email.setBackground(Color.WHITE);
-		email.setOpaque(true);
-		email.setFont(fuenteEtiquetas);
-		registro.add(email);
+		user.setBackground(Color.WHITE);
+		user.setOpaque(true);
+		user.setFont(fuenteEtiquetas);
+		registro.add(user);
 		
 		JLabel etiqueta3 = new JLabel("BIO ");
-		etiqueta3.setBounds(190, 1140, 120, 30); // junta size y location en uno solo
+		etiqueta3.setBounds(600, 250, 120, 30); // junta size y location en uno solo
 		//etiqueta3.setBackground(Color.WHITE);
 		etiqueta3.setOpaque(false);
 		etiqueta3.setFont(fuenteEtiquetas);
@@ -410,7 +421,7 @@ public class Ventana extends JFrame {
 		registro.add(etiqueta3);
 		
 		JTextField bio = new JTextField();
-		bio.setBounds(39, 190, 410, 90); // junta size y location en uno solo
+		bio.setBounds(437, 278, 410, 90); // junta size y location en uno solo
 		// x ,y width height
 		bio.setBackground(Color.WHITE);
 		bio.setOpaque(true);
@@ -421,7 +432,7 @@ public class Ventana extends JFrame {
 		//bio.setBorder(border);
 		
 		JLabel preferencias = new JLabel("PREFERENCIAS");
-		preferencias.setBounds(140, 280, 220, 30); // junta size y location en uno solo
+		preferencias.setBounds(560, 380, 220, 30); // junta size y location en uno solo
 		//etiqueta3.setBackground(Color.WHITE);
 		preferencias.setOpaque(false);
 		preferencias.setFont(fuenteEtiquetas);
@@ -429,23 +440,23 @@ public class Ventana extends JFrame {
 		registro.add(preferencias);
 		
 		JCheckBox pref1 = new JCheckBox("Dulce");
-		pref1.setBounds(140, 320, 80, 30); // junta size y location en uno solo
+		pref1.setBounds(500, 417, 80, 30); // junta size y location en uno solo
 		pref1.setOpaque(false);
 		pref1.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref1);
 		
 		JCheckBox pref2 = new JCheckBox("Salado");
-		pref2.setBounds(140, 320, 80, 30); // junta size y location en uno solo
+		pref2.setBounds(580, 417, 80, 30); // junta size y location en uno solo
 		pref2.setOpaque(false);
 		pref2.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref2);
 		
 		JCheckBox pref3 = new JCheckBox("Saludable");
-		pref3.setBounds(220, 320, 100, 30); // junta size y location en uno solo
+		pref3.setBounds(731, 417, 100, 30); // junta size y location en uno solo
 		pref3.setOpaque(false);
 		pref3.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref3);
-		pref3.setBorderPainted(true);
+		//pref3.setBorderPainted(true);
 		pref3.setBorder(border);
 		
 		JLabel term = new JLabel("TÉRMINOS ");
@@ -458,13 +469,13 @@ public class Ventana extends JFrame {
 		registro.add(term);
 		
 		JRadioButton terminos1 = new JRadioButton("Acepto los terminos");
-		terminos1.setLocation(30, 400);
+		terminos1.setLocation(500, 473);
 		terminos1.setSize(180, 40);
 		terminos1.setOpaque(false);
 		registro.add(terminos1);
 		
 		JRadioButton terminos2 = new JRadioButton("No acepto los terminos");
-		terminos2.setLocation(220, 400);
+		terminos2.setLocation(673, 473);
 		terminos2.setSize(180, 40);
 		terminos2.setOpaque(false);
 		registro.add(terminos2);
@@ -483,17 +494,50 @@ public class Ventana extends JFrame {
 		String [] preferencias_set = {"Centro", "Camino Real", "Indeco"};
 		
 		JComboBox preferenciass = new JComboBox(preferencias_set);
-		preferenciass.setLocation(39, 450);
+		preferenciass.setLocation(447, 514);
 		preferenciass.setSize(410, 40);
 		registro.add(preferenciass);
 		
+		
+		
+		
 		JButton crear = new JButton("Crear Cuenta");
-		crear.setBounds(39, 500, 410, 40); 
+		crear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(user.getText().equals("")) {
+					user.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				}else {
+					user.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+
+				}
+				if(bio.getText().equals("")) {
+					bio.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				}else {
+					bio.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+
+				}
+				if(!terminos1.isSelected() && !terminos2.isSelected()) {
+					terminos1.setForeground(Color.red);
+				}else {
+					terminos1.setForeground(Color.green);
+
+				}
+			}
+		});
+		crear.setBounds(447, 568, 410, 40); 
 		crear.setBackground(Color.WHITE);
 		crear.setOpaque(true);
 		crear.setFont(fuenteEtiquetas);
 		etiqueta1.setHorizontalAlignment(JButton.CENTER); // alinea las cosas al centro
 		registro.add(crear);
+		
+		JLabel lblBio = new JLabel("BIO");
+		lblBio.setOpaque(false);
+		lblBio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBio.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblBio.setBounds(183, 230, 220, 30);
+		registro.add(lblBio);
+		
 		
 		
 		
@@ -804,490 +848,6 @@ public class Ventana extends JFrame {
 		
 		
 	}
-
-	public void paint(Graphics g) {
-		super.paint(g);
-		
-		Graphics2D g2 = (Graphics2D) g;
-		
-		
-		g2.setColor(Color.decode("#0665c0")); // cielo
-		g2.fillRect(0, 0, 1000, 800);
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 3 - 2
-		g2.fillRoundRect(250, 376, 230, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 3 - 2
-		g2.fillRoundRect(250, 370, 230, 40, 100, 200);
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 4 - 2
-		g2.fillRoundRect(105, 425, 230, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 4 - 2
-		g2.fillRoundRect(105, 420, 230, 40, 100, 200);
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 5 - 2
-		g2.fillRoundRect(250, 469, 230, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 5 - 2
-		g2.fillRoundRect(250, 464, 230, 40, 100, 200);
-			
-		g2.setColor(Color.decode("#95c1c7")); // sombra azul claro 1
-		g2.fillRoundRect(20, 150, 190, 550, 250, 220);
-
-		g2.setColor(Color.decode("#c6e3e7")); // montaña azul claro 1
-		g2.fillRoundRect(20, 150, 170, 550, 250, 220);
-		
-
-
-		
-		g2.setColor(Color.decode("#95c1c7")); // sombra azul claro 2
-		g2.fillRoundRect(340, 150, 190, 550, 250, 220);
-
-		g2.setColor(Color.decode("#c6e3e7")); // montaña azul claro 2
-		g2.fillRoundRect(340, 150, 170, 550, 250, 220);
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 7 - 4
-		g2.fillRoundRect(720, 152, 230, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 7 - 4
-		g2.fillRoundRect(720, 146, 230, 40, 100, 200);
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 8 - 4
-		g2.fillRoundRect(620, 196, 230, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 8 - 4
-		g2.fillRoundRect(620, 190, 230, 40, 100, 200);
-		
-		g2.setColor(Color.decode("#95c1c7")); // sombra azul claro 3
-		g2.fillRoundRect(520, 70, 190, 550, 250, 220);
-
-		g2.setColor(Color.decode("#c6e3e7")); // montaña azul claro 3
-		g2.fillRoundRect(520, 70, 170, 550, 250, 220);
-		
-
-		
-		/*
-		 * | Nubes 1 | Nubes 2 | Nubes 3 | Nubes 4 |
-		 * |	1	 |	4	   |	1 	 |	3  	   |
-		 * |		 |		   |		 |		   |
-		 * |		 |		   |		 |		   |
-		 */
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 1 
-		g2.fillRoundRect(-150, 256, 300, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 1
-		g2.fillRoundRect(-150, 250, 300, 40, 100, 200);
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 2 - 2
-		g2.fillRoundRect(170, 286, 230, 40, 100, 200);
-
-		g2.setColor(Color.decode("#ecf3fe")); // nube 2 - 2
-		g2.fillRoundRect(170, 280, 230, 40, 100, 200);
-		
-		
-		
-		g2.setColor(Color.decode("#125175")); // sombra montaña azul 1
-		g2.fillRoundRect(-90, 350, 230, 250, 250, 220); 
-		
-		g2.setColor(Color.decode("#76b2d7")); // montaña azul 1
-		g2.fillRoundRect(-90, 354, 210, 250, 250, 220); 
-		
-		g2.setColor(Color.decode("#b2d3d6")); // nube 1
-		g2.fillRoundRect(479, 320, 200, 40, 100, 200);
-	
-		g2.setColor(Color.decode("#ecf3fe")); // nube 1
-		g2.fillRoundRect(479, 315, 200, 40, 100, 200);
-		
-		g2.setColor(Color.decode("#125175")); // sombra montaña azul 2
-		g2.fillRoundRect(340, 350, 230, 250, 250, 220); 
-		
-		g2.setColor(Color.decode("#76b2d7")); // montaña azul 2
-		g2.fillRoundRect(340, 355, 210, 250, 250, 220); 
-		
-		g2.setColor(Color.decode("#125175")); // sombra montaña azul 3
-		g2.fillRoundRect(565, 245, 230, 350, 250, 220); 
-		
-		g2.setColor(Color.decode("#76b2d7")); // montaña azul 3
-		g2.fillRoundRect(565, 251, 210, 350, 250, 220); 
-		
-		g2.setColor(Color.decode("#f2f2ff" )); // manchas montañas
-		g2.fillRoundRect(140, 200, 30, 45, 220, 200);
-		g2.fillRoundRect(140, 300, 30, 45, 220, 200);
-		g2.fillRoundRect(60, 320, 30, 45, 220, 200);
-		
-		g2.fillRoundRect(440, 177, 30, 45, 220, 200);
-		g2.fillRoundRect(370, 210, 30, 45, 220, 200);
-		g2.fillRoundRect(370, 318, 30, 45, 220, 200);
-		
-		
-		g2.fillRoundRect(540, 220, 30, 45, 220, 200);
-		g2.fillRoundRect(620, 120, 30, 45, 220, 200);
-		g2.fillRoundRect(140, 200, 30, 45, 220, 200);
-		
-		g2.setColor(Color.decode("#c8e2e0" )); 
-
-		g2.fillRoundRect(620, 300, 30, 45, 220, 200);
-		g2.fillRoundRect(700, 418, 30, 45, 220, 200);
-
-
-
-
-
-		g2.setColor(Color.decode("#6e6bb7")); // tubo morado base
-		g2.fillRect(400, 360, 110, 180);
-		
-		g2.setColor(Color.black);
-		g2.setStroke(new BasicStroke(7));
-		g2.drawRoundRect(401, 411, 110, 120, 10, 10);
-		
-		g2.drawRoundRect(380, 353, 146, 57, 10, 10);
-
-		
-		g2.setColor(Color.decode("#6e6bb7")); // tubo morado tope
-		g2.fillRoundRect(382, 354, 144, 57, 10, 10);
-		
-
-		g2.setColor(Color.decode("#d7e1fb"));
-		g2.fillRect(414, 355, 14, 55);
-		g2.fillRect(422, 416, 14, 89);
-		
-		g2.setColor(Color.decode("#6e6bb7")); // tubo morado base
-		g2.fillRect(905, 390, 90, 120);
-		
-		g2.setColor(Color.black);
-		g2.setStroke(new BasicStroke(7));
-		g2.drawRoundRect(904, 389, 92, 120, 10, 10);
-		
-		g2.drawRoundRect(890, 379, 120, 63, 10, 10);
-
-		
-		g2.setColor(Color.decode("#6e6bb7")); // tubo morado tope
-		g2.fillRoundRect(890, 380, 120, 63, 10, 10);
-		
-
-		g2.setColor(Color.decode("#d7e1fb"));
-		g2.fillRect(930, 384, 14, 57);
-		g2.fillRect(940, 448, 14, 57);
-		
-
-		
-		
-		
-		
-		
-		g2.setColor(Color.decode("#737071")); // sombra bloque 1
-		g2.fillRoundRect(809, 452, 66, 53, 25, 25);
-				
-		g2.setColor(Color.decode("#c6c5cc")); // bloque 1
-		g2.fillRoundRect(810, 450, 60, 50, 25, 25);
-		
-		g2.setColor(Color.decode("#737071")); // sombra bloque 2
-		g2.fillRoundRect(809, 396, 66, 53, 25, 25);
-				
-		g2.setColor(Color.decode("#c6c5cc")); // bloque 2
-		g2.fillRoundRect(810, 394, 60, 50, 25, 25);
-		
-		g2.setColor(Color.decode("#737071")); // sombra bloque 3
-		g2.fillRoundRect(809, 340, 66, 53, 25, 25);
-				
-		g2.setColor(Color.decode("#c6c5cc")); // bloque 3
-		g2.fillRoundRect(810, 338, 60, 50, 25, 25);
-		
-		g2.setColor(Color.decode("#737071")); // sombra bloque 4
-		g2.fillRoundRect(809, 284, 66, 53, 25, 25);
-				
-		g2.setColor(Color.decode("#c6c5cc")); // bloque 4
-		g2.fillRoundRect(810, 282, 60, 50, 25, 25);
-		
-		g2.setColor(Color.decode("#dd9f3e")); // bloque amarillo
-		g2.fillRoundRect(877, 284, 60, 50, 25, 25);
-		g2.fillRoundRect(940, 282, 60, 50, 25, 25);
-		
-		g2.setColor(Color.decode("#ffd52e")); 
-		g2.fillRoundRect(874,  279,  60, 50, 25, 25);
-		g2.fillRoundRect(940,  278,  60, 50, 25, 25);
-		
-		g2.setColor(Color.BLACK);
-		g2.drawRect(890, 295, 1, 10);
-		g2.drawRect(915, 295, 1, 10);
-		
-		g2.drawRect(959, 294, 1, 10);
-		g2.drawRect(985, 294, 1, 10);
-
-
-
-		
-		
-		
-		//contorno
-
-		
-
-		
-
-		
-		g2.setColor(Color.decode("#cf9e5f")); // piso 
-		g2.fillRect(0, 518, 1000, 80);
-		
-		g2.setColor(Color.decode("#12823c"));
-		g2.fillRect(0, 510, 1000, 28);
-
-		
-		g2.setColor(Color.black);
-		g2.setStroke(new BasicStroke(3));
-
-		g2.drawLine(0, 508, 1000, 508); 
-		
-		g2.setColor(Color.decode("#18b22a"));
-		g2.fillRect(0, 510, 1000, 20);
-		
-		g2.setColor(Color.black);
-		g2.setStroke(new BasicStroke(3));
-
-		g2.drawLine(0, 535, 1000, 535); 
-		
-		g2.setColor(Color.decode("#85651e"));
-		g2.fillRect(0, 537, 1000, 5);
-		
-
-		
-		
-		
-		
-		
-		/* Ejercicio Mario 31
-		
-		g2.setColor(new Color(162, 240, 255)); // cielo
-		g2.fillRect(0, 0, 1000, 800);
-		
-		g2.setColor(Color.decode("#ffc4b5")); // piso rosa
-		g2.fillRect(0, 518, 1000, 80);
-		
-		g2.setColor(Color.black);
-		g2.setStroke(new BasicStroke(3));
-
-		g2.drawLine(0, 518, 1000, 518); 
-	
-		g2.setColor(Color.black); // sombra azul
-		g2.fillRoundRect(400, 288, 60, 230, 2, 2);
-		
-
-		g2.setColor(Color.decode("#71c2ff")); // rect azul
-		g2.fillRect(280, 237, 150, 280);
-		
-		g2.setColor(Color.black); // contorno rect azul
-		g2.drawRect(278, 235, 152, 282);
-
-		g2.setColor(Color.decode("#ffc4b5"));  // rect rosa
-		g2.fillRect(180, 367, 150, 150);
-		
-		g2.setColor(Color.black); // contorno rect rosa
-		g2.drawRect(178, 365, 152, 152);
-		
-		g2.setColor(Color.decode("#00dd5b")); // rect verde
-		g2.fillRect(850, 365, 152, 152);
-		g2.setColor(Color.black); // sombra rosa
-		g2.fillRoundRect(329, 416, 30, 100, 2, 2);
-		g2.setColor(Color.black); // contorno rect verde
-		g2.drawRect(850, 365, 153, 153);
-		
-	    int tubeTopY = 518;  
-	    
-	    g2.setColor(Color.decode("#1b851c")); // tubo verde
-	    g2.fillRect(700, tubeTopY - 120, 95, 120); 
-	    g2.fillRect(695, tubeTopY - 172, 105, 50);  
-	    
-	    g2.setColor(Color.decode("#54d96f"));
-	    g2.fillRect(708, tubeTopY - 120, 3, 120);
-	    g2.fillRect(705, tubeTopY - 172, 5, 50);
-	    g2.fillRect(712, tubeTopY - 120, 10, 120);
-	    g2.fillRect(712, tubeTopY - 172, 10, 50);
-	    g2.fillRect(730, tubeTopY - 120, 3, 120);
-	    g2.fillRect(728, tubeTopY - 172, 3, 50);
-	    g2.fillRect(757, tubeTopY - 120, 6, 120);
-	    g2.fillRect(760, tubeTopY - 172, 3, 50);
-	    
-	    g2.setColor(Color.BLACK);
-	    g2.fillRect(760, tubeTopY - 120, 3, 120);
-	    g2.fillRect(763, tubeTopY - 172, 5, 50);
-	    g2.fillRect(770, tubeTopY - 120, 3, 120);
-	    g2.fillRect(770, tubeTopY - 172, 3, 50);
-	    g2.fillRect(775, tubeTopY - 120, 10, 120);
-	    g2.fillRect(778, tubeTopY - 172, 10, 50);
-	    g2.fillRect(790, tubeTopY - 120, 5, 120);
-	    g2.fillRect(792, tubeTopY - 172, 7, 50);
-	    
-	    g2.setStroke(new BasicStroke(3));
-	    g2.drawRect(695, tubeTopY - 172, 105, 50);
-	    g2.drawRect(700, tubeTopY - 120, 95, 120);  
-		
-		g2.setColor(Color.decode("#b3bfc0")); // ovalos grises
-		g2.fillOval(405, 245, 20, 20);
-		g2.fillOval(405, 494, 20, 20);
-		g2.fillOval(285, 245, 20, 20);
-		
-		g2.fillOval(185, 375, 20, 20);
-		g2.fillOval(305, 375, 20, 20);
-		g2.fillOval(185, 494, 20, 20);
-		g2.fillOval(305, 494, 20, 20);
-		
-		g2.fillOval(855, 375, 20, 20);
-		g2.fillOval(855, 494, 20, 20);
-				
-		g2.setStroke(new BasicStroke(3));
-
-		g2.setColor(Color.black); // contorno ovalos
-		g2.drawOval(405, 245, 21, 21);
-		g2.drawOval(405, 494, 21, 21);
-		g2.drawOval(285, 245, 21, 21);
-		
-		g2.drawOval(185, 375, 21, 21);
-		g2.drawOval(305, 375, 21, 21);
-		g2.drawOval(185, 494, 21, 21);
-		g2.drawOval(305, 494, 21, 21);
-
-		g2.drawOval(855, 375, 21, 21);
-		g2.drawOval(855, 494, 21, 21);
-
-
-		
-		
-		g2.setColor(Color.decode("#ff8a4e")); // cuadrados amarillo
-		g2.fillRect(800, 190, 70, 70);
-		g2.fillRect(100, 140, 70, 70);
-		g2.fillRect(172, 140, 70, 70);
-		g2.fillRect(50, 300, 70, 70);
-
-		
-		g2.setColor(Color.black); // contorno cuadros amarillos
-		g2.drawRect(800, 190, 71, 71);
-		g2.drawRect(100, 140, 71, 71);
-		g2.drawRect(170, 140, 71, 71);
-		g2.drawRect(50, 300, 71, 71);
-		
-		g2.setFont(new Font("Arial", Font.BOLD, 50));
-		g2.setColor(Color.white);
-		g2.drawString("?", 120, 190); // Signo interrogacion cuadro
-		
-		Ejercicio Mario 31*/
-
-
-		
-		
-		
-		
-		/*
-		
-		g2.setColor(new Color(41, 66, 16));
-		g2.fillRect(1, 600, 1000, 200); // pasto
-		
-		g2.setColor(new Color(3, 183, 255));
-		g2.fillRect(0, 20, 1000, 600); // cielo
-		
-		g2.setColor(new Color(227, 209, 14));
-		g2.fillOval(30, 50, 100, 100); // sol
-		
-		g2.setColor(new Color(74, 33, 12));
-		g2.fillRect(400, 450, 500, 200); // casa planta baja
-		
-		g2.setColor(new Color(143, 107, 54));
-		g2.fillRect(360, 650, 580, 10);
-		
-		g2.fillRect(385, 450, 530, 35);
-		
-		g2.setColor(new Color(242, 238, 235));
-		g2.fillOval(300, 60, 100, 100);
-		g2.fillOval(350, 35, 150, 150);
-		g2.fillOval(450, 60, 120, 120);
-		
-		g2.fillOval(700, 60, 100, 100);
-		g2.fillOval(750, 35, 130, 150);
-		g2.fillOval(850, 60, 120, 120);
-		
-		g2.setColor(new Color(237, 175, 100));
-		g2.fillRect(50, 600, 900, 10);
-		g2.fillRect(70, 570, 19, 120);
-		g2.fillRect(120, 570, 19, 120);
-		g2.fillRect(170, 570, 19, 120);
-		g2.fillRect(220, 570, 19, 120);
-		g2.fillRect(270, 570, 19, 120);
-		g2.fillRect(320, 570, 19, 120);
-		g2.fillRect(370, 570, 19, 120);
-		g2.fillRect(420, 570, 19, 120);
-		g2.fillRect(470, 570, 19, 120);
-		g2.fillRect(520, 570, 19, 120);
-		g2.fillRect(570, 570, 19, 120);
-		g2.fillRect(620, 570, 19, 120);
-		g2.fillRect(670, 570, 19, 120);
-
-		g2.fillRect(920, 570, 19, 120);
-		
-		g2.setColor(new Color(143, 107, 54)); 
-		g2.fillRoundRect(700, 520, 190, 140, 360, 50);
-		//g2.fillRect(860, 350, 200, 700); 
-		
-		g2.setColor(Color.BLACK);
-		g2.fillRect(795, 530, 3, 129);
-		
-		g2.drawRoundRect(710, 525, 170, 135, 360, 50);
-
-		g2.fillOval(770, 575, 10, 10);
-		g2.fillOval(810, 575, 10, 10);
-
-		g2.setColor(Color.PINK);
-		g2.drawRect(50, 150, 400, 400); // cuadrado sin relleno
-		g2.fillRect(200, 200, 200, 200); // cuadrado relleno
-		g2.clearRect(100, 200, 50, 50); // cuadrado clear con el color del fondo
-		g2.setColor(Color.BLUE);
-		g2.fillRoundRect(50, 300, 200, 200, 90, 90);
-		
-		g2.setColor(Color.ORANGE);
-		g2.setStroke(new BasicStroke(10));
-		g2.drawLine(100, 100, 900, 1000);
-		
-		g2.setColor(Color.YELLOW);
-		g2.drawOval(390, 100, 90, 90);
-		g2.fillOval(250, 100, 90, 90);
-		
-		g2.setColor(Color.GRAY);
-		g2.drawArc(200, 250, 200, 300, 0, -180);
-		g2.fillArc(200, 250, 200, 300, 0, 180);
-		
-		g2.setColor(Color.cyan);
-		g2.setFont(fuenteEtiquetas);
-		g2.drawString("HOLAAAAAAAAA", 150, 100);
-		
-		BufferedImage image;
-		try {
-		image = ImageIO.read(new File("C:/Users/yonatan.deleon/git/Programacion3/Programacion3/src/Aplication/perro.png"));
-		
-		g2.drawImage(image, 200, 150, 100, 100, Color.WHITE, null);
-		
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		
-		g2.setColor(Color.GREEN);
-		int [] xs = {100, 100, 400};
-		int [] ys = {100, 200, 400};
-		
-		g2.drawPolygon(xs, ys, 3);
-		
-		
-		int [] xs2 = {350, 450, 400};
-		int [] ys2 = {250, 200, 400};
-		
-		g2.fillPolygon(xs2, ys2, 3);
-		
-		*/
-		
-		
-		
-	}
-
-
 }
 
 
