@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -68,7 +69,7 @@ public class Ventana extends JFrame {
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 900);
+        this.setSize(1000, 700);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
@@ -241,7 +242,7 @@ public class Ventana extends JFrame {
 		
 		JPanel login = new JPanel();
 		login.setLocation(0, 0);
-		login.setSize(400, 500); 
+		login.setSize(400, 700); 
 		login.setOpaque(true);
 		login.setBackground(Color.BLACK);
 		login.setVisible(true);
@@ -251,7 +252,7 @@ public class Ventana extends JFrame {
 		
 		JLabel etiqueta1 = new JLabel("Bienvenido");
 		etiqueta1.setSize(220, 50);
-		etiqueta1.setLocation(150, 10);
+		etiqueta1.setLocation(80, 26);
 		etiqueta1.setForeground(Color.WHITE);
 		etiqueta1.setFont(fuenteLoginTitle);
 		etiqueta1.setHorizontalAlignment(JLabel.CENTER); 
@@ -260,14 +261,14 @@ public class Ventana extends JFrame {
 		
 		
 		JLabel etiqueta2 = new JLabel("Correo ");
-		etiqueta2.setBounds(140, 90, 80, 30);
+		etiqueta2.setBounds(80, 87, 80, 30);
 		etiqueta2.setForeground(Color.WHITE);
 		etiqueta2.setFont(fuenteLoginSub);
 		
 		login.add(etiqueta2);
 		
 		JTextField email = new JTextField();
-		email.setBounds(140, 125, 250, 30); 
+		email.setBounds(80, 128, 250, 30); 
 		// x ,y width height
 		email.setBackground(Color.WHITE);
 		email.setOpaque(true);
@@ -275,13 +276,13 @@ public class Ventana extends JFrame {
 		login.add(email);
 		
 		JLabel etiqueta3 = new JLabel("Contraseña");
-		etiqueta3.setBounds(140, 180, 120, 30); 
+		etiqueta3.setBounds(80, 174, 120, 30); 
 		etiqueta3.setForeground(Color.WHITE);
 		etiqueta3.setFont(fuenteLoginSub);
 		login.add(etiqueta3);
 		
 		JPasswordField pass = new JPasswordField();
-		pass.setBounds(140, 215, 250, 30); 
+		pass.setBounds(80, 215, 250, 30); 
 		pass.setBackground(Color.WHITE);
 		pass.setOpaque(true);
 		pass.setFont(fuenteEtiquetas);
@@ -299,13 +300,14 @@ public class Ventana extends JFrame {
 		recordarContra.setBorderPainted(false);
 		recordarContra.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		login.add(recordarContra);*/
-		String passText = String.valueOf(pass.getPassword());
+	
 
 		
 		JButton access = new JButton("Acceder");
-		access.addActionListener(new ActionListener() {	
-			@SuppressWarnings("unlikely-arg-type")
+		access.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String passText = new String(pass.getPassword());
+
 				if(email.getText().equals("")) {
 					email.setBorder(BorderFactory.createLineBorder(Color.red, 3));
 				}else {
@@ -317,9 +319,21 @@ public class Ventana extends JFrame {
 					pass.setBorder(BorderFactory.createLineBorder(Color.green, 3));
 
 				}
+				if(email.getText().equals("") && passText.equals("")) {
+					JOptionPane.showMessageDialog(null, "Ingresa los datos deseados", "Error", JOptionPane.ERROR_MESSAGE);
+
+				}else {
+					if(email.getText().equals("yonatan@gmail.com") && passText.equals("hola123")) {
+						JOptionPane.showMessageDialog(null, "¡Bienvenido!");
+					}else {
+						JOptionPane.showMessageDialog(null, "¡Datos Incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				
+
 			}
 		});
-		access.setBounds(210, 280, 120, 30); 
+		access.setBounds(140, 275, 120, 30); 
 		access.setBackground(Color.WHITE);
 		access.setOpaque(true);
 		access.setFont(fuenteEtiquetas);
@@ -336,15 +350,15 @@ public class Ventana extends JFrame {
 		});
 		
 		JLabel registerText = new JLabel("¿No tienes una cuenta? Registrate");
-		registerText.setSize(370, 50);
-		registerText.setLocation(80, 340);
+		registerText.setSize(220, 50);
+		registerText.setLocation(92, 319);
 		registerText.setForeground(Color.WHITE);
 		registerText.setFont(fuenteLoginSmaller);
 		registerText.setHorizontalAlignment(JLabel.CENTER); 
 		login.add(registerText);
 		
 		JButton register = new JButton("Registrate");
-		register.setBounds(200, 380, 140, 30); 
+		register.setBounds(140, 380, 140, 30); 
 		register.setBackground(Color.WHITE);
 		register.setOpaque(true);
 		register.setFont(fuenteLoginSub);
@@ -375,15 +389,15 @@ public class Ventana extends JFrame {
 		
 		JPanel registro = new JPanel();
 		registro.setLocation(1000, 0);
-		registro.setSize(500, 1200); 
+		registro.setSize(500, 500); 
 		registro.setOpaque(true);
 		registro.setBackground(Color.LIGHT_GRAY);
 		registro.setVisible(true);
 		registro.setLayout(null);
 		
 		JLabel etiqueta1 = new JLabel("Registro");
-		etiqueta1.setSize(220, 140);
-		etiqueta1.setLocation(549, 11);
+		etiqueta1.setSize(220, 70);
+		etiqueta1.setLocation(560, 11);
 		//etiqueta1.setBackground(Color.black);
 		etiqueta1.setForeground(Color.WHITE);
 		etiqueta1.setOpaque(false); // para backgrounds
@@ -394,7 +408,7 @@ public class Ventana extends JFrame {
 		
 		
 		JLabel etiqueta2 = new JLabel("NOMBRE DE USUARIO: ");
-		etiqueta2.setBounds(437, 162, 410, 30); // junta size y location en uno solo
+		etiqueta2.setBounds(474, 74, 410, 30); // junta size y location en uno solo
 		// x y, w h
 		etiqueta2.setBackground(Color.yellow);
 		etiqueta2.setOpaque(true);
@@ -404,7 +418,7 @@ public class Ventana extends JFrame {
 		registro.add(etiqueta2);
 		
 		JTextField user = new JTextField();
-		user.setBounds(437, 190, 410, 30); // junta size y location en uno solo
+		user.setBounds(474, 104, 410, 30); // junta size y location en uno solo
 		// x ,y width height
 		user.setBackground(Color.WHITE);
 		user.setOpaque(true);
@@ -412,7 +426,7 @@ public class Ventana extends JFrame {
 		registro.add(user);
 		
 		JLabel etiqueta3 = new JLabel("BIO ");
-		etiqueta3.setBounds(600, 250, 120, 30); // junta size y location en uno solo
+		etiqueta3.setBounds(621, 145, 120, 30); // junta size y location en uno solo
 		//etiqueta3.setBackground(Color.WHITE);
 		etiqueta3.setOpaque(false);
 		etiqueta3.setFont(fuenteEtiquetas);
@@ -421,7 +435,7 @@ public class Ventana extends JFrame {
 		registro.add(etiqueta3);
 		
 		JTextField bio = new JTextField();
-		bio.setBounds(437, 278, 410, 90); // junta size y location en uno solo
+		bio.setBounds(474, 172, 410, 90); // junta size y location en uno solo
 		// x ,y width height
 		bio.setBackground(Color.WHITE);
 		bio.setOpaque(true);
@@ -432,7 +446,7 @@ public class Ventana extends JFrame {
 		//bio.setBorder(border);
 		
 		JLabel preferencias = new JLabel("PREFERENCIAS");
-		preferencias.setBounds(560, 380, 220, 30); // junta size y location en uno solo
+		preferencias.setBounds(580, 284, 220, 30); // junta size y location en uno solo
 		//etiqueta3.setBackground(Color.WHITE);
 		preferencias.setOpaque(false);
 		preferencias.setFont(fuenteEtiquetas);
@@ -440,19 +454,19 @@ public class Ventana extends JFrame {
 		registro.add(preferencias);
 		
 		JCheckBox pref1 = new JCheckBox("Dulce");
-		pref1.setBounds(500, 417, 80, 30); // junta size y location en uno solo
+		pref1.setBounds(537, 325, 80, 30); // junta size y location en uno solo
 		pref1.setOpaque(false);
 		pref1.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref1);
 		
 		JCheckBox pref2 = new JCheckBox("Salado");
-		pref2.setBounds(580, 417, 80, 30); // junta size y location en uno solo
+		pref2.setBounds(639, 325, 80, 30); // junta size y location en uno solo
 		pref2.setOpaque(false);
 		pref2.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref2);
 		
 		JCheckBox pref3 = new JCheckBox("Saludable");
-		pref3.setBounds(731, 417, 100, 30); // junta size y location en uno solo
+		pref3.setBounds(744, 325, 100, 30); // junta size y location en uno solo
 		pref3.setOpaque(false);
 		pref3.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref3);
@@ -469,13 +483,13 @@ public class Ventana extends JFrame {
 		registro.add(term);
 		
 		JRadioButton terminos1 = new JRadioButton("Acepto los terminos");
-		terminos1.setLocation(500, 473);
+		terminos1.setLocation(518, 358);
 		terminos1.setSize(180, 40);
 		terminos1.setOpaque(false);
 		registro.add(terminos1);
 		
 		JRadioButton terminos2 = new JRadioButton("No acepto los terminos");
-		terminos2.setLocation(673, 473);
+		terminos2.setLocation(707, 358);
 		terminos2.setSize(180, 40);
 		terminos2.setOpaque(false);
 		registro.add(terminos2);
@@ -494,7 +508,7 @@ public class Ventana extends JFrame {
 		String [] preferencias_set = {"Centro", "Camino Real", "Indeco"};
 		
 		JComboBox preferenciass = new JComboBox(preferencias_set);
-		preferenciass.setLocation(447, 514);
+		preferenciass.setLocation(474, 405);
 		preferenciass.setSize(410, 40);
 		registro.add(preferenciass);
 		
@@ -524,7 +538,7 @@ public class Ventana extends JFrame {
 				}
 			}
 		});
-		crear.setBounds(447, 568, 410, 40); 
+		crear.setBounds(474, 456, 410, 40); 
 		crear.setBackground(Color.WHITE);
 		crear.setOpaque(true);
 		crear.setFont(fuenteEtiquetas);
