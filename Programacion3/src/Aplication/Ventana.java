@@ -101,7 +101,7 @@ public class Ventana extends JFrame {
         menu3.add(op_registro);
         
         barra.add(menu1);
-        barra.add(menu2);
+        barra.add(menu2);  
         barra.add(menu3);
         
         op_login.addActionListener(new ActionListener() {
