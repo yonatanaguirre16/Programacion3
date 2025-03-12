@@ -76,6 +76,7 @@ public class Ventana extends JFrame {
         JMenuBar barra = new JMenuBar();
         JMenu menu1 = new JMenu("Archivo");
         JMenu menu2 = new JMenu("Ayuda");
+        JMenu menu3 = new JMenu("Cuenta");
         
         JMenuItem op_abrir = new JMenuItem("Abrir");
         JMenuItem op_nuevo = new JMenuItem("Nuevo");
@@ -92,18 +93,32 @@ public class Ventana extends JFrame {
         menu1.add(op_nuevo);
         menu1.add(op_guardar);
         menu1.add(op_cerrar);
-        menu1.add(op_login);
-        menu1.add(op_registro);
-
         
         menu2.add(op_ayuda);
         menu2.add(op_soporte);
         
+        menu3.add(op_login);
+        menu3.add(op_registro);
+        
         barra.add(menu1);
         barra.add(menu2);
+        barra.add(menu3);
+        
+        op_login.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+              manager("login");
+            }
+          });
+
+        op_registro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+              manager("registro");
+            }
+          });
         
         this.setJMenuBar(barra);
         
+
         
 
         //this.add(this.calcLayout());
@@ -117,6 +132,9 @@ public class Ventana extends JFrame {
         //this.revalidate();
         this.repaint();
         this.setVisible(true);
+        
+        
+
 	    }
 	
 	
@@ -199,6 +217,8 @@ public class Ventana extends JFrame {
 			getContentPane().add(this.login());
 			
 		}
+		
+		
 		
 				
 		
