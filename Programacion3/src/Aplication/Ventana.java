@@ -83,11 +83,18 @@ public class Ventana extends JFrame {
         JMenuItem op_cerrar = new JMenuItem("Cerrar");
         JMenuItem op_ayuda = new JMenuItem("Ayuda");
         JMenuItem op_soporte = new JMenuItem("Soporte");
+        JMenuItem op_login = new JMenuItem("Login");
+        JMenuItem op_registro = new JMenuItem("Registro");
+
+        
 
         menu1.add(op_abrir);
         menu1.add(op_nuevo);
         menu1.add(op_guardar);
         menu1.add(op_cerrar);
+        menu1.add(op_login);
+        menu1.add(op_registro);
+
         
         menu2.add(op_ayuda);
         menu2.add(op_soporte);
@@ -96,12 +103,16 @@ public class Ventana extends JFrame {
         barra.add(menu2);
         
         this.setJMenuBar(barra);
+        
+        
 
         //this.add(this.calcLayout());
         //getContentPane().add(this.interes());
         //getContentPane().add(this.paint());
         getContentPane().add(this.login());
-        getContentPane().add(this.registro());
+        //getContentPane().add(this.registro()); 
+
+        
         
         //this.revalidate();
         this.repaint();
@@ -174,6 +185,25 @@ public class Ventana extends JFrame {
 		return panelPrincipal;
 		
 		
+	}
+	
+	public void manager(String target) {
+		
+		this.getContentPane().removeAll();
+
+		if(target.equals("registro")) {
+			getContentPane().add(this.registro());
+
+		}
+		if(target.equals("login")) {
+			getContentPane().add(this.login());
+			
+		}
+		
+				
+		
+		this.repaint();
+		this.revalidate();
 	}
 
 	public JPanel calcLayout() {
@@ -358,6 +388,12 @@ public class Ventana extends JFrame {
 		login.add(registerText);
 		
 		JButton register = new JButton("Registrate");
+		register.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager("registro");
+			}
+		});
+		
 		register.setBounds(140, 380, 140, 30); 
 		register.setBackground(Color.WHITE);
 		register.setOpaque(true);
@@ -368,6 +404,7 @@ public class Ventana extends JFrame {
 		register.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		        register.setBackground(Color.BLUE);
+		        
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -392,7 +429,6 @@ public class Ventana extends JFrame {
 		registro.setSize(500, 500); 
 		registro.setOpaque(true);
 		registro.setBackground(Color.LIGHT_GRAY);
-		registro.setVisible(true);
 		registro.setLayout(null);
 		
 		JLabel etiqueta1 = new JLabel("Registro");
@@ -545,12 +581,16 @@ public class Ventana extends JFrame {
 		etiqueta1.setHorizontalAlignment(JButton.CENTER); // alinea las cosas al centro
 		registro.add(crear);
 		
-		JLabel lblBio = new JLabel("BIO");
-		lblBio.setOpaque(false);
-		lblBio.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBio.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblBio.setBounds(183, 230, 220, 30);
-		registro.add(lblBio);
+		JButton btnNewButton = new JButton("Registrate");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager("login");
+			}
+		});
+		btnNewButton.setBounds(474, 544, 410, 40);
+		btnNewButton.setFont(fuenteEtiquetas);
+		registro.add(btnNewButton);
+
 		
 		
 		
