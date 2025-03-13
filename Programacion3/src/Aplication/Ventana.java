@@ -74,62 +74,101 @@ public class Ventana extends JFrame {
         this.setLocationRelativeTo(null);
 
         JMenuBar barra = new JMenuBar();
-        JMenu menu1 = new JMenu("Archivo");
-        JMenu menu2 = new JMenu("Ayuda");
-        JMenu menu3 = new JMenu("Cuenta");
+        JMenu menu1 = new JMenu("Cuenta");
+        JMenu menu2 = new JMenu("Usuarios");
+        JMenu menu3 = new JMenu("Ayuda");
         
-        JMenuItem op_abrir = new JMenuItem("Abrir");
-        JMenuItem op_nuevo = new JMenuItem("Nuevo");
-        JMenuItem op_guardar = new JMenuItem("Guardar");
-        JMenuItem op_cerrar = new JMenuItem("Cerrar");
-        JMenuItem op_ayuda = new JMenuItem("Ayuda");
-        JMenuItem op_soporte = new JMenuItem("Soporte");
         JMenuItem op_login = new JMenuItem("Login");
         JMenuItem op_registro = new JMenuItem("Registro");
+        JMenuItem op_recuperar = new JMenuItem("Recuperacion de cuenta");
+        JMenuItem op_alta = new JMenuItem("Alta");
+        JMenuItem op_baja = new JMenuItem("Baja");
+        JMenuItem op_consulta = new JMenuItem("Consultar");
+        JMenuItem op_crear = new JMenuItem("¿Cómo crear un usuario?");
+        JMenuItem op_sistema = new JMenuItem("¿Cómo acceder al sistema?");
+        JMenuItem op_olvide = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
 
         
 
-        menu1.add(op_abrir);
-        menu1.add(op_nuevo);
-        menu1.add(op_guardar);
-        menu1.add(op_cerrar);
+        menu1.add(op_login);
+        menu1.add(op_registro);
+        menu1.add(op_recuperar);
         
-        menu2.add(op_ayuda);
-        menu2.add(op_soporte);
+        menu2.add(op_alta);
+        menu2.add(op_baja);
+        menu2.add(op_consulta);
         
-        menu3.add(op_login);
-        menu3.add(op_registro);
+        menu3.add(op_crear);
+        menu3.add(op_sistema);
+        menu3.add(op_olvide);
+
         
         barra.add(menu1);
         barra.add(menu2);  
         barra.add(menu3);
         
-        op_login.addActionListener(new ActionListener() {
+        op_login.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent ev) {
               manager("login");
             }
           });
 
         op_registro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
+            public void actionPerformed(ActionEvent ev) { 
               manager("registro");
             }
           });
         
+        op_recuperar.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("recuperar");
+        	}
+        });
+        
+        op_alta.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("alta");
+        	}
+        });
+        
+        
+        op_baja.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("baja");
+        	}
+        });
+        
+        op_crear.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("como_crear");
+        	}
+        });
+        
+        op_consulta.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("tablas");
+        	}
+        });
+        
+        op_sistema.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("como_acceder");
+        	}
+        });
+        
+        op_olvide.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent ev) {
+        		manager("olvide_contra");
+        	}
+        });
         this.setJMenuBar(barra);
         
 
         
-
-        //this.add(this.calcLayout());
-        //getContentPane().add(this.interes());
-        //getContentPane().add(this.paint());
         getContentPane().add(this.login());
-        //getContentPane().add(this.registro()); 
 
         
-        
-        //this.revalidate();
+        this.revalidate();
         this.repaint();
         this.setVisible(true);
         
@@ -218,9 +257,44 @@ public class Ventana extends JFrame {
 			
 		}
 		
+		if(target.equals("recuperar")) {
+			getContentPane().add(this.recuperar());
+			
+		}
+		if(target.equals("alta")) {
+			getContentPane().add(this.alta());
+			
+		}
 		
 		
-				
+		if(target.equals("baja")) {
+			getContentPane().add(this.baja());
+			
+		}
+		
+		if(target.equals("tablas")) {
+			getContentPane().add(this.tablas());
+			
+		}
+		
+		
+		if(target.equals("como_crear")) {
+			getContentPane().add(this.como_crear());
+			
+		}
+		
+		if(target.equals("como_acceder")) {
+			getContentPane().add(this.como_acceder());
+			
+		}
+		
+		
+		if(target.equals("olvide_contra")) {
+			getContentPane().add(this.olvide_contra());
+			
+		}
+	
+	
 		
 		this.repaint();
 		this.revalidate();
@@ -646,6 +720,99 @@ public class Ventana extends JFrame {
 		
 	}
 
+	public JPanel recuperar() {
+		
+		JPanel recuperar = new JPanel();
+		
+		recuperar.setBackground(Color.orange);
+		recuperar.setLayout(null);
+		JLabel lblNewLabel = new JLabel("Recuperar Cuenta");
+		lblNewLabel.setBounds(432, 136, 155, 24);
+		lblNewLabel.setFont(fuenteEtiquetas);
+		recuperar.add(lblNewLabel);
+		
+		
+		return recuperar;
+
+		
+	}
+	
+	public JPanel alta() {
+		
+		JPanel alta = new JPanel();
+		alta.setLayout(null);
+		alta.setBackground(Color.red);
+		JLabel lblNewLabel_1 = new JLabel("Alta de Usuarios");
+		lblNewLabel_1.setBounds(426, 82, 150, 14);
+		lblNewLabel_1.setFont(fuenteEtiquetas);
+		alta.add(lblNewLabel_1);
+		
+		
+		return alta;
+		
+	}
+	
+	public JPanel baja() {
+		
+		JPanel baja = new JPanel();
+		baja.setLayout(null);
+		baja.setBackground(Color.yellow);
+		JLabel lblNewLabel_2 = new JLabel("Baja de Usuarios");
+		lblNewLabel_2.setBounds(403, 65, 149, 24);
+		lblNewLabel_2.setFont(fuenteEtiquetas);
+		baja.add(lblNewLabel_2);
+		
+		
+		return baja;
+		
+	}
+	
+	public JPanel como_crear() {
+		
+		JPanel como_crear = new JPanel();
+		como_crear.setLayout(null);
+		como_crear.setBackground(Color.green);
+		JLabel lblNewLabel_3 = new JLabel("¿Como crear un usuario?");
+		lblNewLabel_3.setFont(fuenteEtiquetas);
+		lblNewLabel_3.setBounds(392, 88, 307, 14);
+		como_crear.add(lblNewLabel_3);
+		
+		
+		return como_crear;
+		
+	}
+	
+	public JPanel como_acceder() {
+		
+		JPanel como_acceder = new JPanel();
+		como_acceder.setBackground(new Color(255, 0, 255));
+		como_acceder.setLayout(null);
+		
+		JLabel lblNewLabel_4 = new JLabel("¿Como acceder al sistema?");
+		lblNewLabel_4.setBounds(391, 62, 312, 14);
+		lblNewLabel_4.setFont(fuenteEtiquetas);
+		como_acceder.add(lblNewLabel_4);
+		
+		
+		return como_acceder;
+		
+	}
+	
+	public JPanel olvide_contra() {
+		
+		JPanel olvide_contra = new JPanel();
+		olvide_contra.setBackground(new Color(0, 255, 255));
+		olvide_contra.setLayout(null);
+		
+		JLabel lblNewLabel_5 = new JLabel("¿Qué pasa si olvidé mi contraseña?");
+		lblNewLabel_5.setBounds(374, 93, 325, 33);
+		lblNewLabel_5.setFont(fuenteEtiquetas);
+		olvide_contra.add(lblNewLabel_5);
+		
+		return olvide_contra;
+		
+	}
+	
 	public JPanel calculadora() {
 		
 		Border borderCalc = new LineBorder(Color.WHITE, 1, true);
