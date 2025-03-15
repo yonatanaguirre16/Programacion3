@@ -42,6 +42,9 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.DefaultComboBoxModel;
 
 
 public class Ventana extends JFrame {
@@ -51,6 +54,12 @@ public class Ventana extends JFrame {
 	Font fuenteLoginTitle = new Font("Dejavu Sans Mono", Font.ITALIC, 30);
 	Font fuenteLoginSub = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 20);
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
+	private JTextField textField;
+	private JTextField textField_1;
+	private JPasswordField passwordField;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 	
 		
 	@Override
@@ -163,10 +172,8 @@ public class Ventana extends JFrame {
         });
         this.setJMenuBar(barra);
         
-
-        
         getContentPane().add(this.login());
-
+   
         
         this.revalidate();
         this.repaint();
@@ -180,7 +187,6 @@ public class Ventana extends JFrame {
 	
 	
 	public JPanel interes() {
-		
 		
 					
         JPanel panelPrincipal = new JPanel(new BorderLayout()); // panel principal
@@ -266,7 +272,7 @@ public class Ventana extends JFrame {
 			
 		}
 		
-		
+
 		if(target.equals("baja")) {
 			getContentPane().add(this.baja());
 			
@@ -293,8 +299,6 @@ public class Ventana extends JFrame {
 			getContentPane().add(this.olvide_contra());
 			
 		}
-	
-	
 		
 		this.repaint();
 		this.revalidate();
@@ -361,9 +365,7 @@ public class Ventana extends JFrame {
 	    }
 		
 	public JPanel login() {
-		
-
-		
+			
 		JPanel login = new JPanel();
 		login.setLocation(0, 0);
 		login.setSize(400, 700); 
@@ -371,12 +373,10 @@ public class Ventana extends JFrame {
 		login.setBackground(Color.BLACK);
 		login.setVisible(true);
 		login.setLayout(null);
-				
-
 		
 		JLabel etiqueta1 = new JLabel("Bienvenido");
 		etiqueta1.setSize(220, 50);
-		etiqueta1.setLocation(80, 26);
+		etiqueta1.setLocation(366, 29);
 		etiqueta1.setForeground(Color.WHITE);
 		etiqueta1.setFont(fuenteLoginTitle);
 		etiqueta1.setHorizontalAlignment(JLabel.CENTER); 
@@ -385,14 +385,14 @@ public class Ventana extends JFrame {
 		
 		
 		JLabel etiqueta2 = new JLabel("Correo ");
-		etiqueta2.setBounds(80, 87, 80, 30);
+		etiqueta2.setBounds(341, 140, 80, 30);
 		etiqueta2.setForeground(Color.WHITE);
 		etiqueta2.setFont(fuenteLoginSub);
 		
 		login.add(etiqueta2);
 		
 		JTextField email = new JTextField();
-		email.setBounds(80, 128, 250, 30); 
+		email.setBounds(341, 181, 250, 30); 
 		// x ,y width height
 		email.setBackground(Color.WHITE);
 		email.setOpaque(true);
@@ -400,13 +400,13 @@ public class Ventana extends JFrame {
 		login.add(email);
 		
 		JLabel etiqueta3 = new JLabel("Contraseña");
-		etiqueta3.setBounds(80, 174, 120, 30); 
+		etiqueta3.setBounds(341, 222, 120, 30); 
 		etiqueta3.setForeground(Color.WHITE);
 		etiqueta3.setFont(fuenteLoginSub);
 		login.add(etiqueta3);
 		
 		JPasswordField pass = new JPasswordField();
-		pass.setBounds(80, 215, 250, 30); 
+		pass.setBounds(341, 263, 250, 30); 
 		pass.setBackground(Color.WHITE);
 		pass.setOpaque(true);
 		pass.setFont(fuenteEtiquetas);
@@ -417,15 +417,6 @@ public class Ventana extends JFrame {
 		recuerdame.setOpaque(false);
 		recuerdame.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		login.add(recuerdame);
-		
-		/*JButton recordarContra = new JButton("¿olvidaste tu contraseña?");
-		recordarContra.setBounds(200, 2140, 240, 30); // junta size y location en uno solo
-	    recordarContra.setOpaque(false);
-		recordarContra.setBorderPainted(false);
-		recordarContra.setFont(new Font("Times New Roman" , Font.BOLD, 15));
-		login.add(recordarContra);*/
-	
-
 		
 		JButton access = new JButton("Acceder");
 		access.addActionListener(new ActionListener() {
@@ -457,7 +448,7 @@ public class Ventana extends JFrame {
 
 			}
 		});
-		access.setBounds(140, 275, 120, 30); 
+		access.setBounds(390, 341, 171, 55); 
 		access.setBackground(Color.WHITE);
 		access.setOpaque(true);
 		access.setFont(fuenteEtiquetas);
@@ -475,7 +466,7 @@ public class Ventana extends JFrame {
 		
 		JLabel registerText = new JLabel("¿No tienes una cuenta? Registrate");
 		registerText.setSize(220, 50);
-		registerText.setLocation(92, 319);
+		registerText.setLocation(366, 474);
 		registerText.setForeground(Color.WHITE);
 		registerText.setFont(fuenteLoginSmaller);
 		registerText.setHorizontalAlignment(JLabel.CENTER); 
@@ -488,7 +479,7 @@ public class Ventana extends JFrame {
 			}
 		});
 		
-		register.setBounds(140, 380, 140, 30); 
+		register.setBounds(404, 535, 140, 30); 
 		register.setBackground(Color.WHITE);
 		register.setOpaque(true);
 		register.setFont(fuenteLoginSub);
@@ -501,7 +492,7 @@ public class Ventana extends JFrame {
 		        
 		    }
 
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    public void mouseExited(java.awt.event.MouseEvent evt) { 
 		        register.setBackground(UIManager.getColor("control"));
 		    }
 		});
@@ -527,7 +518,7 @@ public class Ventana extends JFrame {
 		
 		JLabel etiqueta1 = new JLabel("Registro");
 		etiqueta1.setSize(220, 70);
-		etiqueta1.setLocation(560, 11);
+		etiqueta1.setLocation(342, 11);
 		//etiqueta1.setBackground(Color.black);
 		etiqueta1.setForeground(Color.WHITE);
 		etiqueta1.setOpaque(false); // para backgrounds
@@ -538,7 +529,7 @@ public class Ventana extends JFrame {
 		
 		
 		JLabel etiqueta2 = new JLabel("NOMBRE DE USUARIO: ");
-		etiqueta2.setBounds(474, 74, 410, 30); // junta size y location en uno solo
+		etiqueta2.setBounds(264, 78, 410, 30); // junta size y location en uno solo
 		// x y, w h
 		etiqueta2.setBackground(Color.yellow);
 		etiqueta2.setOpaque(true);
@@ -548,7 +539,7 @@ public class Ventana extends JFrame {
 		registro.add(etiqueta2);
 		
 		JTextField user = new JTextField();
-		user.setBounds(474, 104, 410, 30); // junta size y location en uno solo
+		user.setBounds(264, 109, 410, 30); // junta size y location en uno solo
 		// x ,y width height
 		user.setBackground(Color.WHITE);
 		user.setOpaque(true);
@@ -556,7 +547,7 @@ public class Ventana extends JFrame {
 		registro.add(user);
 		
 		JLabel etiqueta3 = new JLabel("BIO ");
-		etiqueta3.setBounds(621, 145, 120, 30); // junta size y location en uno solo
+		etiqueta3.setBounds(410, 149, 120, 30); // junta size y location en uno solo
 		//etiqueta3.setBackground(Color.WHITE);
 		etiqueta3.setOpaque(false);
 		etiqueta3.setFont(fuenteEtiquetas);
@@ -565,7 +556,7 @@ public class Ventana extends JFrame {
 		registro.add(etiqueta3);
 		
 		JTextField bio = new JTextField();
-		bio.setBounds(474, 172, 410, 90); // junta size y location en uno solo
+		bio.setBounds(264, 183, 410, 90); // junta size y location en uno solo
 		// x ,y width height
 		bio.setBackground(Color.WHITE);
 		bio.setOpaque(true);
@@ -576,7 +567,7 @@ public class Ventana extends JFrame {
 		//bio.setBorder(border);
 		
 		JLabel preferencias = new JLabel("PREFERENCIAS");
-		preferencias.setBounds(580, 284, 220, 30); // junta size y location en uno solo
+		preferencias.setBounds(370, 288, 220, 30); // junta size y location en uno solo
 		//etiqueta3.setBackground(Color.WHITE);
 		preferencias.setOpaque(false);
 		preferencias.setFont(fuenteEtiquetas);
@@ -584,19 +575,19 @@ public class Ventana extends JFrame {
 		registro.add(preferencias);
 		
 		JCheckBox pref1 = new JCheckBox("Dulce");
-		pref1.setBounds(537, 325, 80, 30); // junta size y location en uno solo
+		pref1.setBounds(328, 325, 80, 30); // junta size y location en uno solo
 		pref1.setOpaque(false);
 		pref1.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref1);
 		
 		JCheckBox pref2 = new JCheckBox("Salado");
-		pref2.setBounds(639, 325, 80, 30); // junta size y location en uno solo
+		pref2.setBounds(431, 325, 80, 30); // junta size y location en uno solo
 		pref2.setOpaque(false);
 		pref2.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref2);
 		
 		JCheckBox pref3 = new JCheckBox("Saludable");
-		pref3.setBounds(744, 325, 100, 30); // junta size y location en uno solo
+		pref3.setBounds(533, 325, 100, 30); // junta size y location en uno solo
 		pref3.setOpaque(false);
 		pref3.setFont(new Font("Times New Roman" , Font.BOLD, 15));
 		registro.add(pref3);
@@ -613,13 +604,13 @@ public class Ventana extends JFrame {
 		registro.add(term);
 		
 		JRadioButton terminos1 = new JRadioButton("Acepto los terminos");
-		terminos1.setLocation(518, 358);
+		terminos1.setLocation(315, 358);
 		terminos1.setSize(180, 40);
 		terminos1.setOpaque(false);
 		registro.add(terminos1);
 		
 		JRadioButton terminos2 = new JRadioButton("No acepto los terminos");
-		terminos2.setLocation(707, 358);
+		terminos2.setLocation(503, 358);
 		terminos2.setSize(180, 40);
 		terminos2.setOpaque(false);
 		registro.add(terminos2);
@@ -638,7 +629,7 @@ public class Ventana extends JFrame {
 		String [] preferencias_set = {"Centro", "Camino Real", "Indeco"};
 		
 		JComboBox preferenciass = new JComboBox(preferencias_set);
-		preferenciass.setLocation(474, 405);
+		preferenciass.setLocation(264, 405);
 		preferenciass.setSize(410, 40);
 		registro.add(preferenciass);
 		
@@ -668,7 +659,7 @@ public class Ventana extends JFrame {
 				}
 			}
 		});
-		crear.setBounds(474, 456, 410, 40); 
+		crear.setBounds(264, 476, 410, 40); 
 		crear.setBackground(Color.WHITE);
 		crear.setOpaque(true);
 		crear.setFont(fuenteEtiquetas);
@@ -681,38 +672,11 @@ public class Ventana extends JFrame {
 				manager("login");
 			}
 		});
-		btnNewButton.setBounds(474, 544, 410, 40);
+		btnNewButton.setBounds(264, 552, 410, 40);
 		btnNewButton.setFont(fuenteEtiquetas);
 		registro.add(btnNewButton);
 
-		
-		
-		
-		
-		
-		/*
-		JCheckBox recuerdame = new JCheckBox("Recuerdame");
-		recuerdame.setBounds(140, 2140, 250, 30); // junta size y location en uno solo
-		recuerdame.setOpaque(false);
-		recuerdame.setFont(new Font("Times New Roman" , Font.BOLD, 15));
-		login.add(recuerdame);
-		
-		JButton recordarContra = new JButton("¿olvidaste tu contraseña?");
-		recordarContra.setBounds(200, 2140, 240, 30); // junta size y location en uno solo
-	    recordarContra.setOpaque(false);
-		recordarContra.setBorderPainted(false);
-		recordarContra.setFont(new Font("Times New Roman" , Font.BOLD, 15));
-		login.add(recordarContra);
-		
-		JButton access = new JButton("Acceder");
-		access.setBounds(180, 320, 120, 30); 
-		access.setBackground(Color.WHITE);
-		access.setOpaque(true);
-		access.setFont(fuenteEtiquetas);
-		etiqueta1.setHorizontalAlignment(JButton.CENTER); // alinea las cosas al centro
-		*/
-		//login.add(access);
-		
+	
 		
 		registro.revalidate();
 		
@@ -726,10 +690,46 @@ public class Ventana extends JFrame {
 		
 		recuperar.setBackground(Color.orange);
 		recuperar.setLayout(null);
-		JLabel lblNewLabel = new JLabel("Recuperar Cuenta");
-		lblNewLabel.setBounds(432, 136, 155, 24);
-		lblNewLabel.setFont(fuenteEtiquetas);
+		JLabel lblNewLabel = new JLabel("¿Olvidaste tu cuenta?");
+		lblNewLabel.setBounds(420, 161, 215, 24);
+		lblNewLabel.setFont(fuenteLoginSub);
 		recuperar.add(lblNewLabel);
+		
+		JLabel lblNewLabel_6 = new JLabel("Ingresa tu correo:");
+		lblNewLabel_6.setFont(fuenteLoginSub);
+		lblNewLabel_6.setBounds(409, 214, 243, 24);
+		recuperar.add(lblNewLabel_6);
+		
+		JTextField correoRecuperar = new JTextField();
+		correoRecuperar.setBounds(409, 249, 227, 35);
+		recuperar.add(correoRecuperar);
+		
+		JTextArea txtRecuperar = new JTextArea();
+		txtRecuperar.setLineWrap(true);
+		txtRecuperar.setText("Al presionar Recordar Usuario se le mandará un correo con sus datos");
+		txtRecuperar.setFont(fuenteLoginSmaller);
+		txtRecuperar.setOpaque(false);
+		txtRecuperar.setBounds(352, 363, 364, 35);
+		recuperar.add(txtRecuperar);
+		
+		JButton btnNewButton_1 = new JButton("Recordar Usuario");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { 
+				if(correoRecuperar.getText().equals("")) {
+					correoRecuperar.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					JOptionPane.showMessageDialog(null, "Ingresa algun correo", "Error", JOptionPane.ERROR_MESSAGE);
+
+				}else {
+					correoRecuperar.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					JOptionPane.showMessageDialog(null, "Credenciales reenviadas al correo");
+
+				}
+
+			}
+		});
+		btnNewButton_1.setBounds(409, 305, 227, 47);
+		recuperar.add(btnNewButton_1);
+		btnNewButton_1.setFont(fuenteLoginSub);
 		
 		
 		return recuperar;
@@ -741,11 +741,80 @@ public class Ventana extends JFrame {
 		
 		JPanel alta = new JPanel();
 		alta.setLayout(null);
-		alta.setBackground(Color.red);
+		alta.setBackground(new Color(102, 205, 170));
 		JLabel lblNewLabel_1 = new JLabel("Alta de Usuarios");
-		lblNewLabel_1.setBounds(426, 82, 150, 14);
+		lblNewLabel_1.setBounds(434, 92, 150, 14);
 		lblNewLabel_1.setFont(fuenteEtiquetas);
 		alta.add(lblNewLabel_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(347, 131, 335, 317);
+		alta.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_7 = new JLabel("Ingresa el Correo");
+		lblNewLabel_7.setBounds(79, 37, 127, 14);
+		panel.add(lblNewLabel_7);
+		
+		JTextField correoField = new JTextField();
+		correoField.setBounds(79, 62, 178, 20);
+		panel.add(correoField);
+		
+		JLabel lblNewLabel_8 = new JLabel("Ingresa la Contraseña");
+		lblNewLabel_8.setBounds(79, 93, 178, 14);
+		panel.add(lblNewLabel_8);
+		
+		JPasswordField contraField = new JPasswordField();
+		contraField.setBounds(79, 118, 178, 20);
+		panel.add(contraField);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"La Paz", "Los Cabos", "Mulege", "Tijuana"}));
+		comboBox.setBounds(79, 260, 178, 22);
+		panel.add(comboBox);
+		
+		JLabel lblNewLabel_9 = new JLabel("Ingresa tu Nombre");
+		lblNewLabel_9.setBounds(79, 149, 114, 14);
+		panel.add(lblNewLabel_9);
+		
+		JTextField nombreField = new JTextField();
+		nombreField.setBounds(79, 174, 180, 20);
+		panel.add(nombreField);
+		nombreField.setColumns(10);
+		
+		JLabel lblNewLabel_10 = new JLabel("Ingresa tu Edad");
+		lblNewLabel_10.setBounds(79, 217, 103, 14);
+		panel.add(lblNewLabel_10);
+		
+		JTextField edadField = new JTextField();
+		edadField.setBounds(210, 214, 47, 20);
+		panel.add(edadField);
+		
+		JButton btnNewButton_2 = new JButton("Agregar Usuario");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			String passText = new String(contraField.getPassword());
+
+			public void actionPerformed(ActionEvent e) {
+				if(correoField.getText().equals("") && passText.equals("") && nombreField.getText().equals("") && edadField.getText().equals("")) {
+					correoField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					contraField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					nombreField.setBorder(BorderFactory.createLineBorder(Color.red, 3)); 
+					edadField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					JOptionPane.showMessageDialog(null,  "Llena los campos que se piden", "Error", JOptionPane.ERROR_MESSAGE);
+					
+				}else {
+					correoField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					contraField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					nombreField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					edadField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					JOptionPane.showMessageDialog(null,  "Usuario Agregado Correctamente");
+
+				}
+			}
+		});
+		btnNewButton_2.setBounds(458, 480, 141, 54);
+		alta.add(btnNewButton_2);
 		
 		
 		return alta;
@@ -756,11 +825,42 @@ public class Ventana extends JFrame {
 		
 		JPanel baja = new JPanel();
 		baja.setLayout(null);
-		baja.setBackground(Color.yellow);
+		baja.setBackground(new Color(160, 82, 45));
 		JLabel lblNewLabel_2 = new JLabel("Baja de Usuarios");
-		lblNewLabel_2.setBounds(403, 65, 149, 24);
-		lblNewLabel_2.setFont(fuenteEtiquetas);
+		lblNewLabel_2.setBounds(396, 69, 194, 24);
+		lblNewLabel_2.setFont(fuenteLoginSub);
 		baja.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_11 = new JLabel("Ingresa el correo");
+		lblNewLabel_11.setFont(fuenteLoginSub);
+		lblNewLabel_11.setBounds(388, 146, 218, 24);
+		baja.add(lblNewLabel_11);
+		
+		JTextField bajaField = new JTextField();
+		bajaField.setBounds(388, 181, 202, 20);
+		baja.add(bajaField);
+		
+		JButton btnNewButton_3 = new JButton("Dar de Baja");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(bajaField.getText().equals("")) {
+					bajaField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					JOptionPane.showMessageDialog(null,  "Ingresa un correo", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+				if(bajaField.getText().equals("yonatan123@gmail")) {
+					bajaField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					JOptionPane.showMessageDialog(null,  "Usuario Eliminado Correctamente");
+				}else {
+					bajaField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					JOptionPane.showMessageDialog(null,  "El Usuario no existe", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				}
+
+			}
+		});
+		btnNewButton_3.setFont(fuenteLoginSub);
+		btnNewButton_3.setBounds(409, 235, 169, 41);
+		baja.add(btnNewButton_3);
 		
 		
 		return baja;
@@ -771,11 +871,31 @@ public class Ventana extends JFrame {
 		
 		JPanel como_crear = new JPanel();
 		como_crear.setLayout(null);
-		como_crear.setBackground(Color.green);
+		como_crear.setBackground(new Color(0, 153, 102));
 		JLabel lblNewLabel_3 = new JLabel("¿Como crear un usuario?");
 		lblNewLabel_3.setFont(fuenteEtiquetas);
-		lblNewLabel_3.setBounds(392, 88, 307, 14);
+		lblNewLabel_3.setBounds(387, 33, 248, 34);
 		como_crear.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_12 = new JLabel("1- En el menú superior, selecciona la opción Alta:");
+		lblNewLabel_12.setBounds(10, 106, 426, 24);
+		lblNewLabel_12.setFont(fuenteEtiquetas);
+		como_crear.add(lblNewLabel_12);
+		
+		JLabel lblNewLabel_13 = new JLabel("");
+		lblNewLabel_13.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/crear1.png")));
+		lblNewLabel_13.setBounds(99, 141, 192, 151);
+		como_crear.add(lblNewLabel_13);
+		
+		JLabel lblNewLabel_14 = new JLabel("2- Llena todos los campos y presiona Agregar Usuario:");
+		lblNewLabel_14.setBounds(490, 101, 470, 34);
+		lblNewLabel_14.setFont(fuenteEtiquetas);
+		como_crear.add(lblNewLabel_14);
+		
+		JLabel lblNewLabel_15 = new JLabel("");
+		lblNewLabel_15.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/crear2.png")));
+		lblNewLabel_15.setBounds(500, 141, 426, 467);
+		como_crear.add(lblNewLabel_15);
 		
 		
 		return como_crear;
@@ -785,13 +905,28 @@ public class Ventana extends JFrame {
 	public JPanel como_acceder() {
 		
 		JPanel como_acceder = new JPanel();
-		como_acceder.setBackground(new Color(255, 0, 255));
+		como_acceder.setBackground(new Color(0, 102, 204));
 		como_acceder.setLayout(null);
 		
 		JLabel lblNewLabel_4 = new JLabel("¿Como acceder al sistema?");
-		lblNewLabel_4.setBounds(391, 62, 312, 14);
+		lblNewLabel_4.setBounds(342, 11, 312, 14);
 		lblNewLabel_4.setFont(fuenteEtiquetas);
 		como_acceder.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_16 = new JLabel("Ingresa con tus credenciales de Usuario o Registrate si no tienes cuenta");
+		lblNewLabel_16.setBounds(37, 49, 385, 14);
+		lblNewLabel_16.setFont(fuenteLoginSmaller);
+		como_acceder.add(lblNewLabel_16);
+		
+		JLabel lblNewLabel_17 = new JLabel("");
+		lblNewLabel_17.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/acceder1.png")));
+		lblNewLabel_17.setBounds(10, 74, 397, 547);
+		como_acceder.add(lblNewLabel_17);
+		
+		JLabel lblNewLabel_18 = new JLabel("");
+		lblNewLabel_18.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/acceder2.png")));
+		lblNewLabel_18.setBounds(445, 47, 517, 574);
+		como_acceder.add(lblNewLabel_18);
 		
 		
 		return como_acceder;
@@ -801,13 +936,37 @@ public class Ventana extends JFrame {
 	public JPanel olvide_contra() {
 		
 		JPanel olvide_contra = new JPanel();
-		olvide_contra.setBackground(new Color(0, 255, 255));
+		olvide_contra.setBackground(new Color(102, 153, 255));
 		olvide_contra.setLayout(null);
 		
 		JLabel lblNewLabel_5 = new JLabel("¿Qué pasa si olvidé mi contraseña?");
-		lblNewLabel_5.setBounds(374, 93, 325, 33);
+		lblNewLabel_5.setBounds(330, 34, 325, 48);
 		lblNewLabel_5.setFont(fuenteEtiquetas);
 		olvide_contra.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_20 = new JLabel("");
+		lblNewLabel_20.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/olvide1.png")));
+		lblNewLabel_20.setBounds(128, 195, 248, 191);
+		olvide_contra.add(lblNewLabel_20);
+		
+		JLabel lblNewLabel_21 = new JLabel("2- Ingresa un correo, y recibirás tus credenciales");
+		lblNewLabel_21.setBounds(489, 135, 415, 28);
+		lblNewLabel_21.setFont(fuenteEtiquetas);
+		olvide_contra.add(lblNewLabel_21);
+		
+		JLabel lblNewLabel_22 = new JLabel("");
+		lblNewLabel_22.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/olvide2.png")));
+		lblNewLabel_22.setBounds(471, 174, 415, 266);
+		olvide_contra.add(lblNewLabel_22);
+		
+		JTextArea txtrDesdeEl = new JTextArea();
+		txtrDesdeEl.setOpaque(false);
+		txtrDesdeEl.setWrapStyleWord(true);
+		txtrDesdeEl.setFont(fuenteEtiquetas);
+		txtrDesdeEl.setLineWrap(true);
+		txtrDesdeEl.setText("1- Desde el menú superior, presiona en Recuperación de Cuenta");
+		txtrDesdeEl.setBounds(84, 135, 316, 83);
+		olvide_contra.add(txtrDesdeEl);
 		
 		return olvide_contra;
 		
@@ -1016,7 +1175,7 @@ public class Ventana extends JFrame {
 		//usuarios.setHorizontalAlignment(JTextArea.CENTER_ALIGNMENT);
 		tablas.add(usuarios);
 
-		JButton exportar = new JButton("Exportar");
+		JButton exportar = new JButton("Exportar"); 
 		exportar.setBounds(600, 160, 100, 30); 
 		exportar.setOpaque(false);
 		exportar.setBorderPainted(false);
