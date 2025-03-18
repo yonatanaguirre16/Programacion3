@@ -45,6 +45,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Ventana extends JFrame {
@@ -60,6 +62,12 @@ public class Ventana extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTable table;
+	private JTextField textField_9;
 	
 		
 	@Override
@@ -78,10 +86,11 @@ public class Ventana extends JFrame {
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 700);
+        this.setSize(683, 699);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
+        /*
         JMenuBar barra = new JMenuBar();
         JMenu menu1 = new JMenu("Cuenta");
         JMenu menu2 = new JMenu("Usuarios");
@@ -171,8 +180,18 @@ public class Ventana extends JFrame {
         	}
         });
         this.setJMenuBar(barra);
+        */
+        getContentPane().setLayout(null);
         
-        getContentPane().add(this.login());
+        //getContentPane().add(this.login());
+        
+        getContentPane().add(this.examen2());
+        
+        JPanel panel_4 = new JPanel();
+        panel_4.setBounds(0, 633, 667, 30);
+        getContentPane().add(panel_4);
+        
+        	panel_4.setBackground(Color.decode("#006699"));
    
         
         this.revalidate();
@@ -1246,6 +1265,211 @@ public class Ventana extends JFrame {
 		return tablas;
 		
 		
+		
+	}
+
+
+	public JPanel examen2() {
+		
+		JPanel examen = new JPanel();
+		examen.setBounds(0, 0, 667, 638);
+		examen.setBackground(Color.WHITE);
+		examen.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 667, 86);
+		panel.setBackground(Color.decode("#006699"));
+		examen.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_19 = new JLabel("Factura en Java - NetBeans - ArrayList y POO");
+		lblNewLabel_19.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_19.setForeground(Color.WHITE);
+		lblNewLabel_19.setBounds(28, 23, 369, 21);
+		panel.add(lblNewLabel_19);
+		
+		JLabel lblNewLabel_23 = new JLabel("[Sin Base de Datos]");
+		lblNewLabel_23.setForeground(Color.WHITE);
+		lblNewLabel_23.setBounds(28, 61, 144, 14);
+		panel.add(lblNewLabel_23);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBorder(new TitledBorder(null, "Datos del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(21, 97, 619, 119);
+		examen.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_24 = new JLabel("Documento:");
+		lblNewLabel_24.setBounds(20, 27, 81, 14);
+		panel_1.add(lblNewLabel_24);
+		
+		JLabel lblNewLabel_25 = new JLabel("Dirección: ");
+		lblNewLabel_25.setBounds(20, 72, 81, 14);
+		panel_1.add(lblNewLabel_25);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(111, 24, 144, 20);
+		panel_1.add(textField_5);
+		textField_5.setColumns(10);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(111, 69, 144, 20);
+		panel_1.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JLabel lblNewLabel_26 = new JLabel("Nombres:");
+		lblNewLabel_26.setBounds(296, 27, 62, 14);
+		panel_1.add(lblNewLabel_26);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(377, 27, 157, 20);
+		panel_1.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JLabel lblNewLabel_27 = new JLabel("Teléfono:");
+		lblNewLabel_27.setBounds(296, 72, 62, 14);
+		panel_1.add(lblNewLabel_27);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(377, 69, 157, 20);
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBorder(new TitledBorder(null, "Datos de Factora", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(21, 216, 619, 78);
+		examen.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblNewLabel_28 = new JLabel("No. Factura:");
+		lblNewLabel_28.setBounds(10, 24, 101, 14);
+		panel_2.add(lblNewLabel_28);
+		
+		JLabel lblNewLabel_29 = new JLabel("1");
+		lblNewLabel_29.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_29.setBounds(83, 24, 46, 14);
+		panel_2.add(lblNewLabel_29);
+		
+		JLabel lblNewLabel_30 = new JLabel("Fecha:");
+		lblNewLabel_30.setBounds(295, 24, 46, 14);
+		panel_2.add(lblNewLabel_30);
+		
+		JLabel lblNewLabel_31 = new JLabel("2021/50/21");
+		lblNewLabel_31.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_31.setBounds(361, 24, 79, 14);
+		panel_2.add(lblNewLabel_31);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBounds(21, 296, 619, 41);
+		examen.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JButton btnNewButton_4 = new JButton("Ver Listado de Productos");
+		btnNewButton_4.setBackground(Color.WHITE);
+		btnNewButton_4.setOpaque(false); 
+		btnNewButton_4.setBorder(null);
+		btnNewButton_4.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/lista.png")));
+		btnNewButton_4.setBounds(22, 11, 181, 23);
+		panel_3.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("Agregar"); 
+		btnNewButton_5.setBackground(Color.WHITE);
+		btnNewButton_5.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/agregar.png")));
+		btnNewButton_5.setBounds(412, 11, 98, 23);
+		btnNewButton_5.setOpaque(false);
+		btnNewButton_5.setBorder(null);
+		panel_3.add(btnNewButton_5);
+		
+		JButton btnNewButton_6 = new JButton("Eliminar");
+		btnNewButton_6.setBackground(Color.WHITE);
+		btnNewButton_6.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/eliminar.png")));
+		btnNewButton_6.setOpaque(false);
+		btnNewButton_6.setBorder(null);
+		btnNewButton_6.setBounds(520, 11, 89, 23);
+		panel_3.add(btnNewButton_6);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 348, 619, 92);
+		examen.add(scrollPane);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Agua", "2", "500", "1000.0"},
+				{"Cereal", "5", "1000", "5000.0"},
+				{"Leche", "2", "300", "600.0"},
+			},
+			new String[] {
+				"Producto", "Cantidad", "Valor", "Sub Total"
+			}
+		));
+		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_35 = new JLabel("SubTotal:");
+		lblNewLabel_35.setBounds(38, 451, 61, 14);
+		examen.add(lblNewLabel_35);
+		
+		JLabel lblNewLabel_32 = new JLabel("% Descuento:");
+		lblNewLabel_32.setBounds(21, 491, 78, 14);
+		examen.add(lblNewLabel_32);
+		
+		JLabel lblNewLabel_33 = new JLabel("IVA 19%:");
+		lblNewLabel_33.setBounds(36, 528, 63, 14);
+		examen.add(lblNewLabel_33);
+		
+		JLabel lblNewLabel_34 = new JLabel("Total Factura:");
+		lblNewLabel_34.setBounds(21, 569, 78, 14);
+		examen.add(lblNewLabel_34);
+		
+		textField_9 = new JTextField();
+		textField_9.setBounds(109, 488, 54, 20);
+		examen.add(textField_9);
+		textField_9.setColumns(10);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("");
+		chckbxNewCheckBox.setBackground(Color.WHITE);
+		chckbxNewCheckBox.setSelected(true);
+		chckbxNewCheckBox.setBounds(179, 488, 29, 23);
+		examen.add(chckbxNewCheckBox);
+		
+		JLabel lblNewLabel_36 = new JLabel("Valor descontado:");
+		lblNewLabel_36.setBounds(230, 491, 107, 14);
+		examen.add(lblNewLabel_36);
+		
+		JLabel lblNewLabel_37 = new JLabel("330.0");
+		lblNewLabel_37.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_37.setBounds(347, 491, 46, 14);
+		examen.add(lblNewLabel_37);
+		
+		JLabel lblNewLabel_38 = new JLabel("6600.0");
+		lblNewLabel_38.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_38.setBounds(109, 451, 46, 14);
+		examen.add(lblNewLabel_38);
+		
+		JLabel lblNewLabel_39 = new JLabel("7524.0");
+		lblNewLabel_39.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_39.setBounds(109, 569, 46, 14);
+		examen.add(lblNewLabel_39);
+		
+		JLabel lblNewLabel_40 = new JLabel("1254.0");
+		lblNewLabel_40.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_40.setBounds(109, 528, 46, 14);
+		examen.add(lblNewLabel_40);
+		
+		JButton btnNewButton_7 = new JButton("Finalizar Factura");
+		btnNewButton_7.setBounds(413, 604, 129, 23);
+		examen.add(btnNewButton_7);
+		
+		JButton btnNewButton_8 = new JButton("Limpiar");
+		btnNewButton_8.setBounds(551, 604, 89, 23);
+		examen.add(btnNewButton_8);
+		
+		
+		return examen;
 		
 	}
 }
