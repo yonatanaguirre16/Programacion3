@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -89,112 +90,12 @@ public class Ventana extends JFrame {
         this.setSize(683, 699);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-
-        /*
-        JMenuBar barra = new JMenuBar();
-        JMenu menu1 = new JMenu("Cuenta");
-        JMenu menu2 = new JMenu("Usuarios");
-        JMenu menu3 = new JMenu("Ayuda");
         
-        JMenuItem op_login = new JMenuItem("Login");
-        JMenuItem op_registro = new JMenuItem("Registro");
-        JMenuItem op_recuperar = new JMenuItem("Recuperacion de cuenta");
-        JMenuItem op_alta = new JMenuItem("Alta");
-        JMenuItem op_baja = new JMenuItem("Baja");
-        JMenuItem op_consulta = new JMenuItem("Consultar");
-        JMenuItem op_crear = new JMenuItem("¿Cómo crear un usuario?");
-        JMenuItem op_sistema = new JMenuItem("¿Cómo acceder al sistema?");
-        JMenuItem op_olvide = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
+        getContentPane().add(this.listenerBotones());
+        
 
         
 
-        menu1.add(op_login);
-        menu1.add(op_registro);
-        menu1.add(op_recuperar);
-        
-        menu2.add(op_alta);
-        menu2.add(op_baja);
-        menu2.add(op_consulta);
-        
-        menu3.add(op_crear);
-        menu3.add(op_sistema);
-        menu3.add(op_olvide);
-
-        
-        barra.add(menu1);
-        barra.add(menu2);  
-        barra.add(menu3);
-        
-        op_login.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent ev) {
-              manager("login");
-            }
-          });
-
-        op_registro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) { 
-              manager("registro");
-            }
-          });
-        
-        op_recuperar.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("recuperar");
-        	}
-        });
-        
-        op_alta.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("alta");
-        	}
-        });
-        
-        
-        op_baja.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("baja");
-        	}
-        });
-        
-        op_crear.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("como_crear");
-        	}
-        });
-        
-        op_consulta.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("tablas");
-        	}
-        });
-        
-        op_sistema.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("como_acceder");
-        	}
-        });
-        
-        op_olvide.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent ev) {
-        		manager("olvide_contra");
-        	}
-        });
-        this.setJMenuBar(barra);
-        */
-        getContentPane().setLayout(null);
-        
-        //getContentPane().add(this.login());
-        
-        getContentPane().add(this.examen2());
-        
-        JPanel panel_4 = new JPanel();
-        panel_4.setBounds(0, 633, 667, 30);
-        getContentPane().add(panel_4);
-        
-        	panel_4.setBackground(Color.decode("#006699"));
-   
-        
-        this.revalidate();
         this.repaint();
         this.setVisible(true);
         
@@ -1268,7 +1169,6 @@ public class Ventana extends JFrame {
 		
 	}
 
-
 	public JPanel examen2() {
 		
 		JPanel examen = new JPanel();
@@ -1472,6 +1372,44 @@ public class Ventana extends JFrame {
 		return examen;
 		
 	}
+
+	
+	public JPanel listenerBotones() {
+		
+		JPanel botones = new JPanel();
+		botones.setBackground(Color.green);
+		
+        JButton btnNewButton_9 = new JButton("Click me!!!!");
+        btnNewButton_9.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		JButton randomBtn = new JButton("random");
+        		int r = (int) (Math.random() * 250);
+        		int g = (int) (Math.random() * 250);
+        		int b = (int) (Math.random() * 250);
+
+        		randomBtn.setBackground(new Color(r,g,b));
+        		
+                int x = (int) (Math.random() * 400); 
+                int y = (int) (Math.random() * 400); 
+   
+                int width = (int) (Math.random() * 200); 
+                int height = (int) (Math.random() * 200); 
+                
+                randomBtn.setLocation(x, y);
+                randomBtn.setSize(width, height);
+                botones.add(randomBtn); 
+
+                botones.repaint();
+        		
+        	}
+        });
+        btnNewButton_9.setBounds(284, 455, 150, 30);
+        getContentPane().add(btnNewButton_9);
+	
+	
+	return botones;
+	
+}
 }
 
 
