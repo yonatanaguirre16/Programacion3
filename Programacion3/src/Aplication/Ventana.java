@@ -1380,7 +1380,10 @@ public class Ventana extends JFrame {
 		botones.setBackground(Color.green);
 		
         JButton btnNewButton_9 = new JButton("Click me!!!!");
+        
+        
         btnNewButton_9.addActionListener(new ActionListener() {
+        	
         	public void actionPerformed(ActionEvent e) {
         		JButton randomBtn = new JButton("random");
         		int r = (int) (Math.random() * 250);
@@ -1400,6 +1403,18 @@ public class Ventana extends JFrame {
                 botones.add(randomBtn); 
 
                 botones.repaint();
+                 
+        		randomBtn.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane.showMessageDialog(btnNewButton_9, randomBtn.getBackground());
+						// TODO Auto-generated method stub
+						
+					}
+        		});
+        	
+        
+
         		
         	}
         });
