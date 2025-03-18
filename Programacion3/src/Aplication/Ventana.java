@@ -1404,14 +1404,17 @@ public class Ventana extends JFrame {
 
                 botones.repaint();
                  
-        		randomBtn.addActionListener(new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(btnNewButton_9, randomBtn.getBackground());
-						// TODO Auto-generated method stub
-						
-					}
-        		});
+                randomBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int resp = JOptionPane.showConfirmDialog(randomBtn, "Eliminar?", "DELETEEE", JOptionPane.YES_NO_OPTION);
+
+                        if (resp == JOptionPane.YES_OPTION) {
+                            botones.remove(randomBtn); 
+
+                            botones.repaint();
+                        }
+                    }
+                });
         	
         
 
