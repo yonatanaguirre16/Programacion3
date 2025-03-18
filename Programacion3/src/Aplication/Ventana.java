@@ -1408,7 +1408,7 @@ public class Ventana extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int resp = JOptionPane.showConfirmDialog(randomBtn, "Eliminar?", "DELETEEE", JOptionPane.YES_NO_OPTION);
 
-                        if (resp == JOptionPane.YES_OPTION) {
+                        if (resp == JOptionPane.YES_OPTION) { // yes = 0, no = 1, if yes = 1 se borra el boton else no hace nada
                             botones.remove(randomBtn); 
 
                             botones.repaint();
