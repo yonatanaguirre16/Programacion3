@@ -57,6 +57,9 @@ public class Ventana extends JFrame {
 	Font fuenteLoginTitle = new Font("Dejavu Sans Mono", Font.ITALIC, 30);
 	Font fuenteLoginSub = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 20);
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
+	JButton boton1;
+	JButton boton2;
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	private JPasswordField passwordField;
@@ -69,7 +72,16 @@ public class Ventana extends JFrame {
 	private JTextField textField_8;
 	private JTable table;
 	private JTextField textField_9;
-	
+	boolean turno = false;
+	int contador=0;
+	JButton boton3;
+	JButton boton9;
+	JButton boton8;
+	JButton boton7;
+	JButton boton6;
+	JButton boton5;
+	JButton boton4;
+
 		
 	@Override
 	public Image getIconImage() { // agregar el icono personalizado
@@ -87,13 +99,12 @@ public class Ventana extends JFrame {
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(683, 699);
+        this.setSize(579, 499);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
-        getContentPane().add(this.listenerBotones());
-        
-
+        //getContentPane().add(this.listenerBotones());
+        getContentPane().add(this.gato());
         
 
         this.repaint();
@@ -1428,6 +1439,245 @@ public class Ventana extends JFrame {
 	return botones;
 	
 }
+
+	
+	
+	public JPanel gato() {
+		
+		
+		JPanel juegoGato = new JPanel();
+		juegoGato.setLayout(new GridLayout(3, 3, 0, 0));
+		
+		boton1 = new JButton("");
+		boton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+		        String player = turno ? "X" : "O";
+		        if (boton1.getText().isEmpty()) { 
+		            boton1.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+			}
+		});
+		juegoGato.add(boton1); 
+		
+		boton2 = new JButton("");
+		boton2.addActionListener(new ActionListener() {   
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton2.getText().isEmpty()) { 
+		        	boton2.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+			
+		});
+		juegoGato.add(boton2);
+		
+		boton3 = new JButton("");
+		boton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton3.getText().isEmpty()) { 
+		        	boton3.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton3);
+		
+		boton4 = new JButton("");
+		boton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton4.getText().isEmpty()) { 
+		        	boton4.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton4);
+		
+		boton5 = new JButton("");
+		boton5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton5.getText().isEmpty()) { 
+		        	boton5.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton5);
+		
+		boton6 = new JButton("");
+		boton6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton6.getText().isEmpty()) { 
+		        	boton6.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton6);
+		
+		boton7 = new JButton("");
+		boton7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+		        String player = turno ? "X" : "O";
+		        if (boton7.getText().isEmpty()) { 
+		        	boton7.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton7);
+		
+		boton8 = new JButton("");
+		boton8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton8.getText().isEmpty()) { 
+		        	boton8.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton8);
+		
+		boton9 = new JButton("");
+		boton9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador++;
+
+		        String player = turno ? "X" : "O";
+		        if (boton9.getText().isEmpty()) { 
+		        	boton9.setText(player); 
+		            turno = !turno; 
+		        }
+		        verificar();
+
+			}
+		});
+		juegoGato.add(boton9);
+		
+		
+		return juegoGato;
+		
+	}
+	
+	public void verificar() {
+		if(contador == 9) {
+			JOptionPane.showMessageDialog(null, "EMPATE");
+			System.exit(ABORT);
+
+		}
+		// HORIZONTAL FILA 1
+		if(boton1.getText().equals("X") && boton2.getText().equals("X") && boton3.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+		}else if(boton1.getText().equals("O") && boton2.getText().equals("O") && boton3.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O"); 
+			System.exit(ABORT);
+
+		// HORIZONTAL FILA 2
+		}else if(boton4.getText().equals("X") && boton5.getText().equals("X") && boton6.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton4.getText().equals("O") && boton5.getText().equals("O") && boton6.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			System.exit(ABORT);
+
+		// HORIZONTAL FILA 3
+		}else if(boton7.getText().equals("X") && boton8.getText().equals("X") && boton9.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton7.getText().equals("O") && boton8.getText().equals("O") && boton9.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			System.exit(ABORT);
+
+		//VERTICAL COLUMNA 1
+		}else if(boton1.getText().equals("X") && boton4.getText().equals("X") && boton7.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton1.getText().equals("O") && boton4.getText().equals("O") && boton7.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			System.exit(ABORT);
+
+		//VERTICAL COLUMNA 2
+		}else if(boton2.getText().equals("X") && boton5.getText().equals("X") && boton3.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton2.getText().equals("O") && boton5.getText().equals("O") && boton3.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			System.exit(ABORT);
+
+	    //VERTICAL COLUMNA 3
+		}else if(boton3.getText().equals("X") && boton6.getText().equals("X") && boton9.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton3.getText().equals("O") && boton6.getText().equals("O") && boton9.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			System.exit(ABORT);
+
+		//DIAGONAL DERECHA
+		}else if(boton1.getText().equals("X") && boton5.getText().equals("X") && boton9.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton1.getText().equals("O") && boton5.getText().equals("O") && boton9.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			System.exit(ABORT);
+
+		//DIAGONAL IZQUIERDA
+		}else if(boton3.getText().equals("X") && boton5.getText().equals("X") && boton7.getText().equals("X")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO X");
+			System.exit(ABORT);
+
+		}else if(boton3.getText().equals("O") && boton5.getText().equals("O") && boton7.getText().equals("O")) { 
+			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+		}
+
+	}
 }
+
+
+
+
+
 
 
