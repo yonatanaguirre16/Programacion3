@@ -57,6 +57,8 @@ public class Ventana extends JFrame {
 	Font fuenteLoginTitle = new Font("Dejavu Sans Mono", Font.ITALIC, 30);
 	Font fuenteLoginSub = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 20);
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
+	Font fuenteBoton = new Font("Tahoma", Font.CENTER_BASELINE, 0);
+
 	JButton boton1;
 	JButton boton2;
 	
@@ -74,6 +76,7 @@ public class Ventana extends JFrame {
 	private JTextField textField_9;
 	boolean turno = false;
 	int contador=0;
+	int contador_X=0, contador_O=0;
 	JButton boton3;
 	JButton boton9;
 	JButton boton8;
@@ -81,6 +84,14 @@ public class Ventana extends JFrame {
 	JButton boton6;
 	JButton boton5;
 	JButton boton4;
+	private JPanel panel_4;
+	private JLabel lblNewLabel_41;
+	private JLabel contadorX;
+	private JLabel lblNewLabel_43;
+	private JLabel contadorO;
+	private JPanel panel_5;
+	private JButton btnNewButton_10;
+	private JLabel lblNewLabel_42;
 
 		
 	@Override
@@ -94,17 +105,20 @@ public class Ventana extends JFrame {
 
 
 	public Ventana(String title)  {
+		getContentPane().setBackground(new Color(244, 164, 96));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Ventana.class.getResource("/Aplication/sonicicon.png")));
 
 		this.setTitle(title);
 		this.setBackground(Color.RED);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(579, 499);
+        this.setSize(579, 699);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
         //getContentPane().add(this.listenerBotones());
         getContentPane().add(this.gato());
+        
+   
         
 
         this.repaint();
@@ -1446,31 +1460,96 @@ public class Ventana extends JFrame {
 		
 		
 		JPanel juegoGato = new JPanel();
+		juegoGato.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		juegoGato.setLayout(new GridLayout(3, 3, 0, 0));
 		
-		boton1 = new JButton("");
+
+	    panel_4 = new JPanel();
+        panel_4.setBackground(new Color(255, 127, 80));
+        getContentPane().add(panel_4, BorderLayout.NORTH);
+        FlowLayout fl_panel_4 = new FlowLayout(FlowLayout.CENTER, 5, 5);
+        panel_4.setLayout(fl_panel_4);
+        
+        lblNewLabel_41 = new JLabel("X");
+        lblNewLabel_41.setHorizontalAlignment(SwingConstants.LEFT);
+        lblNewLabel_41.setVerticalAlignment(SwingConstants.TOP);
+        lblNewLabel_41.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        panel_4.add(lblNewLabel_41);
+        
+        contadorX = new JLabel("0");
+        contadorX.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        panel_4.add(contadorX);
+        
+        lblNewLabel_42 = new JLabel("                                                    ");
+        lblNewLabel_42.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        panel_4.add(lblNewLabel_42);
+        
+        lblNewLabel_43 = new JLabel("O");
+        lblNewLabel_43.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        panel_4.add(lblNewLabel_43);
+        
+        contadorO = new JLabel("0");
+        contadorO.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        panel_4.add(contadorO);
+        
+        panel_5 = new JPanel();
+        getContentPane().add(panel_5, BorderLayout.SOUTH);
+        
+        btnNewButton_10 = new JButton("Reiniciar");
+        btnNewButton_10.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        btnNewButton_10.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		limpiarTablero();
+        		contador_X=0;
+        		contador_O=0;
+        		contador=0;
+        		contadorX.setText("0");
+        		contadorO.setText("0");
+
+        	}
+        });
+        panel_5.add(btnNewButton_10);
+		
+		boton1 = new JButton(""); 
+		boton1.setFont(fuenteBoton);
 		boton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 		        String player = turno ? "X" : "O";
 		        if (boton1.getText().isEmpty()) { 
-		            boton1.setText(player); 
+		        	if(player.equals("X")) {
+		        		boton1.setText(player);
+			            boton1.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton1.setText(player);
+			            boton1.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
 		            turno = !turno; 
 		        }
 		        verificar();
+		        
 			}
 		});
 		juegoGato.add(boton1); 
 		
 		boton2 = new JButton("");
+		boton2.setFont(fuenteBoton);
 		boton2.addActionListener(new ActionListener() {   
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton2.getText().isEmpty()) { 
-		        	boton2.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton2.setText(player);
+			            boton2.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton2.setText(player);
+			            boton2.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1480,14 +1559,22 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton2);
 		
 		boton3 = new JButton("");
+		boton3.setFont(fuenteBoton);
 		boton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton3.getText().isEmpty()) { 
-		        	boton3.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton3.setText(player);
+		        		boton3.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton3.setText(player);
+		        		boton3.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1496,14 +1583,22 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton3);
 		
 		boton4 = new JButton("");
+		boton4.setFont(fuenteBoton);
 		boton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton4.getText().isEmpty()) { 
-		        	boton4.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton4.setText(player);
+		        		boton4.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton4.setText(player);
+		        		boton4.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1512,14 +1607,22 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton4);
 		
 		boton5 = new JButton("");
+		boton5.setFont(fuenteBoton);
 		boton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton5.getText().isEmpty()) { 
-		        	boton5.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton5.setText(player);
+		        		boton5.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton5.setText(player);
+		        		boton5.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1528,14 +1631,22 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton5);
 		
 		boton6 = new JButton("");
+		boton6.setFont(fuenteBoton);
 		boton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton6.getText().isEmpty()) { 
-		        	boton6.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton6.setText(player);
+		        		boton6.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton6.setText(player);
+		        		boton6.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1544,13 +1655,21 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton6);
 		
 		boton7 = new JButton("");
+		boton7.setFont(fuenteBoton);
 		boton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 		        String player = turno ? "X" : "O";
 		        if (boton7.getText().isEmpty()) { 
-		        	boton7.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton7.setText(player);
+		        		boton7.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton7.setText(player);
+		        		boton7.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1559,30 +1678,47 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton7);
 		
 		boton8 = new JButton("");
+		boton8.setFont(fuenteBoton);
 		boton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton8.getText().isEmpty()) { 
-		        	boton8.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton8.setText(player);
+		        		boton8.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton8.setText(player);
+		        		boton8.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
-			}
+			}  
 		});
 		juegoGato.add(boton8);
 		
 		boton9 = new JButton("");
+		boton9.setFont(fuenteBoton);
 		boton9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 
 		        String player = turno ? "X" : "O";
 		        if (boton9.getText().isEmpty()) { 
-		        	boton9.setText(player); 
-		            turno = !turno; 
+		        	if(player.equals("X")) {
+		        		boton9.setText(player);
+		        		
+		        		boton9.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
+		        	}else if(player.equals("O")) {
+		        		boton9.setText(player);
+		        		boton9.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+
+		        	}
+		        	turno = !turno; 
 		        }
 		        verificar();
 
@@ -1591,85 +1727,162 @@ public class Ventana extends JFrame {
 		juegoGato.add(boton9);
 		
 		
+		
 		return juegoGato;
+		 
+	}
+	
+	public void limpiarTablero() {
+
+		boton1.setText("");
+		boton1.setIcon(null);
+		boton2.setText("");
+		boton2.setIcon(null);
+		boton3.setText("");
+		boton3.setIcon(null);
+		boton4.setText("");
+		boton4.setIcon(null);
+		boton5.setText("");
+		boton5.setIcon(null);
+		boton6.setText("");
+		boton6.setIcon(null);
+		boton7.setText("");
+		boton7.setIcon(null);
+		boton8.setText("");
+		boton8.setIcon(null);
+		boton9.setText("");
+		boton9.setIcon(null);
+		this.repaint();
+
 		
 	}
 	
 	public void verificar() {
 		if(contador == 9) {
-			JOptionPane.showMessageDialog(null, "EMPATE");
-			System.exit(ABORT);
+			JOptionPane.showMessageDialog(null, "EMPATE"); 
 
 		}
+		
 		// HORIZONTAL FILA 1
 		if(boton1.getText().equals("X") && boton2.getText().equals("X") && boton3.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 		}else if(boton1.getText().equals("O") && boton2.getText().equals("O") && boton3.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O"); 
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 		// HORIZONTAL FILA 2
 		}else if(boton4.getText().equals("X") && boton5.getText().equals("X") && boton6.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
 		}else if(boton4.getText().equals("O") && boton5.getText().equals("O") && boton6.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 		// HORIZONTAL FILA 3
 		}else if(boton7.getText().equals("X") && boton8.getText().equals("X") && boton9.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
 		}else if(boton7.getText().equals("O") && boton8.getText().equals("O") && boton9.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 		//VERTICAL COLUMNA 1
 		}else if(boton1.getText().equals("X") && boton4.getText().equals("X") && boton7.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
 		}else if(boton1.getText().equals("O") && boton4.getText().equals("O") && boton7.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 		//VERTICAL COLUMNA 2
-		}else if(boton2.getText().equals("X") && boton5.getText().equals("X") && boton3.getText().equals("X")) { 
+		}else if(boton2.getText().equals("X") && boton5.getText().equals("X") && boton5.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
-		}else if(boton2.getText().equals("O") && boton5.getText().equals("O") && boton3.getText().equals("O")) { 
+		}else if(boton2.getText().equals("O") && boton5.getText().equals("O") && boton5.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 	    //VERTICAL COLUMNA 3
 		}else if(boton3.getText().equals("X") && boton6.getText().equals("X") && boton9.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
 		}else if(boton3.getText().equals("O") && boton6.getText().equals("O") && boton9.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 		//DIAGONAL DERECHA
 		}else if(boton1.getText().equals("X") && boton5.getText().equals("X") && boton9.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
 		}else if(boton1.getText().equals("O") && boton5.getText().equals("O") && boton9.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
-			System.exit(ABORT);
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
 
 		//DIAGONAL IZQUIERDA
 		}else if(boton3.getText().equals("X") && boton5.getText().equals("X") && boton7.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
-			System.exit(ABORT);
+			contador_X++;
+			contador=0;
+			contadorX.setText(":"+contador_X);
+			limpiarTablero(); 
 
 		}else if(boton3.getText().equals("O") && boton5.getText().equals("O") && boton7.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
+			contador_O++;
+			contador=0;
+			contadorO.setText(":"+contador_O);
+			limpiarTablero(); 
+
+
 		}
 
 	}

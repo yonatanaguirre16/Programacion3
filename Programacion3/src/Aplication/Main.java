@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
-		Ventana ventana = new Ventana("Acceso");
+		Ventana ventana = new Ventana("Tic Tac Toe");
 
 		
 		
