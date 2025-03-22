@@ -92,6 +92,8 @@ public class Ventana extends JFrame {
 	private JPanel panel_5;
 	private JButton btnNewButton_10;
 	private JLabel lblNewLabel_42;
+	private JLabel turnoDisplay;
+	private JLabel lblNewLabel_45;
 
 		
 	@Override
@@ -116,8 +118,8 @@ public class Ventana extends JFrame {
         this.setLocationRelativeTo(null);
         
         //getContentPane().add(this.listenerBotones());
-        getContentPane().add(this.gato());
-        
+        //getContentPane().add(this.gato());
+        getContentPane().add(this.puzzleNumerico());        
    
         
 
@@ -1458,14 +1460,14 @@ public class Ventana extends JFrame {
 	
 	public JPanel gato() {
 		
-		
+
 		JPanel juegoGato = new JPanel();
 		juegoGato.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		juegoGato.setLayout(new GridLayout(3, 3, 0, 0));
 		
 
 	    panel_4 = new JPanel();
-        panel_4.setBackground(new Color(255, 127, 80));
+        panel_4.setBackground(new Color(255, 165, 0));
         getContentPane().add(panel_4, BorderLayout.NORTH);
         FlowLayout fl_panel_4 = new FlowLayout(FlowLayout.CENTER, 5, 5);
         panel_4.setLayout(fl_panel_4);
@@ -1480,11 +1482,19 @@ public class Ventana extends JFrame {
         contadorX.setFont(new Font("Tahoma", Font.PLAIN, 22));
         panel_4.add(contadorX);
         
-        lblNewLabel_42 = new JLabel("                                                    ");
+        lblNewLabel_42 = new JLabel("               ");
         lblNewLabel_42.setFont(new Font("Tahoma", Font.PLAIN, 22));
         panel_4.add(lblNewLabel_42);
         
+        turnoDisplay = new JLabel("Turno de: ");
+        turnoDisplay.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        panel_4.add(turnoDisplay);
+        
+        lblNewLabel_45 = new JLabel("                                               ");
+        panel_4.add(lblNewLabel_45);
+        
         lblNewLabel_43 = new JLabel("O");
+        lblNewLabel_43.setHorizontalAlignment(SwingConstants.RIGHT);
         lblNewLabel_43.setFont(new Font("Tahoma", Font.PLAIN, 22));
         panel_4.add(lblNewLabel_43);
         
@@ -1493,6 +1503,7 @@ public class Ventana extends JFrame {
         panel_4.add(contadorO);
         
         panel_5 = new JPanel();
+        panel_5.setBackground(new Color(255, 165, 0));
         getContentPane().add(panel_5, BorderLayout.SOUTH);
         
         btnNewButton_10 = new JButton("Reiniciar");
@@ -1516,6 +1527,7 @@ public class Ventana extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
 		        String player = turno ? "X" : "O";
+		        
 		        if (boton1.getText().isEmpty()) { 
 		        	if(player.equals("X")) {
 		        		boton1.setText(player);
@@ -1526,6 +1538,9 @@ public class Ventana extends JFrame {
 
 		        	}
 		            turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
+		    		
 		        }
 		        verificar();
 		        
@@ -1546,10 +1561,12 @@ public class Ventana extends JFrame {
 			            boton2.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/x.png")));
 		        	}else if(player.equals("O")) {
 		        		boton2.setText(player);
-			            boton2.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png")));
+			            boton2.setIcon(new ImageIcon(Ventana.class.getResource("/Aplication/o.png"))); 
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
 
@@ -1563,7 +1580,7 @@ public class Ventana extends JFrame {
 		boton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contador++;
-
+ 
 		        String player = turno ? "X" : "O";
 		        if (boton3.getText().isEmpty()) { 
 		        	if(player.equals("X")) {
@@ -1575,6 +1592,8 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
 
@@ -1599,6 +1618,8 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
 
@@ -1623,6 +1644,8 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
 
@@ -1647,6 +1670,8 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
 
@@ -1670,6 +1695,8 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
 
@@ -1681,7 +1708,7 @@ public class Ventana extends JFrame {
 		boton8.setFont(fuenteBoton);
 		boton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				contador++;
+				contador++; 
 
 		        String player = turno ? "X" : "O";
 		        if (boton8.getText().isEmpty()) { 
@@ -1694,7 +1721,9 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
-		        }
+	        		turnoDisplay.setText("Turno de: "+player);
+
+		        } 
 		        verificar();
 
 			}  
@@ -1719,13 +1748,15 @@ public class Ventana extends JFrame {
 
 		        	}
 		        	turno = !turno; 
+	        		turnoDisplay.setText("Turno de: "+player);
+
 		        }
 		        verificar();
-
+		        
 			}
 		});
 		juegoGato.add(boton9);
-		
+				
 		
 		
 		return juegoGato;
@@ -1760,17 +1791,16 @@ public class Ventana extends JFrame {
 	public void verificar() {
 		if(contador == 9) {
 			JOptionPane.showMessageDialog(null, "EMPATE"); 
+			limpiarTablero();
 
 		}
-		
-		// HORIZONTAL FILA 1
 		if(boton1.getText().equals("X") && boton2.getText().equals("X") && boton3.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
 			contador_X++;
 			contador=0;
 			contadorX.setText(":"+contador_X);
 			limpiarTablero(); 
-		}else if(boton1.getText().equals("O") && boton2.getText().equals("O") && boton3.getText().equals("O")) { 
+		}if(boton1.getText().equals("O") && boton2.getText().equals("O") && boton3.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O"); 
 			contador_O++;
 			contador=0;
@@ -1800,7 +1830,7 @@ public class Ventana extends JFrame {
 			contadorX.setText(":"+contador_X);
 			limpiarTablero(); 
 
-		}else if(boton7.getText().equals("O") && boton8.getText().equals("O") && boton9.getText().equals("O")) { 
+		}if(boton7.getText().equals("O") && boton8.getText().equals("O") && boton9.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
 			contador_O++;
 			contador=0;
@@ -1808,14 +1838,14 @@ public class Ventana extends JFrame {
 			limpiarTablero(); 
 
 		//VERTICAL COLUMNA 1
-		}else if(boton1.getText().equals("X") && boton4.getText().equals("X") && boton7.getText().equals("X")) { 
+		}if(boton1.getText().equals("X") && boton4.getText().equals("X") && boton7.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
 			contador_X++;
 			contador=0;
 			contadorX.setText(":"+contador_X);
 			limpiarTablero(); 
 
-		}else if(boton1.getText().equals("O") && boton4.getText().equals("O") && boton7.getText().equals("O")) { 
+		}if(boton1.getText().equals("O") && boton4.getText().equals("O") && boton7.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
 			contador_O++;
 			contador=0;
@@ -1823,14 +1853,14 @@ public class Ventana extends JFrame {
 			limpiarTablero(); 
 
 		//VERTICAL COLUMNA 2
-		}else if(boton2.getText().equals("X") && boton5.getText().equals("X") && boton5.getText().equals("X")) { 
+		}if(boton2.getText().equals("X") && boton5.getText().equals("X") && boton8.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
 			contador_X++;
 			contador=0;
 			contadorX.setText(":"+contador_X);
 			limpiarTablero(); 
 
-		}else if(boton2.getText().equals("O") && boton5.getText().equals("O") && boton5.getText().equals("O")) { 
+		}if(boton2.getText().equals("O") && boton5.getText().equals("O") && boton8.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
 			contador_O++;
 			contador=0;
@@ -1838,7 +1868,7 @@ public class Ventana extends JFrame {
 			limpiarTablero(); 
 
 	    //VERTICAL COLUMNA 3
-		}else if(boton3.getText().equals("X") && boton6.getText().equals("X") && boton9.getText().equals("X")) { 
+		}if(boton3.getText().equals("X") && boton6.getText().equals("X") && boton9.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
 			contador_X++;
 			contador=0;
@@ -1853,14 +1883,14 @@ public class Ventana extends JFrame {
 			limpiarTablero(); 
 
 		//DIAGONAL DERECHA
-		}else if(boton1.getText().equals("X") && boton5.getText().equals("X") && boton9.getText().equals("X")) { 
+		}if(boton1.getText().equals("X") && boton5.getText().equals("X") && boton9.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
 			contador_X++;
 			contador=0;
 			contadorX.setText(":"+contador_X);
 			limpiarTablero(); 
 
-		}else if(boton1.getText().equals("O") && boton5.getText().equals("O") && boton9.getText().equals("O")) { 
+		}if(boton1.getText().equals("O") && boton5.getText().equals("O") && boton9.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
 			contador_O++;
 			contador=0;
@@ -1868,14 +1898,14 @@ public class Ventana extends JFrame {
 			limpiarTablero(); 
 
 		//DIAGONAL IZQUIERDA
-		}else if(boton3.getText().equals("X") && boton5.getText().equals("X") && boton7.getText().equals("X")) { 
+		}if(boton3.getText().equals("X") && boton5.getText().equals("X") && boton7.getText().equals("X")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO X");
 			contador_X++;
 			contador=0;
 			contadorX.setText(":"+contador_X);
 			limpiarTablero(); 
 
-		}else if(boton3.getText().equals("O") && boton5.getText().equals("O") && boton7.getText().equals("O")) { 
+		}if(boton3.getText().equals("O") && boton5.getText().equals("O") && boton7.getText().equals("O")) { 
 			JOptionPane.showMessageDialog(null, "HAS GANADO O");
 			contador_O++;
 			contador=0;
@@ -1885,6 +1915,152 @@ public class Ventana extends JFrame {
 
 		}
 
+	}
+	
+	public JPanel puzzleNumerico() {
+		
+		JPanel puzzle = new JPanel();
+		puzzle.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		puzzle.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new GridLayout(4, 4, 0, 0));
+		
+		JButton btnNewButton_11 = new JButton("1");
+		btnNewButton_11.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_11);
+		
+		JButton btnNewButton_12 = new JButton("2");
+		btnNewButton_12.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_12);
+		
+		JButton btnNewButton_13 = new JButton("3");
+		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_13);
+		
+		JButton btnNewButton_15 = new JButton("4");
+		btnNewButton_15.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_15);
+		
+		JButton btnNewButton_14 = new JButton("5");
+		btnNewButton_14.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_24 = new JButton("6");
+		btnNewButton_24.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_24);
+		
+		JButton btnNewButton_25 = new JButton("7");
+		btnNewButton_25.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_25);
+		
+		JButton btnNewButton_26 = new JButton("8");
+		btnNewButton_26.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_26);
+		
+		JButton btnNewButton_18 = new JButton("9");
+		btnNewButton_18.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_18);
+		
+		JButton btnNewButton_19 = new JButton("10");
+		btnNewButton_19.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_19);
+		
+		JButton btnNewButton_17 = new JButton("11");
+		btnNewButton_17.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_17);
+		
+		JButton btnNewButton_23 = new JButton("12");
+		btnNewButton_23.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_23);
+		
+		JButton btnNewButton_22 = new JButton("13");
+		btnNewButton_22.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_22);
+		
+		JButton btnNewButton_21 = new JButton("14");
+		btnNewButton_21.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_21);
+		
+		JButton btnNewButton_20 = new JButton("15");
+		btnNewButton_20.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_20);
+		
+		JButton btnNewButton_16 = new JButton("");
+		btnNewButton_16.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(btnNewButton_16);
+		
+		btnNewButton_11.setBackground(Color.white);
+		btnNewButton_12.setBackground(Color.white);
+		btnNewButton_13.setBackground(Color.white);
+		btnNewButton_14.setBackground(Color.white);
+		btnNewButton_15.setBackground(Color.white);
+		btnNewButton_16.setBackground(Color.white);
+		btnNewButton_17.setBackground(Color.white);
+		btnNewButton_18.setBackground(Color.white);
+		btnNewButton_19.setBackground(Color.white);
+		btnNewButton_20.setBackground(Color.white);
+		btnNewButton_21.setBackground(Color.white);
+		btnNewButton_22.setBackground(Color.white);
+		btnNewButton_23.setBackground(Color.white);
+		btnNewButton_24.setBackground(Color.white);
+		btnNewButton_25.setBackground(Color.white);
+		btnNewButton_26.setBackground(Color.white);
+		
+		btnNewButton_11.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_12.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_13.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_14.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_15.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_16.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_17.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_18.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_19.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_20.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_21.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_22.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_23.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_24.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_25.setBorder(BorderFactory.createBevelBorder(0)); 
+		btnNewButton_26.setBorder(BorderFactory.createBevelBorder(0)); 
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 153, 51));
+		puzzle.add(panel_1, BorderLayout.NORTH);
+		
+		JLabel lblNewLabel_44 = new JLabel("  ");
+		lblNewLabel_44.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		panel_1.add(lblNewLabel_44);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 153, 51));
+		puzzle.add(panel_2, BorderLayout.WEST);
+		
+		JLabel lblNewLabel_46 = new JLabel("         ");
+		panel_2.add(lblNewLabel_46);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 153, 51));
+		puzzle.add(panel_3, BorderLayout.SOUTH);
+		
+		JButton btnNewButton_27 = new JButton("Reiniciar");
+		btnNewButton_27.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnNewButton_27);
+		
+		JLabel lblNewLabel_48 = new JLabel("  ");
+		lblNewLabel_48.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		panel_3.add(lblNewLabel_48);
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(255, 153, 51));
+		puzzle.add(panel_6, BorderLayout.EAST);
+		
+		JLabel lblNewLabel_47 = new JLabel("          ");
+		panel_6.add(lblNewLabel_47);
+		
+		
+		return puzzle;
+		
 	}
 }
 
