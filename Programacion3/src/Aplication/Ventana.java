@@ -47,7 +47,10 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableModel; 
+
+
+
 
 
 public class Ventana extends JFrame {
@@ -61,7 +64,8 @@ public class Ventana extends JFrame {
 
 	JButton boton1;
 	JButton boton2;
-	
+    private JPanel panelPuzzle;
+
 	private JTextField textField;
 	private JTextField textField_1;
 	private JPasswordField passwordField;
@@ -94,6 +98,9 @@ public class Ventana extends JFrame {
 	private JLabel lblNewLabel_42;
 	private JLabel turnoDisplay;
 	private JLabel lblNewLabel_45;
+    private JButton[][] botones = new JButton[4][4]; 
+    private int[][] tablero = new int[4][4]; // Representación lógica del tablero
+    private int vacioFila, vacioColumna; 
 
 		
 	@Override
@@ -119,9 +126,38 @@ public class Ventana extends JFrame {
         
         //getContentPane().add(this.listenerBotones());
         //getContentPane().add(this.gato());
-        getContentPane().add(this.puzzleNumerico());        
    
+        getContentPane().setLayout(new BorderLayout());
+
+        getContentPane().add(this.puzzleNumerico(), BorderLayout.CENTER);
+
+        JButton reiniciar = new JButton("Reiniciar");
+        reiniciar.addActionListener((ActionEvent e) -> reiniciarJuego());
+        getContentPane().add(reiniciar, BorderLayout.SOUTH);
         
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 0, 0));
+        getContentPane().add(panel, BorderLayout.NORTH);
+        
+        JLabel lblNewLabel_47 = new JLabel("Puzzle");
+        lblNewLabel_47.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        panel.add(lblNewLabel_47);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBackground(new Color(255, 0, 0));
+        getContentPane().add(panel_1, BorderLayout.WEST);
+        
+        JLabel lblNewLabel_46 = new JLabel("                 ");
+        panel_1.add(lblNewLabel_46);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(255, 0, 0));
+        getContentPane().add(panel_2, BorderLayout.EAST);
+        
+        JLabel lblNewLabel_44 = new JLabel("            ");
+        panel_2.add(lblNewLabel_44);
+
+        setVisible(true);
 
         this.repaint();
         this.setVisible(true);
@@ -197,7 +233,7 @@ public class Ventana extends JFrame {
 		
 	}
 	
-	public void manager(String target) {
+	public void manager(String target) { 
 		
 		this.getContentPane().removeAll();
 
@@ -211,7 +247,7 @@ public class Ventana extends JFrame {
 		}
 		
 		if(target.equals("recuperar")) {
-			getContentPane().add(this.recuperar());
+			getContentPane().add(this.recuperar());  
 			
 		}
 		if(target.equals("alta")) {
@@ -1919,149 +1955,81 @@ public class Ventana extends JFrame {
 	
 	public JPanel puzzleNumerico() {
 		
-		JPanel puzzle = new JPanel();
-		puzzle.setLayout(new BorderLayout(0, 0));
+        panelPuzzle = new JPanel(new GridLayout(4, 4));
+        inicializarJuego();
+        setVisible(true);
 		
-		JPanel panel = new JPanel();
-		puzzle.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(4, 4, 0, 0));
+
 		
-		JButton btnNewButton_11 = new JButton("1");
-		btnNewButton_11.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_11);
-		
-		JButton btnNewButton_12 = new JButton("2");
-		btnNewButton_12.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_12);
-		
-		JButton btnNewButton_13 = new JButton("3");
-		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_13);
-		
-		JButton btnNewButton_15 = new JButton("4");
-		btnNewButton_15.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_15);
-		
-		JButton btnNewButton_14 = new JButton("5");
-		btnNewButton_14.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_14);
-		
-		JButton btnNewButton_24 = new JButton("6");
-		btnNewButton_24.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_24);
-		
-		JButton btnNewButton_25 = new JButton("7");
-		btnNewButton_25.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_25);
-		
-		JButton btnNewButton_26 = new JButton("8");
-		btnNewButton_26.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_26);
-		
-		JButton btnNewButton_18 = new JButton("9");
-		btnNewButton_18.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_18);
-		
-		JButton btnNewButton_19 = new JButton("10");
-		btnNewButton_19.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_19);
-		
-		JButton btnNewButton_17 = new JButton("11");
-		btnNewButton_17.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_17);
-		
-		JButton btnNewButton_23 = new JButton("12");
-		btnNewButton_23.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_23);
-		
-		JButton btnNewButton_22 = new JButton("13");
-		btnNewButton_22.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_22);
-		
-		JButton btnNewButton_21 = new JButton("14");
-		btnNewButton_21.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_21);
-		
-		JButton btnNewButton_20 = new JButton("15");
-		btnNewButton_20.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_20);
-		
-		JButton btnNewButton_16 = new JButton("");
-		btnNewButton_16.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(btnNewButton_16);
-		
-		btnNewButton_11.setBackground(Color.white);
-		btnNewButton_12.setBackground(Color.white);
-		btnNewButton_13.setBackground(Color.white);
-		btnNewButton_14.setBackground(Color.white);
-		btnNewButton_15.setBackground(Color.white);
-		btnNewButton_16.setBackground(Color.white);
-		btnNewButton_17.setBackground(Color.white);
-		btnNewButton_18.setBackground(Color.white);
-		btnNewButton_19.setBackground(Color.white);
-		btnNewButton_20.setBackground(Color.white);
-		btnNewButton_21.setBackground(Color.white);
-		btnNewButton_22.setBackground(Color.white);
-		btnNewButton_23.setBackground(Color.white);
-		btnNewButton_24.setBackground(Color.white);
-		btnNewButton_25.setBackground(Color.white);
-		btnNewButton_26.setBackground(Color.white);
-		
-		btnNewButton_11.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_12.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_13.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_14.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_15.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_16.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_17.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_18.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_19.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_20.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_21.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_22.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_23.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_24.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_25.setBorder(BorderFactory.createBevelBorder(0)); 
-		btnNewButton_26.setBorder(BorderFactory.createBevelBorder(0)); 
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 153, 51));
-		puzzle.add(panel_1, BorderLayout.NORTH);
-		
-		JLabel lblNewLabel_44 = new JLabel("  ");
-		lblNewLabel_44.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		panel_1.add(lblNewLabel_44);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 153, 51));
-		puzzle.add(panel_2, BorderLayout.WEST);
-		
-		JLabel lblNewLabel_46 = new JLabel("         ");
-		panel_2.add(lblNewLabel_46);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 153, 51));
-		puzzle.add(panel_3, BorderLayout.SOUTH);
-		
-		JButton btnNewButton_27 = new JButton("Reiniciar");
-		btnNewButton_27.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_27);
-		
-		JLabel lblNewLabel_48 = new JLabel("  ");
-		lblNewLabel_48.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		panel_3.add(lblNewLabel_48);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(255, 153, 51));
-		puzzle.add(panel_6, BorderLayout.EAST);
-		
-		JLabel lblNewLabel_47 = new JLabel("          ");
-		panel_6.add(lblNewLabel_47);
-		
-		
-		return puzzle;
+		return panelPuzzle;
 		
 	}
+
+
+
+	
+    private void inicializarJuego() {
+        int[] numeros = new int[16];
+        for (int i = 0; i < 15; i++) {
+            numeros[i] = i + 1;
+        }
+        numeros[15] = 0; 
+
+        Random random = new Random();
+        for (int i = 0; i < 16; i++) {
+            int j = random.nextInt(16);
+            int temp = numeros[i];
+            numeros[i] = numeros[j];
+            numeros[j] = temp;
+        }
+
+        int index = 0;
+        panelPuzzle.removeAll();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                tablero[i][j] = numeros[index];
+                if (numeros[index] == 0) {
+                    vacioFila = i;
+                    vacioColumna = j;
+                }
+                botones[i][j] = new JButton(tablero[i][j] == 0 ? "" : String.valueOf(tablero[i][j]));
+                botones[i][j].setFont(new Font("Tahoma", Font.BOLD, 24));
+                botones[i][j].setBackground(Color.white);
+
+                int fila = i, columna = j;
+                botones[i][j].addActionListener(e -> moverFicha(fila, columna));
+
+                panelPuzzle.add(botones[i][j]);
+                index++;
+            }
+        }
+        panelPuzzle.revalidate();
+        panelPuzzle.repaint();
+    }
+
+    private void actualizarBotones() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                botones[i][j].setText(tablero[i][j] == 0 ? "" : String.valueOf(tablero[i][j]));
+            }
+        }
+    }
+
+    private void moverFicha(int fila, int columna) {
+        if (Math.abs(fila - vacioFila) + Math.abs(columna - vacioColumna) == 1) {
+            tablero[vacioFila][vacioColumna] = tablero[fila][columna];
+            tablero[fila][columna] = 0; 
+
+            vacioFila = fila;
+            vacioColumna = columna;
+
+            actualizarBotones();
+        }
+    }
+
+    private void reiniciarJuego() {
+        inicializarJuego();
+    }
 }
 
 
