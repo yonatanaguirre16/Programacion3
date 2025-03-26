@@ -1,36 +1,26 @@
 package Aplication;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -41,15 +31,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel; 
-
-
+import javax.swing.table.DefaultTableModel;
+import javax.swing.Timer;
 
 
 
@@ -64,7 +52,9 @@ public class Ventana extends JFrame {
 
 	JButton boton1;
 	JButton boton2;
+	
     private JPanel panelPuzzle;
+    private long tiempoInicio;  // Para almacenar el tiempo de inicio del cronómetro
 
 	private JTextField textField;
 	private JTextField textField_1;
@@ -88,6 +78,19 @@ public class Ventana extends JFrame {
 	JButton boton6;
 	JButton boton5;
 	JButton boton4;
+	
+    private int segundos = 0, minutos = 0, horas = 0;
+    private boolean corriendo = false;  // Para saber si el cronómetro está en marcha
+    private boolean cronometroEnMarcha = false;
+    private boolean cronometroEnPausa = false;
+
+    
+    private JButton botonIniciar;
+    private JButton botonPausar;
+    private JButton botonResetear;
+    
+    private JLabel labelTiempo;
+    public Timer timer;
 	private JPanel panel_4;
 	private JLabel lblNewLabel_41;
 	private JLabel contadorX;
@@ -98,10 +101,16 @@ public class Ventana extends JFrame {
 	private JLabel lblNewLabel_42;
 	private JLabel turnoDisplay;
 	private JLabel lblNewLabel_45;
+    private Thread cronometroThread;
     private JButton[][] botones = new JButton[4][4]; 
     private int[][] tablero = new int[4][4]; // Representación lógica del tablero
     private int vacioFila, vacioColumna; 
-
+    private int [][] tableroComprobador = {{1, 2, 3, 4}, 
+    									   {5, 6, 7, 8}, 
+    									   {9, 10, 11, 12},
+    									   {13, 14, 15, 0}};
+    
+ 
 		
 	@Override
 	public Image getIconImage() { // agregar el icono personalizado
@@ -156,19 +165,77 @@ public class Ventana extends JFrame {
         
         JLabel lblNewLabel_44 = new JLabel("            ");
         panel_2.add(lblNewLabel_44);
+        
+        labelTiempo = new JLabel("00:00:00", JLabel.CENTER);
+        labelTiempo.setFont(new Font("Serif", Font.PLAIN, 40));
+        add(labelTiempo, BorderLayout.NORTH);
+        
+        JButton iniciarButton = new JButton("Iniciar");
+        add(iniciarButton, BorderLayout.WEST);
+        
+        JButton detenerButton = new JButton("Detener");
+        add(detenerButton, BorderLayout.EAST);
 
-        setVisible(true);
+        
+        iniciarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iniciarCronometro();
+                
+            }
+        });
+        
+        detenerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                detenerCronometro();
+            }
+        });
+        
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                segundos++;
 
+                if (segundos == 60) {
+                    segundos = 0;
+                    minutos++;
+                }
+
+                if (minutos == 60) {
+                    minutos = 0;
+                    horas++;
+                }
+
+                labelTiempo.setText(String.format("%02d:%02d:%02d", horas, minutos, segundos));
+            }
+        });
+    
+        
         this.repaint();
-        this.setVisible(true);
+        this.setVisible(true);   
+	}
         
+    private void iniciarCronometro() {
+        if (!timer.isRunning()) {
+            timer.start();
+        }
+    }
+    
+    private void detenerCronometro() {
+        if (timer.isRunning()) {
+            timer.stop();
+        }
+    }
         
+    private void resetearCronometro() {
+        timer.stop();
+        horas = 0;
+        minutos = 0;
+        segundos = 0;
+        labelTiempo.setText("00:00:00");
+    }
 
-	    }
-	
-	
-	
-	
 	public JPanel interes() {
 		
 					
@@ -1955,7 +2022,11 @@ public class Ventana extends JFrame {
 	
 	public JPanel puzzleNumerico() {
 		
+		
+
         panelPuzzle = new JPanel(new GridLayout(4, 4));
+     
+                
         inicializarJuego();
         setVisible(true);
 		
@@ -1964,9 +2035,6 @@ public class Ventana extends JFrame {
 		return panelPuzzle;
 		
 	}
-
-
-
 	
     private void inicializarJuego() {
         int[] numeros = new int[16];
@@ -2022,14 +2090,35 @@ public class Ventana extends JFrame {
 
             vacioFila = fila;
             vacioColumna = columna;
-
+            verificarJuego();
             actualizarBotones();
         }
     }
 
     private void reiniciarJuego() {
         inicializarJuego();
+        resetearCronometro();
     }
+    
+    private void verificarJuego() {
+    	boolean haGanado = true;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (tablero[i][j] != tableroComprobador[i][j]) {
+                    haGanado = false;
+                    break;  
+                }
+            }
+            if (!haGanado) {
+                break;  
+            }
+        }
+
+        if (haGanado) {
+        	timer.stop();
+            JOptionPane.showMessageDialog(null, "¡HAS GANADO!");
+        }
+}
 }
 
 
