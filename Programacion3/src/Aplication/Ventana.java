@@ -109,6 +109,8 @@ public class Ventana extends JFrame {
     									   {5, 6, 7, 8}, 
     									   {9, 10, 11, 12},
     									   {13, 14, 15, 0}};
+    private JTextField textField_10;
+    private JTextField textField_11;
     
  
 		
@@ -123,98 +125,158 @@ public class Ventana extends JFrame {
 
 
 	public Ventana(String title)  {
-		getContentPane().setBackground(new Color(244, 164, 96));
+
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Ventana.class.getResource("/Aplication/sonicicon.png")));
 
-		this.setTitle(title);
-		this.setBackground(Color.RED);
+		this.setTitle("Canvas");
+		this.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(579, 699);
+        this.setSize(1000, 700);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
-        //getContentPane().add(this.listenerBotones());
-        //getContentPane().add(this.gato());
-   
-        getContentPane().setLayout(new BorderLayout());
 
-        getContentPane().add(this.puzzleNumerico(), BorderLayout.CENTER);
-
-        JButton reiniciar = new JButton("Reiniciar");
-        reiniciar.addActionListener((ActionEvent e) -> reiniciarJuego());
-        getContentPane().add(reiniciar, BorderLayout.SOUTH);
+        getContentPane().add(this.paint());
         
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(255, 0, 0));
-        getContentPane().add(panel, BorderLayout.NORTH);
         
-        JLabel lblNewLabel_47 = new JLabel("Puzzle");
-        lblNewLabel_47.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        panel.add(lblNewLabel_47);
         
-        JPanel panel_1 = new JPanel();
-        panel_1.setBackground(new Color(255, 0, 0));
-        getContentPane().add(panel_1, BorderLayout.WEST);
         
-        JLabel lblNewLabel_46 = new JLabel("                 ");
-        panel_1.add(lblNewLabel_46);
-        
-        JPanel panel_2 = new JPanel();
-        panel_2.setBackground(new Color(255, 0, 0));
-        getContentPane().add(panel_2, BorderLayout.EAST);
-        
-        JLabel lblNewLabel_44 = new JLabel("            ");
-        panel_2.add(lblNewLabel_44);
-        
-        labelTiempo = new JLabel("00:00:00", JLabel.CENTER);
-        labelTiempo.setFont(new Font("Serif", Font.PLAIN, 40));
-        add(labelTiempo, BorderLayout.NORTH);
-        
-        JButton iniciarButton = new JButton("Iniciar");
-        add(iniciarButton, BorderLayout.WEST);
-        
-        JButton detenerButton = new JButton("Detener");
-        add(detenerButton, BorderLayout.EAST);
-
-        
-        iniciarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iniciarCronometro();
-                
-            }
-        });
-        
-        detenerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                detenerCronometro();
-            }
-        });
-        
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                segundos++;
-
-                if (segundos == 60) {
-                    segundos = 0;
-                    minutos++;
-                }
-
-                if (minutos == 60) {
-                    minutos = 0;
-                    horas++;
-                }
-
-                labelTiempo.setText(String.format("%02d:%02d:%02d", horas, minutos, segundos));
-            }
-        });
     
         
         this.repaint();
         this.setVisible(true);   
 	}
+	
+	public JPanel paint() {
+		
+		getContentPane().setBackground(new Color(0, 64, 128));
+		getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(33, 26, 266, 610);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton btnNewButton_11 = new JButton("");
+		btnNewButton_11.setBackground(new Color(0, 0, 0));
+		btnNewButton_11.setBounds(34, 21, 51, 47);
+		panel.add(btnNewButton_11);
+		
+		JButton btnNewButton_12 = new JButton("");
+		btnNewButton_12.setBackground(new Color(255, 255, 255));
+		btnNewButton_12.setBounds(114, 21, 51, 47);
+		panel.add(btnNewButton_12);
+		
+		JButton btnNewButton_13 = new JButton("");
+		btnNewButton_13.setBackground(new Color(192, 192, 192));
+		btnNewButton_13.setBounds(190, 21, 51, 47);
+		panel.add(btnNewButton_13);
+		
+		JButton btnNewButton_14 = new JButton("");
+		btnNewButton_14.setBackground(new Color(255, 0, 0));
+		btnNewButton_14.setBounds(34, 85, 51, 47);
+		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_15 = new JButton("");
+		btnNewButton_15.setBackground(new Color(0, 128, 0));
+		btnNewButton_15.setBounds(114, 85, 51, 47);
+		panel.add(btnNewButton_15);
+		
+		JButton btnNewButton_16 = new JButton("");
+		btnNewButton_16.setBackground(new Color(0, 0, 255));
+		btnNewButton_16.setBounds(190, 85, 51, 47);
+		panel.add(btnNewButton_16);
+		
+		JButton btnNewButton_17 = new JButton("");
+		btnNewButton_17.setBackground(new Color(255, 255, 0));
+		btnNewButton_17.setBounds(34, 156, 51, 47);
+		panel.add(btnNewButton_17);
+		
+		JButton btnNewButton_18 = new JButton("");
+		btnNewButton_18.setBackground(new Color(255, 128, 64));
+		btnNewButton_18.setBounds(114, 156, 51, 47);
+		panel.add(btnNewButton_18);
+		
+		JButton btnNewButton_19 = new JButton("");
+		btnNewButton_19.setBackground(new Color(128, 0, 255));
+		btnNewButton_19.setBounds(190, 156, 51, 47);
+		panel.add(btnNewButton_19);
+		
+		JButton btnNewButton_20 = new JButton("");
+		btnNewButton_20.setBackground(new Color(255, 128, 192));
+		btnNewButton_20.setBounds(34, 214, 51, 47);
+		panel.add(btnNewButton_20);
+		
+		JButton btnNewButton_21 = new JButton("");
+		btnNewButton_21.setBackground(new Color(128, 64, 64));
+		btnNewButton_21.setBounds(114, 214, 51, 47);
+		panel.add(btnNewButton_21);
+		
+		JButton btnNewButton_22 = new JButton("");
+		btnNewButton_22.setBackground(new Color(128, 0, 64));
+		btnNewButton_22.setBounds(190, 214, 51, 47);
+		panel.add(btnNewButton_22);
+		
+		JLabel lblNewLabel_44 = new JLabel("Custom Colors:");
+		lblNewLabel_44.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_44.setBounds(34, 287, 103, 14);
+		panel.add(lblNewLabel_44);
+		
+		textField_10 = new JTextField();
+		textField_10.setBounds(34, 311, 207, 29);
+		panel.add(textField_10);
+		textField_10.setColumns(10);
+		
+		JButton btnNewButton_26 = new JButton("SET BACKGROUND");
+		btnNewButton_26.setBounds(34, 351, 207, 35);
+		panel.add(btnNewButton_26);
+		
+		JLabel lblNewLabel_46 = new JLabel("Size:");
+		lblNewLabel_46.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_46.setBounds(34, 397, 46, 14);
+		panel.add(lblNewLabel_46);
+		
+		JButton btnNewButton_27 = new JButton("-");
+		btnNewButton_27.setBounds(34, 411, 62, 29);
+		panel.add(btnNewButton_27);
+		
+		textField_11 = new JTextField();
+		textField_11.setBounds(107, 411, 62, 29);
+		panel.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JButton btnNewButton_28 = new JButton("+");
+		btnNewButton_28.setBounds(179, 411, 62, 29);
+		panel.add(btnNewButton_28);
+		
+		JButton btnNewButton_29 = new JButton("BRUSH");
+		btnNewButton_29.setBounds(34, 459, 89, 29);
+		panel.add(btnNewButton_29);
+		
+		JButton btnNewButton_30 = new JButton("ERASE");
+		btnNewButton_30.setBounds(152, 459, 89, 29);
+		panel.add(btnNewButton_30);
+		
+		JButton btnNewButton_31 = new JButton("CLEAN");
+		btnNewButton_31.setBounds(34, 499, 207, 35);
+		panel.add(btnNewButton_31);
+		
+		JButton btnNewButton_32 = new JButton("SAVE");
+		btnNewButton_32.setBounds(34, 551, 207, 35);
+		panel.add(btnNewButton_32);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(322, 26, 637, 610);
+		getContentPane().add(panel_1);
+		
+		
+		return panel;
+				
+	}
+        
+   
+
         
     private void iniciarCronometro() {
         if (!timer.isRunning()) {
@@ -2024,7 +2086,85 @@ public class Ventana extends JFrame {
 		
 		
 
-        panelPuzzle = new JPanel(new GridLayout(4, 4));
+        GridLayout gl_panelPuzzle = new GridLayout(4, 4);
+        gl_panelPuzzle.setVgap(10);
+        gl_panelPuzzle.setHgap(10);
+        panelPuzzle = new JPanel(gl_panelPuzzle);
+        
+        getContentPane().setLayout(new BorderLayout());
+
+        getContentPane().add(this.puzzleNumerico(), BorderLayout.CENTER);
+
+        JButton reiniciar = new JButton("Reiniciar");
+        reiniciar.addActionListener((ActionEvent e) -> reiniciarJuego());
+        getContentPane().add(reiniciar, BorderLayout.SOUTH);
+        
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 0, 0));
+        getContentPane().add(panel, BorderLayout.NORTH);
+        
+        JLabel lblNewLabel_47 = new JLabel("Puzzle");
+        lblNewLabel_47.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        panel.add(lblNewLabel_47);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBackground(new Color(255, 0, 0));
+        getContentPane().add(panel_1, BorderLayout.WEST);
+        
+        JLabel lblNewLabel_46 = new JLabel("                 ");
+        panel_1.add(lblNewLabel_46);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(255, 0, 0));
+        getContentPane().add(panel_2, BorderLayout.EAST);
+        
+        JLabel lblNewLabel_44 = new JLabel("            ");
+        panel_2.add(lblNewLabel_44);
+        
+        labelTiempo = new JLabel("00:00:00", JLabel.CENTER);
+        labelTiempo.setFont(new Font("Serif", Font.PLAIN, 40));
+        getContentPane().add(labelTiempo, BorderLayout.NORTH);
+        
+        JButton iniciarButton = new JButton("Iniciar");
+        getContentPane().add(iniciarButton, BorderLayout.WEST);
+        
+        JButton detenerButton = new JButton("Detener");
+        getContentPane().add(detenerButton, BorderLayout.EAST);
+
+        
+        iniciarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iniciarCronometro();
+                
+            }
+        });
+        
+        detenerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                detenerCronometro();
+            }
+        });
+        
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                segundos++;
+
+                if (segundos == 60) {
+                    segundos = 0;
+                    minutos++;
+                }
+
+                if (minutos == 60) {
+                    minutos = 0;
+                    horas++;
+                }
+
+                labelTiempo.setText(String.format("%02d:%02d:%02d", horas, minutos, segundos));
+            }
+        });
      
                 
         inicializarJuego();
