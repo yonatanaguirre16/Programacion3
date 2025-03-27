@@ -132,7 +132,7 @@ public class Ventana extends JFrame {
 		this.setTitle("Canvas");
 		this.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 700);
+        this.setSize(1200, 900);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
@@ -154,7 +154,7 @@ public class Ventana extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(33, 26, 266, 610);
+		panel.setBounds(35, 26, 266, 824);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -266,8 +266,29 @@ public class Ventana extends JFrame {
 		btnNewButton_32.setBounds(34, 551, 207, 35);
 		panel.add(btnNewButton_32);
 		
+		JButton btnNewButton_23 = new JButton("RECTANGLE");
+		btnNewButton_23.setBounds(34, 620, 207, 29);
+		panel.add(btnNewButton_23);
+		
+		JButton btnNewButton_24 = new JButton("CIRCLE");
+		btnNewButton_24.setBounds(34, 665, 207, 29);
+		panel.add(btnNewButton_24);
+		
+		JButton btnNewButton_25 = new JButton("TRIANGLE");
+		btnNewButton_25.setBounds(34, 705, 207, 29);
+		panel.add(btnNewButton_25);
+		
+		JButton btnNewButton_33 = new JButton("LINE");
+		btnNewButton_33.setBounds(34, 752, 207, 29);
+		panel.add(btnNewButton_33);
+		
+		JLabel lblNewLabel_48 = new JLabel("Shapes:");
+		lblNewLabel_48.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_48.setBounds(34, 595, 62, 14);
+		panel.add(lblNewLabel_48);
+		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(322, 26, 637, 610);
+		panel_1.setBounds(322, 26, 830, 824);
 		getContentPane().add(panel_1);
 		
 		
