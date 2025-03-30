@@ -1,14 +1,26 @@
 package Aplication;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 
@@ -42,6 +54,11 @@ import javax.swing.Timer;
 
 
 public class Ventana extends JFrame {
+		
+	private ArrayList<Point> puntos = new ArrayList<Point>();
+	
+	List<List<Point>> listaDePuntos = new ArrayList<>(); 
+	
 	
 	Font fuenteGrande = new Font("Times New Roman", Font.BOLD, 35);
 	Font fuenteEtiquetas = new Font("Times New Roman", Font.BOLD, 20);
@@ -80,15 +97,7 @@ public class Ventana extends JFrame {
 	JButton boton4;
 	
     private int segundos = 0, minutos = 0, horas = 0;
-    private boolean corriendo = false;  // Para saber si el cronómetro está en marcha
-    private boolean cronometroEnMarcha = false;
-    private boolean cronometroEnPausa = false;
 
-    
-    private JButton botonIniciar;
-    private JButton botonPausar;
-    private JButton botonResetear;
-    
     private JLabel labelTiempo;
     public Timer timer;
 	private JPanel panel_4;
@@ -101,9 +110,8 @@ public class Ventana extends JFrame {
 	private JLabel lblNewLabel_42;
 	private JLabel turnoDisplay;
 	private JLabel lblNewLabel_45;
-    private Thread cronometroThread;
     private JButton[][] botones = new JButton[4][4]; 
-    private int[][] tablero = new int[4][4]; // Representación lógica del tablero
+    private int[][] tablero = new int[4][4];
     private int vacioFila, vacioColumna; 
     private int [][] tableroComprobador = {{1, 2, 3, 4}, 
     									   {5, 6, 7, 8}, 
@@ -137,166 +145,16 @@ public class Ventana extends JFrame {
         this.setLocationRelativeTo(null);
         
 
-        getContentPane().add(this.paint());
+        //getContentPane().add(this.paint());
         
         
-        
-        
-    
         
         this.repaint();
         this.setVisible(true);   
 	}
 	
-	public JPanel paint() {
-		
-		getContentPane().setBackground(new Color(0, 64, 128));
-		getContentPane().setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(35, 26, 266, 824);
-		getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JButton btnNewButton_11 = new JButton("");
-		btnNewButton_11.setBackground(new Color(0, 0, 0));
-		btnNewButton_11.setBounds(34, 21, 51, 47);
-		panel.add(btnNewButton_11);
-		
-		JButton btnNewButton_12 = new JButton("");
-		btnNewButton_12.setBackground(new Color(255, 255, 255));
-		btnNewButton_12.setBounds(114, 21, 51, 47);
-		panel.add(btnNewButton_12);
-		
-		JButton btnNewButton_13 = new JButton("");
-		btnNewButton_13.setBackground(new Color(192, 192, 192));
-		btnNewButton_13.setBounds(190, 21, 51, 47);
-		panel.add(btnNewButton_13);
-		
-		JButton btnNewButton_14 = new JButton("");
-		btnNewButton_14.setBackground(new Color(255, 0, 0));
-		btnNewButton_14.setBounds(34, 85, 51, 47);
-		panel.add(btnNewButton_14);
-		
-		JButton btnNewButton_15 = new JButton("");
-		btnNewButton_15.setBackground(new Color(0, 128, 0));
-		btnNewButton_15.setBounds(114, 85, 51, 47);
-		panel.add(btnNewButton_15);
-		
-		JButton btnNewButton_16 = new JButton("");
-		btnNewButton_16.setBackground(new Color(0, 0, 255));
-		btnNewButton_16.setBounds(190, 85, 51, 47);
-		panel.add(btnNewButton_16);
-		
-		JButton btnNewButton_17 = new JButton("");
-		btnNewButton_17.setBackground(new Color(255, 255, 0));
-		btnNewButton_17.setBounds(34, 156, 51, 47);
-		panel.add(btnNewButton_17);
-		
-		JButton btnNewButton_18 = new JButton("");
-		btnNewButton_18.setBackground(new Color(255, 128, 64));
-		btnNewButton_18.setBounds(114, 156, 51, 47);
-		panel.add(btnNewButton_18);
-		
-		JButton btnNewButton_19 = new JButton("");
-		btnNewButton_19.setBackground(new Color(128, 0, 255));
-		btnNewButton_19.setBounds(190, 156, 51, 47);
-		panel.add(btnNewButton_19);
-		
-		JButton btnNewButton_20 = new JButton("");
-		btnNewButton_20.setBackground(new Color(255, 128, 192));
-		btnNewButton_20.setBounds(34, 214, 51, 47);
-		panel.add(btnNewButton_20);
-		
-		JButton btnNewButton_21 = new JButton("");
-		btnNewButton_21.setBackground(new Color(128, 64, 64));
-		btnNewButton_21.setBounds(114, 214, 51, 47);
-		panel.add(btnNewButton_21);
-		
-		JButton btnNewButton_22 = new JButton("");
-		btnNewButton_22.setBackground(new Color(128, 0, 64));
-		btnNewButton_22.setBounds(190, 214, 51, 47);
-		panel.add(btnNewButton_22);
-		
-		JLabel lblNewLabel_44 = new JLabel("Custom Colors:");
-		lblNewLabel_44.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_44.setBounds(34, 287, 103, 14);
-		panel.add(lblNewLabel_44);
-		
-		textField_10 = new JTextField();
-		textField_10.setBounds(34, 311, 207, 29);
-		panel.add(textField_10);
-		textField_10.setColumns(10);
-		
-		JButton btnNewButton_26 = new JButton("SET BACKGROUND");
-		btnNewButton_26.setBounds(34, 351, 207, 35);
-		panel.add(btnNewButton_26);
-		
-		JLabel lblNewLabel_46 = new JLabel("Size:");
-		lblNewLabel_46.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_46.setBounds(34, 397, 46, 14);
-		panel.add(lblNewLabel_46);
-		
-		JButton btnNewButton_27 = new JButton("-");
-		btnNewButton_27.setBounds(34, 411, 62, 29);
-		panel.add(btnNewButton_27);
-		
-		textField_11 = new JTextField();
-		textField_11.setBounds(107, 411, 62, 29);
-		panel.add(textField_11);
-		textField_11.setColumns(10);
-		
-		JButton btnNewButton_28 = new JButton("+");
-		btnNewButton_28.setBounds(179, 411, 62, 29);
-		panel.add(btnNewButton_28);
-		
-		JButton btnNewButton_29 = new JButton("BRUSH");
-		btnNewButton_29.setBounds(34, 459, 89, 29);
-		panel.add(btnNewButton_29);
-		
-		JButton btnNewButton_30 = new JButton("ERASE");
-		btnNewButton_30.setBounds(152, 459, 89, 29);
-		panel.add(btnNewButton_30);
-		
-		JButton btnNewButton_31 = new JButton("CLEAN");
-		btnNewButton_31.setBounds(34, 499, 207, 35);
-		panel.add(btnNewButton_31);
-		
-		JButton btnNewButton_32 = new JButton("SAVE");
-		btnNewButton_32.setBounds(34, 551, 207, 35);
-		panel.add(btnNewButton_32);
-		
-		JButton btnNewButton_23 = new JButton("RECTANGLE");
-		btnNewButton_23.setBounds(34, 620, 207, 29);
-		panel.add(btnNewButton_23);
-		
-		JButton btnNewButton_24 = new JButton("CIRCLE");
-		btnNewButton_24.setBounds(34, 665, 207, 29);
-		panel.add(btnNewButton_24);
-		
-		JButton btnNewButton_25 = new JButton("TRIANGLE");
-		btnNewButton_25.setBounds(34, 705, 207, 29);
-		panel.add(btnNewButton_25);
-		
-		JButton btnNewButton_33 = new JButton("LINE");
-		btnNewButton_33.setBounds(34, 752, 207, 29);
-		panel.add(btnNewButton_33);
-		
-		JLabel lblNewLabel_48 = new JLabel("Shapes:");
-		lblNewLabel_48.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_48.setBounds(34, 595, 62, 14);
-		panel.add(lblNewLabel_48);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(322, 26, 830, 824);
-		getContentPane().add(panel_1);
-		
-		
-		return panel;
-				
-	}
-        
-   
+	
+
 
         
     private void iniciarCronometro() {
@@ -385,7 +243,7 @@ public class Ventana extends JFrame {
 	
 	public void manager(String target) { 
 		
-		this.getContentPane().removeAll();
+		//this.getContentPane().removeAll();
 
 		if(target.equals("registro")) {
 			getContentPane().add(this.registro());
@@ -2280,7 +2138,16 @@ public class Ventana extends JFrame {
             JOptionPane.showMessageDialog(null, "¡HAS GANADO!");
         }
 }
+
+
+
+
 }
+
+
+
+    
+
 
 
 
