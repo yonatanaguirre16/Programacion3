@@ -110,6 +110,15 @@ public class Paint implements MouseListener, MouseMotionListener {
 				lblNewLabel.setText(String.valueOf(tamañoPincel)); 
 			}
 		});
+		
+		JButton btnNewButton_7 = new JButton("Borrador");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tool = 5;
+				colorActual = Color.white;
+			}
+		});
+		panel_1.add(btnNewButton_7);
 		panel_1.add(btnNewButton_2);
 		
 		lblNewLabel = new JLabel("1");
@@ -193,6 +202,8 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 1;
+				colorActual = Color.black;
+
 			}
 		});
 		panel_1.add(btnNewButton_3);
@@ -201,6 +212,8 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 2;
+				colorActual = Color.black;
+
 			}
 		});
 		panel_1.add(btnNewButton_4);
@@ -209,6 +222,8 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool=3;
+				colorActual = Color.black;
+
 			}
 		});
 		panel_1.add(btnNewButton_5);
@@ -217,6 +232,8 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 4;
+				colorActual = Color.black;
+
 			}
 		});
 		panel_1.add(btnNewButton_6);
@@ -234,18 +251,22 @@ public class Paint implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
         if (tool == 2) { 
-            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 80, 80));
+            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 80, 80, listaDeColores.getLast()));
             panel_2.repaint();
         }
 
         if (tool == 3) { 
-            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 69, 69));
+            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 69, 69, listaDeColores.getLast()));
             panel_2.repaint();
         }
 
         if (tool == 4) {
             Linea nuevaLinea = new Linea(e.getX(), e.getY(), 200, 50);
             listaDeLineas.add(nuevaLinea);
+            panel_2.repaint();
+        }
+        if(tool == 5) {
+            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 90, 90, Color.white));
             panel_2.repaint();
         }
 		
@@ -305,6 +326,14 @@ public class Paint implements MouseListener, MouseMotionListener {
 			
 		}
 		
+		if(tool == 5) {
+			
+            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 80, 80, Color.WHITE));
+			panel_2.repaint();
+			
+
+		}
+		
 	}
 
 	@Override
@@ -344,6 +373,9 @@ public class Paint implements MouseListener, MouseMotionListener {
                    g2.drawRect(f.x, f.y, f.w, f.h);
                } else if (tool == 3) { 
                    g2.drawOval(f.x, f.y, f.w, f.h);
+               } else if (tool == 5) {
+            	   g2.fillRect(f.x, f.y, f.w, f.h);
+            	   g2.setColor(Color.white);
                }
            }
 
@@ -360,13 +392,15 @@ public class Paint implements MouseListener, MouseMotionListener {
 	
 	class Figura{
 			
+		public Color c;
 		public int x, y, w, h, x1, x2, y1,y2;
 
-		public Figura(int x, int y, int w, int h) {
+		public Figura(int x, int y, int w, int h, Color c) {
 			this.x=x;
 			this.y=y;
 			this.w=w;
 			this.h=h;
+			this.c = c;
 		}
 		
 	}
