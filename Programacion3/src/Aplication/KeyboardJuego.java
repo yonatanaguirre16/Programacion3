@@ -28,6 +28,10 @@ public class KeyboardJuego implements KeyListener{
 	private PaintPanel panel_2;
  	Graphics2D g2;
 
+ 	public int anchoFigura = 50, altoFigura=50;
+ 	
+ 	public int limiteAnchoFrame;
+ 	public int limiteAlturaFrame;
  	
 	/**
 	 * Launch the application.
@@ -63,7 +67,8 @@ public class KeyboardJuego implements KeyListener{
 		frame.setTitle("Keyboard Game");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Paint.class.getResource("/Aplication/sonicicon.png")));
 		frame.setLocationRelativeTo(null);
-
+		limiteAnchoFrame =  frame.getWidth();
+		limiteAlturaFrame = frame.getHeight();
 		//frame.isResizable(false);
 		
 		
@@ -82,7 +87,10 @@ public class KeyboardJuego implements KeyListener{
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				x=200;
+				y=200;
+				frame.repaint();
+				frame.requestFocusInWindow(); // re-gana el focus al frame para volver a mover desde el teclado
 			}
 		});
 		panel_1.add(btnNewButton);
@@ -91,7 +99,7 @@ public class KeyboardJuego implements KeyListener{
 		frame.getContentPane().add(panel_2, BorderLayout.CENTER);
 		
 		frame.setFocusable(true);
-		//panel_2.requestFocusInWindow();
+		//frame.requestFocusInWindow();
 		frame.addKeyListener(this);
 		
 	}
@@ -106,30 +114,33 @@ public class KeyboardJuego implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getKeyCode());
 		/*
 		 * 87
          * 83
          * 65
 		 * 68
 		 */
-		// BOUNDS X = 675, Y = 675 
+		// BOUNDS X = 655, Y = 562 
 		if(e.getKeyCode() == 87) { // ARRIBA
+			if(y > 0) {
 				y -= 4;
-			
+			}
 
 		}
 		if(e.getKeyCode() == 83) { // ABAJO
+			if(y + altoFigura < 562) {
 				y += 4;
-			
+			}
 		}
 		if(e.getKeyCode() == 65) { // iZQUIERDA
+			if(x > 0) {				
 				x -= 4;
-			
+			}
 		}
 		if(e.getKeyCode() == 68) { // DERECHA
+			if(x + anchoFigura < 655) {
 				x += 4;				
-			
+			}
 		}
 		frame.repaint();
 		
