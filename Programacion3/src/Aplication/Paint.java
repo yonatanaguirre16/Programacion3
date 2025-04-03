@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -28,26 +29,28 @@ import javax.swing.JLabel;
 public class Paint implements MouseListener, MouseMotionListener {
 
 	private JFrame frame;
-	private PaintPanel panel_2;
+	int tool = 1;
+	Color color = Color.black;
+	private ArrayList<Point> puntos = new ArrayList<Point>();
 	private JLabel lblNewLabel;
-    private Color colorActual = Color.BLACK; 
+	private boolean isSolido = false;
 
-    private ArrayList<Point> puntos = new ArrayList<>();
-    private List<Integer> listaDeGrosor = new ArrayList<>();
-    private List<Color> listaDeColores = new ArrayList<>();
-
-    private List<List<Point>> listaDePuntos = new ArrayList<>();
-    private List<Figura> listaDeFiguras = new ArrayList<>();
-    private List<Linea> listaDeLineas = new ArrayList<>();
-	private ArrayList<Figura> figuras = new ArrayList<Figura>();
-
-	private ArrayList<Linea> lineas = new ArrayList<Linea>();
-
-
-    private int tool = 1;
-
+	int tamañoPincel=1;
+ 	
+ 	List<List<Point>> listaDePuntos = new ArrayList<>(); 
+ 	
+ 	ArrayList<point> puntos2 = new ArrayList<point>();
+	List<List<point>> listaDePuntos2 = new ArrayList<>();
+ 	int puntoX, puntoY;
+ 	
+ 	ArrayList<figura> figuras = new ArrayList<figura>();
 	
-    public int tamañoPincel = 1; // grosor inicial del pincel
+ 	int tipoFig;
+ 	Graphics2D g2;
+ 	Point puntoInicio;
+ 	Point puntoFinal;
+ 	boolean segundoClick = false;
+	private PaintPanel panel_2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -92,19 +95,20 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton btnNewButton = new JButton("Limpiar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                listaDePuntos.clear();
-                listaDeFiguras.clear();
-                listaDeLineas.clear();
-                puntos.clear();
-                listaDeGrosor.clear();
-                listaDeColores.clear();
-                panel_2.repaint();
+				listaDePuntos.clear();
+				listaDePuntos2.clear();
+				figuras.clear();
+				puntos2.clear();
+				
+		        puntos.clear();
+		        panel_2.repaint();
 			}
 		});
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("+");
 		btnNewButton_2.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				tamañoPincel++;
 				lblNewLabel.setText(String.valueOf(tamañoPincel)); 
@@ -115,7 +119,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 5;
-				colorActual = Color.white;
+				color = Color.white;
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -141,7 +145,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton botonBlanco = new JButton("");
 		botonBlanco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorActual = Color.white;
+				color = Color.white;
 				
 			}
 		});
@@ -151,7 +155,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton botonNegro = new JButton("");
 		botonNegro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorActual = Color.black;
+				color = Color.black;
 
 			}
 		});
@@ -161,7 +165,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton botonGris = new JButton("");
 		botonGris.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorActual = Color.gray;
+				color = Color.gray;
 
 			}
 		});
@@ -171,7 +175,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton botonAzul = new JButton("");
 		botonAzul.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorActual = Color.blue;
+				color = Color.blue;
 
 			}
 		});
@@ -181,7 +185,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton botonRed = new JButton("");
 		botonRed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorActual = Color.red;
+				color = Color.red;
 
 			}
 		});
@@ -191,7 +195,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		JButton botonVerde = new JButton("");
 		botonVerde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorActual = Color.green;
+				color = Color.green;
 
 			}
 		});
@@ -202,7 +206,7 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 1;
-				colorActual = Color.black;
+				color = Color.black;
 
 			}
 		});
@@ -212,7 +216,8 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 2;
-				colorActual = Color.black;
+				isSolido=false;
+				color = Color.black;
 
 			}
 		});
@@ -222,20 +227,38 @@ public class Paint implements MouseListener, MouseMotionListener {
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool=3;
-				colorActual = Color.black;
+				isSolido=false;
+
+				color = Color.black;
 
 			}
 		});
+		
+		JButton btnNewButton_8 = new JButton("Cuadrado Solido");
+		btnNewButton_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				isSolido = true;
+			}
+		});
+		panel_1.add(btnNewButton_8);
 		panel_1.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Linea");
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tool = 4;
-				colorActual = Color.black;
+				color = Color.black;
 
 			}
 		});
+		
+		JButton btnNewButton_9 = new JButton("Circulo Solido");
+		btnNewButton_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				isSolido=true;
+			}
+		});
+		panel_1.add(btnNewButton_9);
 		panel_1.add(btnNewButton_6);
 		
 		panel_2 = new PaintPanel();
@@ -250,60 +273,58 @@ public class Paint implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-        if (tool == 2) { 
-            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 80, 80, listaDeColores.getLast()));
-            panel_2.repaint();
-        }
+		
+		if(tool == 2) {
+			tipoFig=2;
+			figuras.add(new figura(e.getX(), e.getY(), 50*tamañoPincel, 50*tamañoPincel, color, tipoFig, tamañoPincel, isSolido));
+			panel_2.repaint();
+		}
+		if(tool == 3) {
+			tipoFig=3;
+			figuras.add(new figura(e.getX(), e.getY(), 50*tamañoPincel, 50*tamañoPincel, color, tipoFig, tamañoPincel, isSolido));
+			panel_2.repaint();
+		}if(tool == 4) {
+			
+			tipoFig=4;
+			
+			if (!segundoClick) {
+	            puntoInicio = e.getPoint();
+	            segundoClick = true;
+	        }else {
+				
+	            puntoFinal = e.getPoint();
+	            
+	            figuras.add(new figura(puntoInicio.x, puntoInicio.y, puntoFinal.x, puntoFinal.y, color, tipoFig, tamañoPincel, isSolido));
+	            panel_2.repaint();
+	            
+	            segundoClick = false;
+	        }
 
-        if (tool == 3) { 
-            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 69, 69, listaDeColores.getLast()));
-            panel_2.repaint();
-        }
-
-        if (tool == 4) {
-            Linea nuevaLinea = new Linea(e.getX(), e.getY(), 200, 50);
-            listaDeLineas.add(nuevaLinea);
-            panel_2.repaint();
-        }
-        if(tool == 5) {
-            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 90, 90, Color.white));
-            panel_2.repaint();
-        }
+		}if(tool == 5){
+				tipoFig=5;
+				figuras.add(new figura(e.getX(), e.getY(), 50, 50, Color.white, tipoFig, tamañoPincel, isSolido));	
+				panel_2.repaint();
+			
+			
+		}
 		
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-        if (tool == 1) {
-            puntos = new ArrayList<>();
-            listaDePuntos.add(puntos);
-            listaDeGrosor.add(tamañoPincel);
-            listaDeColores.add(colorActual);
-        }
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-	    if (tool == 1) { 
-	        listaDePuntos.add(puntos); 
-	        listaDeGrosor.add(tamañoPincel);  
-	        listaDeColores.add(colorActual);  
-	    }
-	    
-	    if (tool == 2) { 
-	        listaDeFiguras.addAll(figuras);  
-	    }
-	    
-	    if (tool == 3) { 
-	        listaDeFiguras.addAll(figuras);  
-	    }
-	    
-	    if (tool == 4) { 
-	        if (!lineas.isEmpty()) { 
-	            listaDeLineas.addAll(lineas); 
-	        }
-	    }
+
+		ArrayList<point> ArrList2 = new ArrayList<>(puntos2);
+		listaDePuntos2.add(ArrList2);
+		
+ 		listaDePuntos2.add(ArrList2);
+ 		
+ 		puntos2.clear();
 	}
 
 	@Override
@@ -318,17 +339,16 @@ public class Paint implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
 		if(tool == 1) {
-			
-			puntos.add(e.getPoint());
-			panel_2.repaint();
-			
+			puntoX = e.getX();
+			puntoY = e.getY();
+			puntos2.add(new point(puntoX, puntoY, color, tamañoPincel));
+			panel_2.repaint(); 
 		}
 		
 		if(tool == 5) {
 			
-            listaDeFiguras.add(new Figura(e.getX(), e.getY(), 80, 80, Color.WHITE));
+			figuras.add(new figura(e.getX(), e.getY(), 50, 50, Color.white, tipoFig, tamañoPincel, isSolido));
 			panel_2.repaint();
 			
 
@@ -350,74 +370,194 @@ public class Paint implements MouseListener, MouseMotionListener {
 	   public void paintComponent(Graphics g) {
 	       super.paintComponent(g);
 	       
-	       Graphics2D g2 = (Graphics2D) g; 
-	       g2.setColor(Color.black); 
 	       
-           for (int i = 0; i < listaDePuntos.size(); i++) {
-               List<Point> trazo = listaDePuntos.get(i);
-               int grosor = listaDeGrosor.get(i);
-               Color color = listaDeColores.get(i);
-               g2.setColor(color);
-               g2.setStroke(new BasicStroke(grosor));
-               for (int j = 1; j < trazo.size(); j++) {
-                   Point p1 = trazo.get(j - 1);
-                   Point p2 = trazo.get(j);
-                   g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-               }
-           }
+ 	       g2 = (Graphics2D) g; 
+ 	       
+ 	       if(puntos2.size()>1) {
+ 	    	   
+ 	    	   for (int i = 1; i < puntos2.size(); i++) {
 
-           for (Figura f : listaDeFiguras) {
-               g2.setColor(colorActual);
-               g2.setStroke(new BasicStroke(tamañoPincel));
-               if (tool == 2) { 
-                   g2.drawRect(f.x, f.y, f.w, f.h);
-               } else if (tool == 3) { 
-                   g2.drawOval(f.x, f.y, f.w, f.h);
-               } else if (tool == 5) {
-            	   g2.fillRect(f.x, f.y, f.w, f.h);
-            	   g2.setColor(Color.white);
-               }
-           }
+ 	    		   point p1 = puntos2.get(i-1);
+ 	    		   point p2 = puntos2.get(i);
+ 	    		   
+ 	    		   p1.nuevoTrazo(p1.getX(), p1.getY(), p2.getX(), p2.getY(), g2);
+ 	    	   }
+ 	    	   
+ 	       }
+ 	       
+	       
+ 	       for (@SuppressWarnings("rawtypes")
+ 	       	Iterator iterator = listaDePuntos2.iterator(); iterator.hasNext();) {
+ 			@SuppressWarnings("unchecked")
+			List<point> trazo = (List<point>) iterator.next();
+ 			
+ 			
+ 				if(trazo.size()>1) {
+ 		    	   
+ 		    	   for (int i = 1; i < trazo.size(); i++) {
 
-           for (Linea l : listaDeLineas) {
-               g2.setColor(colorActual);
-               g2.setStroke(new BasicStroke(tamañoPincel));
-               g2.drawLine(l.x1, l.y1, l.x2, l.y2);
-           }
+ 		    		   point p1 = trazo.get(i-1);
+ 	 	    		   point p2 = trazo.get(i);
+ 	 	    		   
+ 	 	    		   p1.nuevoTrazo(p1.getX(), p1.getY(), p2.getX(), p2.getY(), g2);
+ 		    	   }
+ 		    	   
+ 		       }
+ 			
+ 	       }
+ 	       
+  	      for (figura f : figuras) {
+  	    	 
+ 	    	  g.setColor(f.color);
+ 	    	  ((Graphics2D) g).setStroke(new BasicStroke(f.grosor));
+ 	    	  
+ 	    	  switch(f.tipo) {
+ 	    	  
+ 	    	  case 2:
+ 	    		  if(f.isSolido) {
+ 	    			  g.fillRect(f.x, f.y, f.ancho, f.alto);
+ 	    		  }
+ 	    		 g.drawRect(f.x, f.y, f.ancho, f.alto);
+ 	    		 break;
+ 	    		 
+ 	    	  case 3:
+ 	    		  if(f.isSolido) {
+ 	    			  g.fillOval(f.x, f.y, f.ancho, f.alto);
+ 	    		  }
+ 	    		 g.drawOval(f.x, f.y, f.ancho, f.alto);
+ 	    		 break;
+ 	    		 
+ 	    	  case 4:
+ 	    		  g.drawLine(f.x, f.y, f.ancho, f.alto);
+ 	    		  break;
+ 	    	  case 5:
+ 	    		  g.fillRect(f.x, f.y, f.ancho, f.alto);
+
+ 	    		  break;
+ 	    		  
+ 	    	  }
+ 	      }
+	       
+
+
+
        
 	
 	   }
 	}
+	
+		class point{
+				
+				public int y;
+				public int x;
+				private Color color;
+				private int grosor;
+				
+				public point(int x, int y, Color color, int grosor) {
+					this.x = x;
+					this.y = y;
+					this.color = color;
+					this.grosor = grosor;
+				}
+		
+				public int getY() {
+					return y;
+				}
+				
+				public void setY(int y) {
+					this.y = y;
+				}
+		
+				public int getX() {
+					return x;
+				}
+		
+				public void setX(int x) {
+					this.x = x;
+				}
+		
+				public Color getColor() {
+					return this.color;
+				}
+		
+				public void setColor(Color color) {
+					this.color = color;
+				}
+		
+				public int getGrosor() {
+					return grosor;
+				}
+		
+				public void setGrosor(int grosor) {
+					this.grosor = grosor;
+				}
+		
+				public void nuevoTrazo(int p1X, int p1Y, int p2X, int p2Y, Graphics2D g2) {
+					g2.setColor(color);
+					g2.setStroke(new BasicStroke(grosor));
+					g2.drawLine(p1X, p1Y, p2X,p2Y);
+				}
+				
+			}
+			
+			class figura{
+				
+				public int x, y, ancho, alto, tipo,grosor;
+				public boolean isSolido=false;
+				Color color;
+				
+				public figura(int x, int y, int ancho, int alto, Color color, int tipo, int grosor, boolean isSolido) {
+				
+					this.x=x;
+					this.y=y;
+					this.ancho=ancho;
+					this.alto=alto;
+					this.color=color;
+					this.tipo=tipo;
+					this.grosor = grosor;
+					this.isSolido=isSolido;
+					 	   
+		    	   for (int i = 1; i < figuras.size(); i++) {
+		    		   
+		    		   figura p1 = figuras.get(i-1);
+		    		   
+		    		   g2.setColor(color);
+		    		   g2.setStroke(new BasicStroke(grosor));
+
+		    		  switch(tipo) {
+		 	    	  case 2:
+		 	    		  if(!isSolido) {
+		 	    			  g2.fillRect(p1.x, p1.y, 50, 50);
+		 	    		  }
+		 	    		 g2.drawRect(p1.x, p1.y, 50, 50);
+		 	    		 break;
+		 	    		 
+		 	    	  case 3:
+		 	    		  if(!isSolido) {
+		 	    			  g2.fillOval(p1.x, p1.y, 50, 50);
+		 	    		  }
+		 	    		 g2.drawOval(p1.x, p1.y, 50, 50);
+		 	    		 break;
+		 	    		 
+		 	    	  case 4:
+		 	    		  g2.drawLine(p1.x, p1.y, ancho, alto);
+		 	    		 break;
+		 	    	  case 5:
+		 	    		  g2.fillRect(p1.x, p1.y, ancho, alto);
+		 	    		  break;
+		    	      }
+		    		  
+		    	  }	 	       
+			 	       
+				}	
+				
+			}
 
 	
-	class Figura{
-			
-		public Color c;
-		public int x, y, w, h, x1, x2, y1,y2;
-
-		public Figura(int x, int y, int w, int h, Color c) {
-			this.x=x;
-			this.y=y;
-			this.w=w;
-			this.h=h;
-			this.c = c;
-		}
-		
-	}
-	
-	class Linea{
-		
-		public int x1, y1, x2, y2;
-		
-		public Linea(int x1, int y1, int x2, int y2) {
-			this.x1=x1;
-			this.y1=y1;
-			this.x2=x2;
-			this.y2=y2;
-			
-		}
-	
-	}
 }
+		
+	
+
+
 
 
