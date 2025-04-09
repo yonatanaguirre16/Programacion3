@@ -27,8 +27,10 @@ public class KeyboardJuego implements KeyListener {
     public Player sombra;
     public Player player;
     private int segundos = 0;
+    private int lastPressed = 0;
     private int minutos = 0;
     public int anchoFigura = 50, altoFigura = 50;
+    Timer cronometro, cronometro2;
 
     private ArrayList<Player> obstaculos = new ArrayList<>();
 	private JLabel timerLbl;
@@ -91,6 +93,7 @@ public class KeyboardJuego implements KeyListener {
                 player.y = 200;
                 sombra.x = player.x;
                 sombra.y = player.y;
+                lastPressed = 0;
                 panel_2.repaint();
                 resetTimer();
                 frame.requestFocusInWindow(); // re-gana el focus al frame para volver a mover desde el teclado
@@ -104,7 +107,7 @@ public class KeyboardJuego implements KeyListener {
         frame.setFocusable(true);
         frame.addKeyListener(this);
         
-	    Timer cronometro = new Timer(1000, new ActionListener() {
+	    cronometro = new Timer(1000, new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	            segundos++;
 	            if (segundos == 60) {
@@ -114,7 +117,13 @@ public class KeyboardJuego implements KeyListener {
 	            actualizarTiempo();
 	        }
 	    });
-	    cronometro.start();
+	    
+	    cronometro2 = new Timer(8, new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	//System.out.println("movimiento");
+	        	update();
+	        }
+	    });
 }
     
 
@@ -135,49 +144,62 @@ public class KeyboardJuego implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        boolean movimiento = true;
+    	
+    	lastPressed = e.getKeyCode();
+	    cronometro.start();
+	    cronometro2.start();
+	    
+	    panel_2.repaint();
+	    update();
 
-        sombra.x = player.x;
-        sombra.y = player.y;
-        
-        if (e.getKeyCode() == 87) { // ARRIBA
-            if (player.y > 0) {
-                player.y -= 4;
-            }
-        }
-        if (e.getKeyCode() == 83) { // ABAJO
-            if (player.y + altoFigura < 562) {
-                player.y += 4;
-            }
-        }
-        if (e.getKeyCode() == 65) { // IZQUIERDA
-            if (player.x > 0) {
-                player.x -= 4;
-            }
-        }
-        if (e.getKeyCode() == 68) { // DERECHA
-            if (player.x + anchoFigura < 655) {
-                player.x += 4;
-            }
-        }
-        
-        for (Player pared : obstaculos) {
-            if (player.colision(pared)) {
-                System.out.println("colision");
-                movimiento = false;
-                break;
-            }
-        }
+       
+    }
+    
+    public void update() {
+    	 boolean movimiento = true;
 
-        if (movimiento) {
-            sombra.x = player.x;
-            sombra.y = player.y;
-        } else {
-            player.x = sombra.x;
-            player.y = sombra.y;
-        }
+         sombra.x = player.x;
+         sombra.y = player.y;
+         
+         if (lastPressed == 87) { // ARRIBA
+             if (player.y > 0) {
+                 player.y -= 6;
+             }
+         }
+         if (lastPressed == 83) { // ABAJO
+             if (player.y + altoFigura < 562) {
+                 player.y += 6;
+             }
+         }
+         if (lastPressed == 65) { // IZQUIERDA
+             if (player.x > 0) {
+                 player.x -= 6;
+             }
+         }
+         if (lastPressed == 68) { // DERECHA
+             if (player.x + anchoFigura < 655) {
+                 player.x += 6;
+             }
+         }
+         
+         for (Player pared : obstaculos) {
+             if (player.colision(pared)) {
+                 //System.out.println("colision");
+                 movimiento = false;
+                 break;
+             }
+         }
 
-        panel_2.repaint();
+         if (movimiento) {
+             sombra.x = player.x;
+             sombra.y = player.y;
+         } else {
+             player.x = sombra.x;
+             player.y = sombra.y;
+         }
+
+         panel_2.repaint();
+    	
     }
 
     public void keyReleased(KeyEvent e) {
