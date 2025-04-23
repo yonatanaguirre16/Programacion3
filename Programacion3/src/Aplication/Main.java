@@ -1,18 +1,14 @@
 package Aplication;
-
-import java.io.IOException;
+import controllers.AuthController;
 
 public class Main {
+	
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {
 		
-		Ventana ventana = new Ventana("Puzzle");        
-
-
-		
-		
-		
+		System.out.println("his");
+		AuthController application = new AuthController();
+		application.login();
 	}
 
 }
