@@ -14,14 +14,14 @@ public class AuthController {
 	
 	public void login(){
 		
-		//view.login();
+		view.login();
 		
 	}
 	
 	
 	public void register() {
 		
-		//view.register();
+		view.register();
 	}
 
 }
