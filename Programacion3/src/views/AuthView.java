@@ -1,5 +1,5 @@
 package views;
-
+import models.AuthModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Paint;
@@ -170,7 +170,7 @@ public class AuthView {
 		JButton register = new JButton("Registrate");
 		register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//manager("register");
+				manager("register");
 			}
 		});
 		
@@ -360,6 +360,8 @@ public class AuthView {
 					terminos1.setForeground(Color.green);
 
 				}
+				nuevoRegistro(user.getText(), bio.getText());
+				//System.out.println("Usuario registrado: " + user.getText() + " \nBio: " + bio.getText());
 			}
 		});
 		crear.setBounds(264, 476, 410, 40); 
@@ -372,7 +374,7 @@ public class AuthView {
 		JButton btnNewButton = new JButton("Registrate");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//manager("login");
+				manager("login");
 			}
 		});
 		btnNewButton.setBounds(264, 552, 410, 40);
@@ -382,6 +384,11 @@ public class AuthView {
 	
 		frame.add(register);
 		register.revalidate();
+	}
+	
+	public void nuevoRegistro(String user, String bio) {
+		System.out.println("Usuario registrado: " + user +"\nBio: " + bio);
+		//nuevoRegistro(user, bio);
 	}
 	
 	

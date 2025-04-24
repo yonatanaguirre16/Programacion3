@@ -1,5 +1,5 @@
 package models;
-
+import views.AuthView;
 public class AuthModel {
 
 	public AuthModel() {
@@ -21,6 +21,11 @@ public class AuthModel {
 			return false; 
 		}
 		 
+	}
+	
+	public String nuevoRegistro(String user, String bio) {
+		
+		return "Registro correcto" + user + "Bio: " + bio;  
 	}
 
 }
