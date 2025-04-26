@@ -51,7 +51,6 @@ public class AuthView {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 920, 534);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Paint.class.getResource("Programacion3/src/images/sonicicon.png")));
 		frame.setTitle("Login");
 		frame.setLocationRelativeTo(null);
 		
@@ -83,13 +82,12 @@ public class AuthView {
 		
 		login.add(etiqueta2);
 		
-		JTextField email = new JTextField();
-		email.setBounds(341, 181, 250, 30); 
-		// x ,y width height
-		email.setBackground(Color.WHITE);
-		email.setOpaque(true);
-		email.setFont(fuenteEtiquetas);
-		login.add(email);
+		textField = new JTextField();
+		textField.setBounds(341, 181, 250, 30); 
+		textField.setBackground(Color.WHITE);
+		textField.setOpaque(true);
+		textField.setFont(fuenteEtiquetas);
+		login.add(textField);
 		
 		JLabel etiqueta3 = new JLabel("Contraseña");
 		etiqueta3.setBounds(341, 222, 120, 30); 
@@ -97,12 +95,12 @@ public class AuthView {
 		etiqueta3.setFont(fuenteLoginSub);
 		login.add(etiqueta3);
 		
-		JPasswordField pass = new JPasswordField();
-		pass.setBounds(341, 263, 250, 30); 
-		pass.setBackground(Color.WHITE);
-		pass.setOpaque(true);
-		pass.setFont(fuenteEtiquetas);
-		login.add(pass);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(341, 263, 250, 30); 
+		passwordField.setBackground(Color.WHITE);
+		passwordField.setOpaque(true);
+		passwordField.setFont(fuenteEtiquetas);
+		login.add(passwordField);
 		
 		JCheckBox recuerdame = new JCheckBox("Recuerdame");
 		recuerdame.setBounds(140, 2140, 250, 30); 
@@ -113,33 +111,44 @@ public class AuthView {
 		JButton access = new JButton("Acceder");
 		access.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String passText = new String(pass.getPassword());
-
-				if(email.getText().equals("")) {
-					email.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+				
+				String passText = new String(passwordField.getPassword());	
+				boolean flag1 = false, flag2 = false;
+				
+				String username = textField.getText();
+	
+				
+				if(username.equals("")) {
+					textField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
 				}else {
-					email.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					textField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flag1=true;
 					
 				}if(passText.equals("")) {
-					pass.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
 				}else {
-					pass.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-
-				}
-				if(email.getText().equals("") && passText.equals("")) {
-					JOptionPane.showMessageDialog(null, "Ingresa los datos deseados", "Error", JOptionPane.ERROR_MESSAGE);
-
-				}else {
-					if(email.getText().equals("yonatan@gmail.com") && passText.equals("hola123")) {
-						JOptionPane.showMessageDialog(null, "¡Bienvenido!");
-					}else {
-						email.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-						pass.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-						JOptionPane.showMessageDialog(null, "¡Datos Incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
-
-					}
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flag2=true;
 				}
 				
+				if(username.equals("") && passText.equals("")) {
+					JOptionPane.showMessageDialog(null, "Campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+					if(flag1 && flag2) {
+						boolean user_auth = functions.access(username, passText);
+						
+						if(user_auth) {
+							JOptionPane.showMessageDialog(null, "¡Bienvenido!");
+							manager("home");
+						}else {
+							textField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+							passwordField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+							JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+		
+					
+				}
 
 			}
 		});
@@ -201,6 +210,35 @@ public class AuthView {
 		login.revalidate();
 	}
 
+	public void home() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 920, 534);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Home");
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		JPanel home = new JPanel();
+		home.setLocation(0, 0);
+		home.setSize(400, 700); 
+		home.setOpaque(true);
+		home.setBackground(Color.BLACK);
+		home.setVisible(true);
+		home.setLayout(null);
+		
+		frame.add(home);
+
+		frame.repaint();
+		home.repaint();
+		home.revalidate();
+		
+		JLabel textoGrande = new JLabel("This is a home test!");
+		textoGrande.setBounds(350, 200, 300, 100);
+		textoGrande.setForeground(Color.white);
+		textoGrande.setFont(fuenteGrande);
+		
+		home.add(textoGrande);
+	}
 	
 	public void register() {
 		
@@ -402,6 +440,10 @@ public class AuthView {
 		}
 		if(target.equals("login")) {
 			login();			
+		}
+		
+		if(target.equals("home")) {
+			home();
 		}
 		
 		frame.repaint();

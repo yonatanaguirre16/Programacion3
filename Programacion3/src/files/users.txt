@@ -1,0 +1,2 @@
+Yonatan Aguirre, yona1@uabcs.mx, password123, admin
+Sergio Mariano, sergiom@uabcs.mx, pass, student

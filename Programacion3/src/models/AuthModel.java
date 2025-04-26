@@ -1,4 +1,7 @@
 package models;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import views.AuthView;
 public class AuthModel {
 
@@ -6,22 +9,37 @@ public class AuthModel {
 		
 	}
 	
-	public boolean access(String u, String p){
-		
-		if(u.equals("fake@mail.com") ) {
-			if(p.equals("12345")) {
-				
-				return true; 
-				
-			}else {
-				return false;
-				
-			}
-		}else {
-			return false; 
-		}
-		 
+	public boolean access(String u, String p) {
+	    try {
+	        String url = AuthModel.class.getResource("/files/users.txt").getPath();
+	        BufferedReader reader = new BufferedReader(new FileReader(url));
+	        
+	        // bufferedReader lee lineas completas mientras que filereader solo caracter por caracter 
+
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            String[] parts = line.split(",");
+	            if (parts.length >= 3) { // la linea del archivo debe tener mas de 3 partes nombre email y pass
+	                String email = parts[1].trim();
+	                String password = parts[2].trim();
+
+	                if (u.equals(email) && p.equals(password)) {
+	                    reader.close();
+	                    return true;
+	                }
+	            }
+	        }
+
+	        reader.close();
+	        return false;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("error");
+	        return false;
+	    }
 	}
+
 	
 	public String nuevoRegistro(String user, String bio) {
 		
