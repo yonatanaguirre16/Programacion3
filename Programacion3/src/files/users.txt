@@ -1,2 +1,2 @@
-Yonatan Aguirre, yona1@uabcs.mx, password123, admin
-Sergio Mariano, sergiom@uabcs.mx, pass, student
+Yonatan|Aguirre|Juniper|Tecnología|PDM Specialist|yonatan123|yonatan@juniper|deleon123
+Sergio|Olachea|ARI|Tecnología|SEO|sergio123|sergioo@ari.com|sergio123!

@@ -1,14 +1,22 @@
 package views;
 import models.AuthModel;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Paint;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -19,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -36,10 +45,25 @@ public class AuthView {
 	Font fuenteLoginSub = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 20);
 	Font fuenteLoginSmaller = new Font("Dejavu Sans Mono", Font.CENTER_BASELINE, 10);
 	Font fuenteBoton = new Font("Tahoma", Font.CENTER_BASELINE, 0);
+
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private AuthModel functions;
+	private JTextField fieldNombre;
+	private JTextField fieldApellidos;
+	private JTextField fieldEmpresa;
+	private JComboBox comboBox;
+	private JTextField fieldCargo;
+	private JTextField fieldUser;
+	private JPasswordField fieldPass;
+	private JPasswordField fieldPass2;
+	private JTextField fieldCorreo;
+	private JCheckBox checkBoxTerminos;
+	private JButton enviarRegistro;
+	private int flagCont = 0;
+	private String nombre, apellido, empresa, cargo, user, correo;
+	private JButton returnBtn;
 	
 	
 	public AuthView() {
@@ -243,192 +267,254 @@ public class AuthView {
 	public void register() {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 820, 734);
+		frame.setBounds(100, 100, 618, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Paint.class.getResource("Programacion3/src/images/sonicicon.png")));
-		frame.setTitle("Registro");
+		frame.setTitle("Register");
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		JPanel register = new JPanel();
-		register.setLocation(1000, 0);
-		register.setSize(500, 500); 
-		register.setOpaque(true);
-		register.setBackground(Color.LIGHT_GRAY);
-		register.setLayout(null);
+		JPanel panel = new JPanel();
 		
-		JLabel etiqueta1 = new JLabel("Registro");
-		etiqueta1.setSize(220, 70);
-		etiqueta1.setLocation(342, 11);
-		//etiqueta1.setBackground(Color.black);
-		etiqueta1.setForeground(Color.WHITE);
-		etiqueta1.setOpaque(false); // para backgrounds
-		etiqueta1.setFont(fuenteGrande);
-		etiqueta1.setHorizontalAlignment(JLabel.CENTER); // alinea las cosas al centro
+		panel.setLayout(null);
 		
-		register.add(etiqueta1); // agrega la etiqueta1 al panel login
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBounds(10, 0, 582, 485);
+		panel_1.setBorder(new TitledBorder(null, "Ingresa los siguientes datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.add(panel_1);
+		panel_1.setLayout(null);
 		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 255, 255));
+		panel_3.setBounds(10, 16, 243, 328);
+		panel_1.add(panel_3);
+		panel_3.setLayout(null);
 		
-		JLabel etiqueta2 = new JLabel("NOMBRE DE USUARIO: ");
-		etiqueta2.setBounds(264, 78, 410, 30); // junta size y location en uno solo
-		// x y, w h
-		etiqueta2.setBackground(Color.yellow);
-		etiqueta2.setOpaque(true);
-		etiqueta2.setFont(fuenteEtiquetas);
-		etiqueta2.setHorizontalAlignment(JLabel.CENTER);
+		JLabel lblNewLabel_2 = new JLabel("Nombres");
+		lblNewLabel_2.setBounds(0, 2, 295, 36);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_2);
 		
-		register.add(etiqueta2);
+		JLabel lblNewLabel_3 = new JLabel("Apellidos");
+		lblNewLabel_3.setBounds(0, 38, 295, 36);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_3);
 		
-		JTextField user = new JTextField();
-		user.setBounds(264, 109, 410, 30); // junta size y location en uno solo
-		// x ,y width height
-		user.setBackground(Color.WHITE);
-		user.setOpaque(true);
-		user.setFont(fuenteEtiquetas);
-		register.add(user);
+		JLabel lblNewLabel_1 = new JLabel("Empresa/Institucion");
+		lblNewLabel_1.setBounds(0, 74, 295, 36);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_1);
 		
-		JLabel etiqueta3 = new JLabel("BIO ");
-		etiqueta3.setBounds(410, 149, 120, 30); // junta size y location en uno solo
-		//etiqueta3.setBackground(Color.WHITE);
-		etiqueta3.setOpaque(false);
-		etiqueta3.setFont(fuenteEtiquetas);
-		etiqueta3.setHorizontalAlignment(JLabel.CENTER);
+		JLabel lblNewLabel_5 = new JLabel("Ámbito de la empresa");
+		lblNewLabel_5.setBounds(0, 110, 295, 36);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_5);
 		
-		register.add(etiqueta3);
+		JLabel lblNewLabel_6 = new JLabel("Cargo");
+		lblNewLabel_6.setBounds(0, 146, 295, 36);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_6);
 		
-		JTextField bio = new JTextField();
-		bio.setBounds(264, 183, 410, 90); // junta size y location en uno solo
-		// x ,y width height
-		bio.setBackground(Color.WHITE);
-		bio.setOpaque(true);
-		bio.setFont(fuenteEtiquetas);
-		register.add(bio);
+		JLabel lblNewLabel_7 = new JLabel("Nombre de usuario");
+		lblNewLabel_7.setBounds(0, 182, 295, 36);
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_7);
 		
-		Border border = new LineBorder(Color.RED, 2, true);
-		//bio.setBorder(border);
+		JLabel lblNewLabel_8 = new JLabel("Contraseña");
+		lblNewLabel_8.setBounds(0, 218, 295, 36);
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_8);
 		
-		JLabel preferencias = new JLabel("PREFERENCIAS");
-		preferencias.setBounds(370, 288, 220, 30); // junta size y location en uno solo
-		//etiqueta3.setBackground(Color.WHITE);
-		preferencias.setOpaque(false);
-		preferencias.setFont(fuenteEtiquetas);
-		preferencias.setHorizontalAlignment(JLabel.CENTER);
-		register.add(preferencias);
+		JLabel lblNewLabel_9 = new JLabel("Repita la contraseña");
+		lblNewLabel_9.setBounds(0, 254, 295, 36);
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_9);
 		
-		JCheckBox pref1 = new JCheckBox("Dulce");
-		pref1.setBounds(328, 325, 80, 30); // junta size y location en uno solo
-		pref1.setOpaque(false);
-		pref1.setFont(new Font("Times New Roman" , Font.BOLD, 15));
-		register.add(pref1);
+		JLabel lblNewLabel_4 = new JLabel("Correo Electronico");
+		lblNewLabel_4.setBounds(0, 290, 295, 36);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel_4);
 		
-		JCheckBox pref2 = new JCheckBox("Salado");
-		pref2.setBounds(431, 325, 80, 30); // junta size y location en uno solo
-		pref2.setOpaque(false);
-		pref2.setFont(new Font("Times New Roman" , Font.BOLD, 15));
-		register.add(pref2);
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(255, 255, 255));
+		panel_4.setBounds(263, 16, 309, 328);
+		panel_1.add(panel_4);
+		panel_4.setLayout(null);
 		
-		JCheckBox pref3 = new JCheckBox("Saludable");
-		pref3.setBounds(533, 325, 100, 30); // junta size y location en uno solo
-		pref3.setOpaque(false);
-		pref3.setFont(new Font("Times New Roman" , Font.BOLD, 15));
-		register.add(pref3);
-		//pref3.setBorderPainted(true);
-		pref3.setBorder(border);
+		fieldNombre = new JTextField();
+		fieldNombre.setBounds(20, 0, 240, 32);
+		panel_4.add(fieldNombre);
+		fieldNombre.setColumns(10);
 		
-		JLabel term = new JLabel("TÉRMINOS ");
-		term.setBounds(130, 3140, 250, 30); // junta size y location en uno solo
-		// x y, w h
-		term.setBackground(Color.yellow);
-		term.setOpaque(true);
-		term.setFont(fuenteEtiquetas);
-		term.setHorizontalAlignment(JLabel.CENTER);
-		register.add(term);
+		fieldApellidos = new JTextField();
+		fieldApellidos.setBounds(20, 37, 240, 32);
+		panel_4.add(fieldApellidos);
+		fieldApellidos.setColumns(10);
 		
-		JRadioButton terminos1 = new JRadioButton("Acepto los terminos");
-		terminos1.setLocation(315, 358);
-		terminos1.setSize(180, 40);
-		terminos1.setOpaque(false);
-		register.add(terminos1);
+		fieldEmpresa = new JTextField();
+		fieldEmpresa.setBounds(20, 74, 240, 32);
+		panel_4.add(fieldEmpresa);
+		fieldEmpresa.setColumns(10);
 		
-		JRadioButton terminos2 = new JRadioButton("No acepto los terminos");
-		terminos2.setLocation(503, 358);
-		terminos2.setSize(180, 40);
-		terminos2.setOpaque(false);
-		register.add(terminos2);
+		comboBox = new JComboBox();
+		comboBox.setBounds(20, 111, 240, 32);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tecnología", "Salud", "Educación", "Comercio", "Otro"}));
+		panel_4.add(comboBox);
 		
-		ButtonGroup terminos = new ButtonGroup();
+		fieldCargo = new JTextField();
+		fieldCargo.setBounds(20, 148, 240, 32);
+		panel_4.add(fieldCargo);
+		fieldCargo.setColumns(10);
 		
-		terminos.add(terminos1);
-		terminos.add(terminos2);
+		fieldUser = new JTextField();
+		fieldUser.setBounds(20, 185, 240, 32);
+		panel_4.add(fieldUser);
+		fieldUser.setColumns(10);
 		
-		/*terminos1.setBorder(border);
-		terminos1.setBorderPainted(true);
-		terminos2.setBorder(border);
-		terminos2.setBorderPainted(false);
-		 */
-
-		String [] preferencias_set = {"Centro", "Camino Real", "Indeco"};
+		fieldPass = new JPasswordField();
+		fieldPass.setBounds(20, 222, 240, 32);
+		panel_4.add(fieldPass);
+		fieldPass.setColumns(10);
 		
-		JComboBox preferenciass = new JComboBox(preferencias_set);
-		preferenciass.setLocation(264, 405);
-		preferenciass.setSize(410, 40);
-		register.add(preferenciass);
+		fieldPass2 = new JPasswordField();
+		fieldPass2.setBounds(20, 259, 240, 32);
+		panel_4.add(fieldPass2);
+		fieldPass2.setColumns(10);
 		
+		fieldCorreo = new JTextField();
+		fieldCorreo.setBounds(20, 296, 240, 32);
+		panel_4.add(fieldCorreo);
+		fieldCorreo.setColumns(10);
 		
+		checkBoxTerminos = new JCheckBox("He leído y acepto los terminos del sistema");
+		//checkBoxTerminos.setOpaque(false);
+		checkBoxTerminos.setHorizontalAlignment(SwingConstants.CENTER);
+		checkBoxTerminos.setBounds(140, 389, 286, 23);
+		panel_1.add(checkBoxTerminos);
 		
+		enviarRegistro = new JButton("Enviar formulario");
+		enviarRegistro.setBounds(225, 430, 133, 23);
+		panel_1.add(enviarRegistro);
+		enviarRegistro.setBackground(new Color(0, 153, 0));
 		
-		JButton crear = new JButton("Crear Cuenta");
-		crear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(user.getText().equals("")) {
-					user.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-				}else {
-					user.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-
-				}
-				if(bio.getText().equals("")) {
-					bio.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-				}else {
-					bio.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-
-				}
-				if(!terminos1.isSelected() && !terminos2.isSelected()) {
-					terminos1.setForeground(Color.red);
-				}else {
-					terminos1.setForeground(Color.green);
-
-				}
-				nuevoRegistro(user.getText(), bio.getText());
-				//System.out.println("Usuario registrado: " + user.getText() + " \nBio: " + bio.getText());
-			}
-		});
-		crear.setBounds(264, 476, 410, 40); 
-		crear.setBackground(Color.WHITE);
-		crear.setOpaque(true);
-		crear.setFont(fuenteEtiquetas);
-		etiqueta1.setHorizontalAlignment(JButton.CENTER); // alinea las cosas al centro
-		register.add(crear);
-		
-		JButton btnNewButton = new JButton("Registrate");
-		btnNewButton.addActionListener(new ActionListener() {
+		returnBtn = new JButton("Regresar");
+		returnBtn.setBounds(10, 451, 89, 23);
+		panel_1.add(returnBtn);
+		returnBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				manager("login");
 			}
 		});
-		btnNewButton.setBounds(264, 552, 410, 40);
-		btnNewButton.setFont(fuenteEtiquetas);
-		register.add(btnNewButton);
+		
+		
+		enviarRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String passText = new String(fieldPass.getPassword());	
+				String passText2 = new String(fieldPass2.getPassword());	
+				String sector = (String) comboBox.getSelectedItem();
 
-	
-		frame.add(register);
-		register.revalidate();
+
+	            if (fieldNombre.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) { 
+	            	nombre = fieldNombre.getText();
+					fieldNombre.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+					fieldNombre.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if (fieldApellidos.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) { 
+	            	apellido = fieldApellidos.getText();
+	            	fieldApellidos.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+	            	fieldApellidos.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if (fieldCargo.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) { 
+	            	cargo = fieldCargo.getText();
+	            	fieldCargo.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+	            	fieldCargo.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+
+	            }
+	            if(fieldEmpresa.getText().matches("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+")) {
+	            	empresa = fieldEmpresa.getText();
+	            	fieldEmpresa.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+	            	fieldEmpresa.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if(fieldUser.getText().matches("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+")) {
+	            	user = fieldUser.getText();
+	            	fieldUser.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+	            	fieldUser.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if(passText.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9])(?!.*\\s).+$")) {
+	            	fieldPass.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+	            	fieldPass.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if(passText2.equals(passText)) {
+	            	//System.out.println("son iguales");
+	            	fieldPass2.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;
+	            }else{
+	            	//System.out.println("son diferentes");
+	            	fieldPass2.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if(fieldCorreo.getText().matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+	            	correo = fieldCorreo.getText();
+	            	//System.out.println("si es correo");
+	            	fieldCorreo.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+					flagCont++;        
+	            }else{
+	            	//System.out.println("no es correo");
+	            	fieldCorreo.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+	            }
+	            if(flagCont >= 8) {
+	            	if(checkBoxTerminos.isSelected()) {
+	    	            String linea = String.join("|", nombre, apellido, empresa, sector, cargo, user, correo, passText);
+	    	            try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\files\\users.txt", true))) {
+	    	                writer.write(linea);
+	    	                writer.newLine(); 
+	    	                JOptionPane.showMessageDialog(frame, "Usuario guardado correctamente.");
+	    	                System.out.println(linea);
+	    	            } catch (IOException ex) {
+	    	                ex.printStackTrace();
+	    	                JOptionPane.showMessageDialog(frame, "Error al guardar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	            }
+	            	}else{
+	            		checkBoxTerminos.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+		                JOptionPane.showMessageDialog(frame, "Acepta los terminos", "Error", JOptionPane.ERROR_MESSAGE);
+	            	}
+	            }else {
+	                JOptionPane.showMessageDialog(frame, "Te falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+	            	
+	            }
+
+			}
+			
+			
+		});
+		
+		
+		frame.add(panel);
+		panel.revalidate();
 	}
 	
-	public void nuevoRegistro(String user, String bio) {
-		System.out.println("Usuario registrado: " + user +"\nBio: " + bio);
-		//nuevoRegistro(user, bio);
-	}
 	
+
 	
 	public void manager(String target) { 
 		
