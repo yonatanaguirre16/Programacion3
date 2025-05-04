@@ -62,7 +62,7 @@ public class HomeView {
 		
 		JButton productsBtn = new JButton("Productos"); 
 		productsBtn.setBounds(327, 21, 109, 23);
-		/*productsBtn.addActionListener(new ActionListener() {
+		productsBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        ProductModel model = new ProductModel();
 		        JSONArray data = model.get(); 
@@ -92,7 +92,7 @@ public class HomeView {
 		        frameTabla.getContentPane().add(panelTabla);
 		        frameTabla.setVisible(true);
 		    }
-		});*/
+		});
 
 		panel_1.add(productsBtn);
 
