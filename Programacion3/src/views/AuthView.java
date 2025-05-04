@@ -160,10 +160,8 @@ public class AuthView {
 				}else {
 					if(flag1 && flag2) {
 						boolean user_auth = functions.access(username, passText);
-						
 						if(user_auth) {
-							JOptionPane.showMessageDialog(null, "¡Bienvenido!");
-							manager("home");
+							frame.dispose();
 						}else {
 							textField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
 							passwordField.setBorder(BorderFactory.createLineBorder(Color.red, 3));
@@ -407,7 +405,7 @@ public class AuthView {
 		enviarRegistro.setBackground(new Color(0, 153, 0));
 		
 		returnBtn = new JButton("Regresar");
-		returnBtn.setBounds(10, 451, 89, 23);
+		returnBtn.setBounds(10, 451, 89, 23); 
 		panel_1.add(returnBtn);
 		returnBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

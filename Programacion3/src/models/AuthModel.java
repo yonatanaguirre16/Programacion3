@@ -1,9 +1,11 @@
 package models;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-
-
 import views.AuthView;
+import views.HomeView;
+import controllers.HomeController;
+
 public class AuthModel {
 
 	public AuthModel() {
@@ -18,7 +20,7 @@ public class AuthModel {
 	        // bufferedReader lee lineas completas mientras que filereader solo caracter por caracter 
 
 	        String line;
-	        while ((line = reader.readLine()) != null) {
+	        while ((line = reader.readLine()) != null) { 
 	        	String[] parts = line.split("\\|");
 	            if (parts.length >= 8) { // la linea del archivo debe tener mas de 3 partes nombre email y pass
 	                String email = parts[6].trim();
@@ -26,7 +28,11 @@ public class AuthModel {
 
 	                if (u.equals(email) && p.equals(password)) {
 	                    reader.close();
-	                    return true;
+	                    
+	                    HomeView homeView = new HomeView();
+	                    HomeController homeController = new HomeController(homeView);
+	                    homeView.setVisible(true);
+	                	return true;
 	                }
 	            }
 	        }

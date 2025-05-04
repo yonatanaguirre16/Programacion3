@@ -7,7 +7,7 @@ public class AuthController {
 	
 	public AuthController() {
 		
-		view = new AuthView();
+		view = new AuthView(); 
 	}
 	
 	
