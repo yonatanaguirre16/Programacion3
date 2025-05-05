@@ -64,33 +64,14 @@ public class HomeView {
 		productsBtn.setBounds(327, 21, 109, 23);
 		productsBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        ProductModel model = new ProductModel();
-		        JSONArray data = model.get(); 
+		    	ProductModel model = new ProductModel();
+		    	JSONArray data = model.get();
 
-		        String[] columnNames = {"ID", "Title", "Price", "Stock"};
-		        Object[][] tableData = new Object[data.size()][4]; // data.size() regresa la cantidad de filas que existen en el array o directamente del JSON
+		    	// Crear ProductView y pasarle los datos
+		    	ProductView productView = new ProductView();
+		    	productView.products(data);
 
-		        for (int i = 0; i < data.size(); i++) {
-		            JSONObject product = (JSONObject) data.get(i); // itera dentro del json y encuentra id, title, price y stock y los mete a una table
-		            tableData[i][0] = product.get("id");
-		            tableData[i][1] = product.get("title");
-		            tableData[i][2] = product.get("price");
-		            tableData[i][3] = product.get("stock");
-		        }
 
-		        JPanel panelTabla = new JPanel();
-		        panelTabla.setLayout(new BorderLayout());
-
-		        JTable table = new JTable(tableData, columnNames);
-		        JScrollPane scrollPane = new JScrollPane(table);
-		        panelTabla.add(scrollPane, BorderLayout.CENTER);
-
-		        JFrame frameTabla = new JFrame("Lista de Productos");
-		        frameTabla.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		        frameTabla.setSize(600, 400);
-		        frameTabla.setLocationRelativeTo(null); 
-		        frameTabla.getContentPane().add(panelTabla);
-		        frameTabla.setVisible(true);
 		    }
 		});
 

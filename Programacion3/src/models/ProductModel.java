@@ -56,25 +56,7 @@ public class ProductModel {
 			
 		}
 		
-		private static void parseTestData(JSONObject product){
-			//  ID, Nombre, Precio, Stock.
-			
-			String id = (String) product.get("id");
-			
-		    String title = (String) product.get("title");   
-		    //System.out.println("Title: " + title);
-		    
-		    String precio = (String) product.get("price");
-		    
-		    String stock = (String) product.get("stock");
-		      
-		    /*String description = (String) product.get("description");   
-		    System.out.println("Description: " + description);
-		      
-		    String category = (String) product.get("category"); 
-		    System.out.println("Category: " + category);*/ 
-		    
-	    }
+
 
 
 }
