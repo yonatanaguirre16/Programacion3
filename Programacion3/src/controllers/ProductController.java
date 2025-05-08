@@ -22,4 +22,8 @@ public class ProductController {
 		view.products(data);
 		
 	}
+	
+	public void add() {
+		view.add();
+	}
 }

@@ -67,7 +67,6 @@ public class HomeView {
 		    	ProductModel model = new ProductModel();
 		    	JSONArray data = model.get();
 
-		    	// Crear ProductView y pasarle los datos
 		    	ProductView productView = new ProductView();
 		    	productView.products(data);
 
