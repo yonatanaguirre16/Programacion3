@@ -33,18 +33,12 @@ public class ProductModel {
 	        
 	        try (FileReader reader = new FileReader(url))
 	        {
-	            //Read JSON file
 	            Object obj = jsonParser.parse(reader);
 	  
 	            JSONArray productList = (JSONArray) obj;
-	            //System.out.println(productList);
 	              
 	            return productList;
 	           
-	            
-	            //Iterate over  array
-	           // productList.forEach( emp -> parseTestData( (JSONObject) emp ) );
-	  
 	        } catch (FileNotFoundException e){
 	            e.printStackTrace();
 	        }catch (IOException e){
@@ -57,23 +51,28 @@ public class ProductModel {
 			
 		}
 		
-		public void remove(){
+		public void remove(Long id) {
+		    JSONArray productList = get();
+		    String url = AuthModel.class.getResource("/files/products.json").getPath();
 
-			JSONArray productList = get();
+		    @SuppressWarnings("unchecked")
+			Iterator<Object> iterator = productList.iterator();
+		    while (iterator.hasNext()) {
+		        JSONObject product = (JSONObject) iterator.next();
+		        Long productId = (Long) product.get("id");
+		        if (productId != null && productId.equals(id)) {
+		            iterator.remove();  
+		            break;
+		        }
+		    }
 
-			String url = AuthModel.class.getResource("/files/products.json").getPath();
-
-			 productList.remove(0); 
-
-
-	         try (FileWriter file = new FileWriter(url)) {
-	             file.write(productList.toString()); // Use toString(2) for pretty printing
-	             file.flush();
-	             file.close();
-	             System.out.println("JSON array written to file successfully!");
-	         } catch (IOException e) {
-	             e.printStackTrace();
-	         }
+		    try (FileWriter file = new FileWriter(url)) {
+		        file.write(productList.toJSONString());
+		        file.flush();
+		        System.out.println("Producto eliminado correctamente.");
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 		}
 		
 		public boolean addProduct(String name, String category, String brand, String desc ){
@@ -83,7 +82,16 @@ public class ProductModel {
 			
 			String url = AuthModel.class.getResource("/files/products.json").getPath();
 			
+		    long newId = 1;
+		    for (Object obj : productList) {
+		        JSONObject p = (JSONObject) obj;
+		        Long existingId = (Long) p.get("id");
+		        if (existingId != null && existingId >= newId) {
+		            newId = existingId + 1;
+		        }
+		    }
 			
+			jsonObject.put("id", newId++);
 			jsonObject.put("title", name);
 			jsonObject.put("description", desc);
 			jsonObject.put("category", category);
@@ -97,7 +105,7 @@ public class ProductModel {
 	            file.write(productList.toString()); 
 	            file.flush();
 	            file.close();
-	            System.out.println("JSON array written to file successfully!");
+	            System.out.println("El producto se agregó correctamente.");
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }

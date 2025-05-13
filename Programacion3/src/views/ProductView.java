@@ -3,17 +3,22 @@ package views;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,106 +37,117 @@ public class ProductView {
 	}
 
 	public void products(JSONArray data) {
-
-		JFrame ventana = new JFrame();
-
-		ventana.setBounds(100, 100, 920, 534);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		ventana.setVisible(true);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		ventana.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-
-		JButton add = new JButton("añadir producto");
-		add.setBounds(655, 50, 200, 40);
-		add.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				ventana.dispose();
-				ProductController pc = new ProductController();
-				pc.add();
-			}
-			
-		});
-		panel.add(add);
 		
-		JLabel lblNewLabel = new JLabel("Productos");
-		lblNewLabel.setForeground(new Color(0, 0, 0));
-		lblNewLabel.setFont(new Font("Kefa", Font.PLAIN, 24));
-		lblNewLabel.setBounds(107, 35, 210, 26);
-		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(lblNewLabel);
+	    JFrame ventana = new JFrame();
+	    ventana.setBounds(100, 100, 920, 534);
+	    ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    ventana.setVisible(true);
 
-		int y = 90;
+	    JPanel panel = new JPanel();
+	    panel.setBackground(new Color(255, 255, 255));
+	    panel.setLayout(null);
+	    ventana.getContentPane().add(panel, BorderLayout.CENTER);
 
-		for (Object product1 : data) {
+	    JButton add = new JButton("añadir producto");
+	    add.setBounds(655, 50, 200, 40);
+	    add.addActionListener(e -> {
+	        ventana.dispose();
+	        ProductController pc = new ProductController();
+	        pc.add();
+	    });
+	    panel.add(add);
 
-			JSONObject product = (JSONObject) product1; 
+	    JLabel lblNewLabel = new JLabel("Productos");
+	    lblNewLabel.setForeground(new Color(0, 0, 0));
+	    lblNewLabel.setFont(new Font("Kefa", Font.PLAIN, 24));
+	    lblNewLabel.setBounds(107, 35, 210, 26);
+	    lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
+	    panel.add(lblNewLabel);
 
-			JLabel lblNewLabel2 = new JLabel((String) product.get("title"));
-			lblNewLabel2.setForeground(new Color(0, 0, 0)); 
-			lblNewLabel2.setBounds(50, y, 100, 26);
-			lblNewLabel2.setHorizontalAlignment(JLabel.CENTER);
-			panel.add(lblNewLabel2);
-			
-			JLabel lblNewLabel3 = new JLabel((String) product.get("description"));
-			lblNewLabel3.setForeground(new Color(0, 0, 0)); 
-			lblNewLabel3.setBounds(150, y, 100, 26);
-			lblNewLabel3.setHorizontalAlignment(JLabel.CENTER);
-			panel.add(lblNewLabel3);
-			
-			JLabel lblNewLabel4 = new JLabel((String) product.get("category"));
-			lblNewLabel4.setForeground(new Color(0, 0, 0)); 
-			lblNewLabel4.setBounds(250, y, 100, 26);
-			lblNewLabel4.setHorizontalAlignment(JLabel.CENTER);
-			panel.add(lblNewLabel4);
-			
-			JLabel lblNewLabel5 = new JLabel((String) product.get("brand"));
-			lblNewLabel5.setForeground(new Color(0, 0, 0)); 
-			lblNewLabel5.setBounds(350, y, 100, 26);
-			lblNewLabel5.setHorizontalAlignment(JLabel.CENTER);
-			panel.add(lblNewLabel5);
-			
-			//y+=35;
+	    String[] columnNames = {"Título", "Descripción", "Categoría", "Marca", "Acción"};
+	    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-			JButton remove = new JButton("Eliminar");
-			remove.setName((Long) product.get("id")+"");
+	    for (Object product1 : data) {
+	        JSONObject product = (JSONObject) product1;
+	        model.addRow(new Object[]{
+	            product.get("title"),
+	            product.get("description"),
+	            product.get("category"),
+	            product.get("brand"),
+	            product.get("id") 
+	        });
+	    }
 
-			remove.setBounds(500, y, 100, 26);
-			remove.addActionListener(new ActionListener() {
+	    JTable tablaProductos = new JTable(model) {
+	        public boolean isCellEditable(int row, int column) {
+	            return column == 4; 
+	        }
+	    };
 
-				@Override
-				public void actionPerformed(ActionEvent e) { 
+	    tablaProductos.setRowHeight(30);
 
-					((JButton) e.getSource()).getName();
+	    tablaProductos.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+	    tablaProductos.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), data, ventana));
 
-					System.out.println("Hola: "+((JButton) e.getSource()).getName());
-
-					ProductModel pm = new ProductModel();
-					pm.remove();
-					
-					ventana.dispose();
-					
-					ProductController pc = new ProductController();
-					pc.products();
-				}
-
-			});
-			
-			
-
-
-			panel.add(remove);
-
-			y+=35;
-			
-		}
+	    JScrollPane scrollPane = new JScrollPane(tablaProductos);
+	    scrollPane.setBounds(50, 100, 800, 350);
+	    panel.add(scrollPane);
 	}
+	
+	class ButtonRenderer extends JButton implements TableCellRenderer { // clase para agregar un boton en tabla
+	    public ButtonRenderer() {
+	        setOpaque(true);
+	        setText("Eliminar");
+	    }
+
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+	                                                   boolean hasFocus, int row, int column) {
+	        return this;
+	    }
+	}
+
+	class ButtonEditor extends DefaultCellEditor {
+	    private JButton button;
+	    private Long productId;
+	    private boolean clicked;
+	    private JFrame ventana;
+	    private JSONArray data;
+
+	    public ButtonEditor(JCheckBox checkBox, JSONArray data, JFrame ventana) {
+	        super(checkBox);
+	        this.ventana = ventana;
+	        this.data = data;
+	        button = new JButton("Eliminar");
+	        button.addActionListener(e -> fireEditingStopped());
+	    }
+
+	    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+	        productId = (Long) value;
+	        clicked = true;
+	        return button;
+	    }
+
+	    public Object getCellEditorValue() {
+	        if (clicked) {
+	            ProductModel pm = new ProductModel();
+	            pm.remove(productId); 
+
+	            ventana.dispose();
+	            ProductController pc = new ProductController();
+	            pc.products();
+	        }
+	        clicked = false;
+	        return "Eliminar";
+	    }
+
+	    public boolean stopCellEditing() {
+	        clicked = false;
+	        return super.stopCellEditing();
+	    }
+	}
+
+
+	
 
 
 
@@ -165,18 +181,6 @@ public class ProductView {
 		
 		JButton add = new JButton("Añadir producto");
 		add.setBounds(490, 331, 200, 40);
-		add.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				String name = nameInput.getText();
-				
-				
-				
-			}});
-		
 		panel.add(add); 
 		
 		
@@ -216,7 +220,6 @@ public class ProductView {
 		lblNewLabel.setBounds(354, 39, 223, 40);
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 				String name = nameInput.getText();
 				String desc = textField_8.getText();
@@ -258,68 +261,4 @@ public class ProductView {
 		
 	}
 	
-	private static void parseTestData(JSONObject product)
-    {
-
-		// Obtener valores directamente del objeto producto
-	    String title = (String) product.get("title");   
-	    System.out.println("Title: " + title);
-
-	    String description = (String) product.get("description");   
-	    System.out.println("Description: " + description);
-
-	    String category = (String) product.get("category"); 
-	    System.out.println("Category: " + category); 
-	    
-	    String brand = (String) product.get("brand"); 
-	    System.out.println("Brand: " + brand); 
-
-    }
 }
-/*
-
-
-public class ProductView {
-
-    public ProductView() {
-    }
-
-    public void products(JSONArray data) {
-        String[] columnNames = {"ID", "Title", "Price", "Stock"};
-        Object[][] tableData = new Object[data.size()][4];
-
-        for (int i = 0; i < data.size(); i++) {
-            JSONObject product = (JSONObject) data.get(i);
-            tableData[i][0] = product.get("id");
-            tableData[i][1] = product.get("title");
-            tableData[i][2] = product.get("price");
-            tableData[i][3] = product.get("stock");
-        }
-
-        JPanel panelTabla = new JPanel();
-        panelTabla.setLayout(new BorderLayout());
-
-        JTable table = new JTable(tableData, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
-        panelTabla.add(scrollPane, BorderLayout.CENTER);
-
-        JButton refreshButton = new JButton("Actualizar");
-        refreshButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Se actualizaron los datos de la tabla");
-            }
-        });
-
-        JPanel panelBoton = new JPanel();
-        panelBoton.add(refreshButton);
-        panelTabla.add(panelBoton, BorderLayout.SOUTH);
-
-        JFrame frameTabla = new JFrame("Agregar");
-        frameTabla.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frameTabla.setSize(600, 400);
-        frameTabla.setLocationRelativeTo(null);
-        frameTabla.getContentPane().add(panelTabla);
-        frameTabla.setVisible(true);
-    }
-}
-*/
