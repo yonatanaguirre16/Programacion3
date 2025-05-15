@@ -93,7 +93,7 @@ public class ProductModel {
 			
 			jsonObject.put("id", newId++);
 			jsonObject.put("title", name);
-			jsonObject.put("description", desc);
+			jsonObject.put("description", desc);	
 			jsonObject.put("category", category);
 			jsonObject.put("brand", brand);
 

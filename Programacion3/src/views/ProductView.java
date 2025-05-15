@@ -146,15 +146,7 @@ public class ProductView {
 	    }
 	}
 
-
-	
-
-
-
-	
-
-	public void add()
-	{
+	public void add(){
 		
 		JFrame ventana = new JFrame();
 		
@@ -229,9 +221,7 @@ public class ProductView {
 				ProductModel pm = new ProductModel();
 				
 				pm.addProduct(name, cate, brandd, desc); 
-
-
-				
+		
 				ventana.dispose();
 				
 				ProductController pc = new ProductController();
@@ -256,9 +246,7 @@ public class ProductView {
 			
 		});
 		panel.add(btnNewButton_2);
-		
-		
-		
+	
 	}
 	
 }

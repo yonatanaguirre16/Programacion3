@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +26,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import controllers.ProductController;
+import controllers.UsersController;
 import models.ProductModel;
+import models.User;
+import models.UsersModel;
 
 public class HomeView {
 	
@@ -80,7 +84,12 @@ public class HomeView {
 		btnNewButton.setBounds(463, 21, 89, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Prueba de boton usuario!");
+				UsersModel um = new UsersModel();
+				ArrayList<User> listaUsuarios = um.get();  // Obtener los usuarios desde el modelo
+				
+				UsersView vistaUsuarios = new UsersView();
+				vistaUsuarios.usuarios(listaUsuarios);
+
 
 			}
 		});
