@@ -18,10 +18,16 @@ public class UsersController {
 	public void usuarios() {
 		
 		UsersModel um = new UsersModel();
-		ArrayList<User> listaUsuarios = um.get();  // Obtener los usuarios desde el modelo
+		ArrayList<User> listaUsuarios = um.get(); 
 		
-		view.usuarios(listaUsuarios);  // Pasarlos a la vista para mostrarlos
+		view.usuarios(listaUsuarios); 
 		
 	}
 
+	
+	public void add() {
+		
+		view.addUsers();
+		
+	}
 }
