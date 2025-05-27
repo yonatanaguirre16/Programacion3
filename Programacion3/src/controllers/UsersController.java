@@ -30,4 +30,8 @@ public class UsersController {
 		view.addUsers();
 		
 	}
+	
+	public void update(User usertoUpdate) {
+		view.updateUsers(usertoUpdate);
+	}
 }

@@ -85,7 +85,7 @@ public class HomeView {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsersModel um = new UsersModel();
-				ArrayList<User> listaUsuarios = um.get();  // Obtener los usuarios desde el modelo
+				ArrayList<User> listaUsuarios = um.get(); 
 				
 				UsersView vistaUsuarios = new UsersView();
 				vistaUsuarios.usuarios(listaUsuarios);

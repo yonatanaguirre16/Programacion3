@@ -28,12 +28,12 @@ public class UsersModel {
 			ResultSet rs = stmt.executeQuery(query); // ResultSet se usa para queries SELECT
 			while (rs.next()) {
 				Integer empId = rs.getInt(1);
-				String firstName = rs.getString(2);
+				String name = rs.getString(2);
 				String email = rs.getString(3);
 				String role = rs.getString(4); 
 				String phone = rs.getString(5);
 				
-				users.add(new User(empId,firstName,email,role,phone,null,null)); 
+				users.add(new User(empId,name,email,role,phone,null,null)); 
 			}
 			rs.close();
 			return users; 
@@ -76,6 +76,35 @@ public class UsersModel {
 		}
 		
 		return false;
+	}
+	
+	public boolean update(User user) {
+
+	    String query = "UPDATE users SET name = '"+user.name+"', role = '"+user.role+"', email = '"+user.email+"' WHERE `users`.`id` = "+user.id+";";
+		Connection conn = null;																							//id    name     email role
+		Statement stmt = null;	
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "root", "");
+			stmt = conn.createStatement();
+			
+			int rs = stmt.executeUpdate(query);
+			 
+			if(rs > 0) 
+				return true; 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (Exception e) {}
+		}
+		
+		return false;
+		
 	}
 }
 
