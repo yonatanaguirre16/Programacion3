@@ -31,7 +31,7 @@ public class UsersView {
         JLabel titulo = new JLabel("Usuarios", SwingConstants.CENTER);
         panel.add(titulo, BorderLayout.NORTH);
 
-        String[] columnas = {"ID", "Nombre", "Email", "Rol", "Teléfono", "Edit"};
+        String[] columnas = {"ID", "Nombre", "Email", "Rol", "Teléfono", "Editar", "Eliminar"};
 
         DefaultTableModel model = new DefaultTableModel(columnas, 0);
 
@@ -42,15 +42,19 @@ public class UsersView {
                 user.getEmail(),
                 user.getRole(),
                 user.getPhone(),
-                "Editar"
+                "Editar",
+                "Eliminar"
             };
             model.addRow(fila);
         }
 
         JTable tabla = new JTable(model);
-        tabla.setRowHeight(24);
+        
         tabla.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-        tabla.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), usuarios));
+        tabla.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), usuarios, false));
+        
+        tabla.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        tabla.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), usuarios, true));
 
         JScrollPane scrollPane = new JScrollPane(tabla);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -61,36 +65,28 @@ public class UsersView {
         JButton addNew = new JButton("Agregar");
         addNew.setBounds(400, 35, 150, 40);
         addNew.addActionListener(e ->{
-        	
         	UsersController uc = new UsersController();
         	uc.add();
-        	
         	ventana.dispose();
-        	
-        
-        	
         });
       
-        
         JPanel botonPanel = new JPanel();
         botonPanel.add(addNew);
         panel.add(botonPanel, BorderLayout.EAST);
 
         ventana.getContentPane().add(panel);
         ventana.setVisible(true);
-           
-        
-        
     }
     
     class ButtonRenderer extends JButton implements TableCellRenderer {
 
         public ButtonRenderer() {
-            setText("Editar");
+        	
         }
-
+        
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "" : value.toString());
             return this;
         }
     }
@@ -99,10 +95,12 @@ public class UsersView {
 
         private String label;
         private ArrayList<User> usuarios;
+        private boolean esEliminar; 
 
-        public ButtonEditor(JCheckBox checkBox, ArrayList<User> usuarios) {
+        public ButtonEditor(JCheckBox checkBox, ArrayList<User> usuarios, boolean esEliminar) {
             super(checkBox);
             this.usuarios = usuarios;
+            this.esEliminar = esEliminar;
         }
 
         @Override
@@ -114,19 +112,34 @@ public class UsersView {
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             label = (value == null) ? "" : value.toString();
             JButton boton = new JButton(label);
-            boton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    User usuarioSeleccionado = usuarios.get(row);
-                    
-                    UsersView usersView = new UsersView();
-                    usersView.updateUsers(usuarioSeleccionado); 
-                    
-                }
-            });
+            
+            if (esEliminar) { //eliminar
+                boton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int op = JOptionPane.showConfirmDialog(table, "¿Deseas eliminar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                        if (op == 0) {
+                            User usuarioSeleccionado = usuarios.get(row);
+                            UsersController uc = new UsersController();
+                            uc.delete(usuarioSeleccionado.getId());
+
+                        }
+                    }
+                });
+            } else { //editar  
+                boton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        User usuarioSeleccionado = usuarios.get(row);
+                        UsersView usersView = new UsersView();
+                        usersView.updateUsers(usuarioSeleccionado); 
+                    }
+                });
+            }
             return boton;
         }
     }
+
     
     
     
@@ -264,6 +277,5 @@ public class UsersView {
         ventana.setVisible(true);
                 
     }
-    
     
 }

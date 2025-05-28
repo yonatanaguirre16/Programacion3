@@ -34,4 +34,12 @@ public class UsersController {
 	public void update(User usertoUpdate) {
 		view.updateUsers(usertoUpdate);
 	}
+	
+	public void delete(int userId) { 
+		UsersModel um = new UsersModel();
+		um.delete(userId);
+		
+		usuarios();
+		
+	}
 }
